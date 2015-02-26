@@ -1,0 +1,25 @@
+{
+# The format is under development.
+# This is hjson <http://hjson.org/>
+
+common: {
+    foo: bar
+    baz: [7.6, "hello"]
+}
+
+resources: [
+    {
+        name: dataset1
+        path: "/path/to/file1.csv"
+        tags: ["alpha", "beta"]
+    }
+    {
+        name: dataset2
+        path: "/path/to/somewhere/else.bam"
+        tags: ["gamma", "delta"]
+        info: '''
+            a longer description.
+        '''
+    }
+]
+}
