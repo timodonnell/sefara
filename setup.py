@@ -4,12 +4,12 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-    name="pathase",
+    name="sefara",
     version="0.0.0",
     author="Tim O'Donnell",
     author_email="timodonnell@gmail.com",
-    packages=["pathase"],
-    url="https://github.com/timodonnell/pathase",
+    packages=["sefara"],
+    url="https://github.com/timodonnell/sefara",
     license="Apache License",
     description="Simple library to keep track of datasets",
     long_description=open('README.md').read(),

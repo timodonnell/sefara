@@ -1,18 +1,19 @@
-# pathase
+# sefara
 
-Work in progress.
+Sefara is a Python library to help manage the datasets in a scientific analysis projects.
 
+Users write a json (or [hjson](http://hjson.org/)) description of their "resources" under analysis. Sefara gives a Python API to filter and query these files. No assumptions are made about what these "resources" correspond to. In our use case, each resource describes a BAM or VCF file in a bioinformatics analysis.
+
+We anticipate adding a commandline tool soon for working with resource files in the shell.
+
+This is currently a very rough cut, not ready for general use.
+
+The [test/data](test/data) directory has some example resource files.
+
+Example Python code:
 ```
-resources = load_from_file("/Users/tim/sinai/git/ovarian-cancer/projects/pt189/datasets.hjson")
+resources = sefara.load("test/data/ex1.hjson")
 
-# Add paths to my files
-def add_path(resource):
-    sshfs_path = "/".join(["/Users/tim/mount/demeter", resources.common.base_path_nfs, resource.path])
-    return resource + {"sshfs_path": sshfs_path}
-resources = resources.derive(resources = add_path)
-
-print(resources.summary)
-
-#print(resources.with_tag("+proton").with_tag("exome").summary)
-#print(resources.with_name("tumor_secondary_pelvic_sidewalls_rna_illumina1").summary)
+for resource in resources.with_tag("delta"):
+    print("%s = %s" % (resource.name, resource.path))
 ```

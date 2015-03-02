@@ -1,4 +1,5 @@
-import re, hjson, attrdict
+import re
+import hjson, attrdict
 
 def check_valid_tag(tag):
     if re.match('^[\w][\w-]+$', tag) is None:
@@ -26,15 +27,22 @@ def load(filename):
 def label_strings(strings):
     result = {True: set(), False: set()}
     for string in strings:
-        result[True].add(string[1:])
-    if string.startswith("-"):
-        result[False].add(string[1:])
-    else:
-        result[True].add(string)
+        if string.startswith("-"):
+            result[False].add(string[1:])
+        else:
+            result[True].add(string)
+    return result
+
+def union(*collections):
+    result = ResourceCollection()
+    for collection in collections:
+        result = reult.union(collection)
     return result
 
 class ResourceCollection:
-    def __init__(self, resources, common = None, filenames = None):
+    def __init__(self, resources = None, common = None, filenames = None):
+        if resources is None:
+            resources = []
         if common is None:
             common = {}
         if filenames is None:
@@ -55,6 +63,18 @@ class ResourceCollection:
             resources = [resources(resource) for resource in self.resources]
         return ResourceCollection(resources, common, self.filenames)
     
+    def union(self, other):
+        return ResourceCollection(
+            resources = self.resources + other.resources,
+            common = self.common + other.common,
+            filenames = self.filenames.union(other.filenames))
+
+    def resource(self):
+        if len(self.resources) != 1:
+            raise ValueError("Expected exactly 1 resource, not %d."
+                % len(self.resources))
+        return self.resources[0]
+
     def with_tag(self, *tags):
         labeled = label_strings(tags)
         return self.derive(resources = [
@@ -62,6 +82,15 @@ class ResourceCollection:
             for resource in self.resources
             if any(tag in resource.tags for tag in labeled[True]) or
                any(tag not in resource.tags for tag in labeled[False])
+        ])
+
+    def with_all_tags(self, *tags):
+        labeled = label_strings(tags)
+        return self.derive(resources = [
+            resource
+            for resource in self.resources
+            if all(tag in resource.tags for tag in labeled[True]) and
+               all(tag not in resource.tags for tag in labeled[False])
         ])
     
     def with_name(self, *names):
