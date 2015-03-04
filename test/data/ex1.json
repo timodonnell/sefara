@@ -1,0 +1,21 @@
+{"######": "This is a Sefara resources file",
+
+"#######": "Here are some variables.",
+"foo": "bar",
+"baz": [7.6, "hello"],
+"sub1": "something-${foo}",
+
+"######": "And here are our resources",
+"@dataset1": {
+    "path": "/path/to/file1.csv",
+    "tags": ["alpha", "beta"]
+},
+
+"@dataset2": {
+    "path": "/path/to/somewhere/else.bam",
+    "tags": ["gamma", "delta"],
+    "info": "some description"
+},
+
+"######": "End of file."
+}

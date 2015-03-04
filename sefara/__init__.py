@@ -1,113 +1,124 @@
 import re
-import hjson, attrdict
+import json
+import string
+import collections
+import attrdict
+from .context import Context
+
+class Resource(Context):
+    def __init__(self, name, context, substitutions=True):
+        Context.__init__(
+            self,
+            mapping={"name": name},
+            parent=context,
+            substitutions=substitutions)
+
+    def __repr__(self):
+        key_fill = min(30, max(len(x) for x in self.keys()))
+        attributes = "\n           ".join(
+            "%s = %s" % (key.ljust(key_fill), value)
+            for (key, value) in self.items()) + "\n"
+        return "<Resource: %s>" % attributes
+   
+def load(filename):
+    if filename.endswith(".json"):
+        with open(filename) as fd:
+            data = json.load(fd, object_pairs_hook=collections.OrderedDict)
+    else:
+        raise ValueError("Unsupported file type: %s" % filename)
+
+    global_context = Context()
+    resources = collections.OrderedDict()
+    for (key, value) in data.items():
+        if key.startswith("@"):
+            name = key[1:]
+            context = Context(mapping=value, parent=global_context)
+            resource = Resource(name, context)
+            resources[name] = resource
+        elif key.startswith("#"):
+            # Ignore comments.
+            pass
+        else:
+            global_context[key] = value
+
+    return ResourceCollection(resources, global_context)
 
 def check_valid_tag(tag):
     if re.match('^[\w][\w-]+$', tag) is None:
         raise ValueError("Invalid tag: %s" % tag)
 
-def load(filename):
-    if filename.endswith(".hjson"):
-        with open(filename) as fd:
-            data = hjson.load(fd)
-    else:
-        raise ValueError("Unsupported file type: %s" % filename)
-
-    resources = []
-    for d in data['resources']:
-        if 'name' not in d:
-            d['name'] = "_resource_%d" % len(resources)
-        d['tags'] = set(d.get('tags', []))
-        for tag in d['tags']:
-            check_valid_tag(tag)
-        resources.append(attrdict.AttrDict(d))
-    
-    common = attrdict.AttrDict(data.get("common", {}))
-    return ResourceCollection(resources, common, filenames = set([filename]))
-
 def label_strings(strings):
     result = {True: set(), False: set()}
-    for string in strings:
-        if string.startswith("-"):
-            result[False].add(string[1:])
+    for s in strings:
+        if s.startswith("-"):
+            result[False].add(s[1:])
         else:
-            result[True].add(string)
+            result[True].add(s)
     return result
 
 def union(*collections):
     result = ResourceCollection()
     for collection in collections:
-        result = reult.union(collection)
+        result = result.union(collection)
     return result
 
 class ResourceCollection:
-    def __init__(self, resources = None, common = None, filenames = None):
+    def __init__(self, resources=None, context=None):
         if resources is None:
             resources = []
-        if common is None:
-            common = {}
-        if filenames is None:
-            filenames = set()
-            
-        self.resources = [attrdict.AttrDict(resource) for resource in resources]
-        self.common = attrdict.AttrDict(common)
-        self.filenames = filenames
-        for resource in self.resources:
-            resource.common = common
-        
-    def derive(self, common = None, resources = None):
-        if common is None:
-            common = self.common
-        if resources is None:
-            resources = self.resources
-        elif callable(resources):
-            resources = [resources(resource) for resource in self.resources]
-        return ResourceCollection(resources, common, self.filenames)
-    
-    def union(self, other):
-        return ResourceCollection(
-            resources = self.resources + other.resources,
-            common = self.common + other.common,
-            filenames = self.filenames.union(other.filenames))
 
-    def resource(self):
+        if isinstance(resources, list):
+            resources = collections.OrderedDict(
+                (x.name, x) for x in resources)
+
+        self.resources = collections.OrderedDict()
+        for (key, value) in resources.items():
+            if value is not None:
+                assert value.name == key
+                self.resources[key] = value
+
+        self.context = Context() if context is None else context
+
+    def __getitem__(self, index_or_key):
+        if isinstance(index_or_key, int):
+            return list(self.resources.values())[index_or_key]
+        if isinstance(index_or_key, Resource):
+            return index_or_key
+        return self.resources[index_or_key]
+
+    def __len__(self):
+        return len(self.resources)
+
+    def __iter__(self):
+        return iter(self.resources.values())
+
+    def singleton(self):
         if len(self.resources) != 1:
             raise ValueError("Expected exactly 1 resource, not %d."
                 % len(self.resources))
-        return self.resources[0]
+        return self.resources.values()[0]
 
     def with_tag(self, *tags):
         labeled = label_strings(tags)
-        return self.derive(resources = [
-            resource
-            for resource in self.resources
-            if any(tag in resource.tags for tag in labeled[True]) or
-               any(tag not in resource.tags for tag in labeled[False])
-        ])
+        return ResourceCollection(
+            context=self.context,
+            resources=[
+                resource
+                for resource in self
+                if any(tag in resource.tags for tag in labeled[True]) or
+                   any(tag not in resource.tags for tag in labeled[False])])
 
-    def with_all_tags(self, *tags):
-        labeled = label_strings(tags)
-        return self.derive(resources = [
-            resource
-            for resource in self.resources
-            if all(tag in resource.tags for tag in labeled[True]) and
-               all(tag not in resource.tags for tag in labeled[False])
-        ])
-    
-    def with_name(self, *names):
-        labeled = label_strings(names)
-        
-        return self.derive(resources = [
-            resource
-            for resource in self.resources
-            if resource.name in labeled[True] or (
-                labeled[False] and
-                resource.name not in labeled[False])
-        ])
         
     def __str__(self):
-        return ("<ResourceCollection: %d resources from %s>"
-            % (len(self.resources), " ".join(self.filenames)))
-    
+        if len(self) == 0:
+            names = ""
+        elif len(self) == 1:
+            names = ": %s" % self[0].name
+        else:
+            names = "\n" + "\n".join(("\t" + x.name) for x in self)         
+        return ("<ResourceCollection: %d resources%s>"
+            % (len(self.resources), names))
+
     def __repr__(self):
         return str(self)
     
@@ -116,13 +127,15 @@ class ResourceCollection:
         lines = []
         indentation_boxed = [0]
         def w(s): lines.append(" " * indentation_boxed[0] + s)
-        def indent(): indentation_boxed[0] += 2
-        def dedent(): indentation_boxed[0] -= 2
+        def indent():
+            indentation_boxed[0] += 2
+        def dedent():
+            indentation_boxed[0] -= 2
         
         w("ResourceCollection: %d resources from %s" % (len(self.resources), " ".join(self.filenames)))
         indent()
-        w("Commmon:")
-        for (field, value) in self.common.items():
+        w("Context:")
+        for (field, value) in self.context.items():
             indent()
             w("%s = %s" % (field.ljust(20), value))
             dedent()
@@ -132,11 +145,19 @@ class ResourceCollection:
             indent()
             w(resource.name)
             for (key, value) in sorted(resource.items()):
-                if key in ("name", "common"): continue
+                if key in ("name", "context"):
+                    continue
                 indent()
                 w("%s = %s" % (key.ljust(20), str(value)))
                 dedent()
             dedent()
             w("")
         return "\n".join(lines)
-        
+
+def update_tags(existing_tags, new_tags):
+    result = set(existing_tags)
+    for tag in new_tags:
+        if tag.startswith("-"):
+            result.discard(tag[1:])
+        result.add(tag)
+    return result
