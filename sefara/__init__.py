@@ -1,8 +1,6 @@
 import re
 import json
-import string
 import collections
-import attrdict
 from .context import Context
 
 class Resource(Context):
@@ -126,9 +124,13 @@ class ResourceCollection:
     def summary(self):
         lines = []
         indentation_boxed = [0]
-        def w(s): lines.append(" " * indentation_boxed[0] + s)
+        
+        def w(s):
+            lines.append(" " * indentation_boxed[0] + s)
+
         def indent():
             indentation_boxed[0] += 2
+
         def dedent():
             indentation_boxed[0] -= 2
         
