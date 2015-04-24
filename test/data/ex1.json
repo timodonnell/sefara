@@ -4,6 +4,9 @@
 "foo": "bar",
 "baz": [7.6, "hello"],
 "sub1": "something-${foo}",
+"sub2": {
+    "seven": "eight"
+},
 
 "######": "And here are our resources",
 "@dataset1": {
@@ -13,9 +16,22 @@
 
 "@dataset2": {
     "path": "/path/to/somewhere/else.bam",
-    "tags": ["gamma", "delta"],
+    "tags": ["gamma", "delta", "alpha"],
     "info": "some description"
 },
+
+"@dataset3": {
+    "path": "/path/to/somewhere/else2.bam",
+    "tags": ["gamma", "sigma", "alpha"],
+    "info": "some description"
+},
+
+"@dataset4": {
+    "path": "/path/to/somewhere/else3.bam",
+    "tags": ["gamma", "sigma", "alpha", "four"],
+    "info": "some description4"
+},
+
 
 "######": "End of file."
 }

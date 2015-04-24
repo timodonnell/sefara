@@ -17,7 +17,7 @@ PY2, STRING = (True, basestring) if version_info < (3,) else (False, str)
 class Context(MutableMapping):
     """
     A mapping object that allows access to its values both as keys, and
-    as attributes (as long as the attribute name is valid).
+    as attributes (as long as the attribute name is a valid identifier).
     """
     def __init__(self, mapping=None, parent=None, substitutions=True):
         if mapping is None:
@@ -48,12 +48,7 @@ class Context(MutableMapping):
         """
         Returns a list of keys in the mapping.
         """
-        result = list(self._mapping)
-        if self._parent is not None:
-            seen = set(result)
-            result.extend(
-                [key for key in self._parent.keys() if key not in seen])
-        return result
+        return list(self._mapping)
 
     def values(self):
         """
@@ -81,6 +76,8 @@ class Context(MutableMapping):
         value = adict.key
         Access a value associated with a key in the instance.
         """
+        if key.startswith('_'):
+            raise AttributeError(key)
         return self.__getitem__(key)
         
     def __setattr__(self, key, value, force=False):
@@ -119,13 +116,24 @@ class Context(MutableMapping):
         raw = self._get_item_no_substitutions(key)
         return self._substitute(raw)
 
+    def _substitute(self, obj):
+        if not self._substitutions:
+            pass
+        elif isinstance(obj, Mapping):
+            obj = Context(obj, parent=self, substitutions=True)
+        elif isinstance(obj, STRING):
+            obj = string.Template(obj).safe_substitute(self)
+        elif isinstance(obj, Sequence):
+            obj = [self._substitute(element) for element in obj]
+        return obj
+
     def _get_item_no_substitutions(self, key):
         try:
             return self._mapping[key]
         except KeyError:
             if self._parent is not None:
                 return self._parent._get_item_no_substitutions(key)
-            raise KeyError(key)
+        raise KeyError(key)
 
     def __delitem__(self, key):
         """
@@ -184,17 +192,6 @@ class Context(MutableMapping):
         result = list(self.__dict__.keys())
         result.extend(self.keys())
         return result
-
-    def _substitute(self, obj):
-        if not self._substitutions:
-            pass
-        elif isinstance(obj, Mapping):
-            obj = Context(obj, parent=self, substitutions=True)
-        elif isinstance(obj, STRING):
-            obj = string.Template(obj).safe_substitute(self)
-        elif isinstance(obj, Sequence):
-            obj = [self._substitute(element) for element in obj]
-        return obj
 
     @property
     def raw(self):
