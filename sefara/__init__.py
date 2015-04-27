@@ -106,7 +106,13 @@ class ResourceCollection:
                 if any(tag in resource.tags for tag in labeled[True]) or
                    any(tag not in resource.tags for tag in labeled[False])])
 
-        
+    @property
+    def tags(self):
+        result = set()
+        for resource in self:
+            result.update(resource.tags)
+        return result
+    
     def __str__(self):
         if len(self) == 0:
             names = ""

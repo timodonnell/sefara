@@ -11,7 +11,9 @@
 "######": "And here are our resources",
 "@dataset1": {
     "path": "/path/to/file1.csv",
-    "tags": ["alpha", "beta"]
+    "tags": ["alpha", "beta"],
+    "foo": "zzz",
+    "something": "$sub1"
 },
 
 "@dataset2": {

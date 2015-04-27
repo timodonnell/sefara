@@ -113,8 +113,10 @@ class Context(MutableMapping):
         value = adict[key]
         Access a value associated with a key in the instance.
         """
-        raw = self._get_item_no_substitutions(key)
-        return self._substitute(raw)
+        (item, context) = self._get_item_and_context_no_substitutions(key)
+        if self._substitutions:
+            return context._substitute(item)
+        return item
 
     def _substitute(self, obj):
         if not self._substitutions:
@@ -127,12 +129,12 @@ class Context(MutableMapping):
             obj = [self._substitute(element) for element in obj]
         return obj
 
-    def _get_item_no_substitutions(self, key):
+    def _get_item_and_context_no_substitutions(self, key):
         try:
-            return self._mapping[key]
+            return (self._mapping[key], self)
         except KeyError:
             if self._parent is not None:
-                return self._parent._get_item_no_substitutions(key)
+                return self._parent._get_item_and_context_no_substitutions(key)
         raise KeyError(key)
 
     def __delitem__(self, key):
