@@ -11,18 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-'''
-Manipulate datasets managed with sefara.
-
-'''
 
 from __future__ import absolute_import
 
-import sys
-import argparse
+from .. import load
 
-parser = argparse.ArgumentParser(usage=__doc__)
+def add_load_arguments(parser):
+    parser.add_argument("collection")
+    parser.add_argument("--filter", action="append", default=[])
+    parser.add_argument("--decorate", action="append", default=[])
+    return parser
 
-def run():
-    args = parser.parse_args()
-    
+def load_from_args(args):
+    rc = load(args.collection)
+    for value in args.filter:
+        rc = rc.filter(value)
+    for decorate in args.decorate:
+        rc.decorate(decorate)
+    return rc

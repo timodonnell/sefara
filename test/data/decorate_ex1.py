@@ -1,4 +1,4 @@
-# This is an example accessorizer.
+# This is an example decorator.
 
 def default(resource_collection):
     for resource in resource_collection:

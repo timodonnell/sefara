@@ -32,12 +32,12 @@ class ResourceCollection(object):
         self.resources = resources
         self.filename = filename
 
-    def accessorize(self, filename, name='default'):
+    def decorate(self, filename, name='default'):
         defines = exec_in_directory(filename)
         function = defines.get(name)
         if function is None:
             raise AttributeError(
-                "Accessorizer '%s' defines no such field '%s'"
+                "Decorator '%s' defines no such field '%s'"
                 % (filename, name))
         function(self)
 
@@ -51,7 +51,7 @@ class ResourceCollection(object):
     def filter(self, expression):
         return ResourceCollection([
             x for x in self
-            if x.matches(expression)
+            if x.evaluate(expression)
         ], self.filename)
 
     def singleton(self):

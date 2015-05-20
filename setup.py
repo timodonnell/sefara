@@ -14,8 +14,8 @@ setup(
     description="Brutally practical dataset management",
     long_description=open('README.md').read(),
     entry_points={
-        'consolte_scripts': [
-            'sefara = sefara.command:run'
+        'console_scripts': [
+            'sefara-select = sefara.commands.select:run'
         ]
     },
     classifiers=[
@@ -30,5 +30,6 @@ setup(
     install_requires=[
         "attrdict>=2.0.0",
         "nose2>=0.5.0",
+        "typechecks>=0.0.2",
     ]
 )

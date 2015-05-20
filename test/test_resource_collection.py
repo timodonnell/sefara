@@ -44,9 +44,12 @@ def test_ex1_py():
     eq_(rc.filter("all([tags.gamma, tags.sigma, not tags.b])").singleton(),
         rc["dataset4"])
 
-def test_accessorize_ex1_py():
+    eq_([x.name for x in rc.filter(lambda resource: resource.tags.gamma)],
+        ["dataset2", "dataset3", "dataset4"])
+
+def test_decorate_ex1_py():
     rc = sefara.load(data_path("ex1.py"))
-    rc.accessorize(data_path("accessorizers_ex1.py"))
+    rc.decorate(data_path("decorate_ex1.py"))
     eq_(rc["dataset1"].posix_path, "/path/to/dataset1.bam")
 
 def test_roundtrip_to_json():

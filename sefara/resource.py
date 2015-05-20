@@ -39,8 +39,11 @@ class Resource(AttrMap):
     def __repr__(self):
         return str(self)
 
-    def matches(self, expression):
-        return eval(expression, {}, self)
+    def evaluate(self, expression):
+        try:
+            return expression(self)
+        except TypeError:
+            return eval(expression, {"resource": self}, self)
 
     def to_dict(self):
         result = collections.OrderedDict()
