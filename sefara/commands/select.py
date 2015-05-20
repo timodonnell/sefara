@@ -13,7 +13,6 @@
 # limitations under the License.
 '''
 Select fields from a sefara dataset.
-
 '''
 
 from __future__ import absolute_import, print_function
@@ -62,7 +61,8 @@ extractors = {
     "best": extract_best,
     "string": lambda x: str(x) if x is not None else '',
     "joined": " ".join,
-    "json": lambda datum: json.dumps(datum, default=list),
+    "json":
+        lambda datum: json.dumps(datum, default=lambda o: o.to_plain_types()),
 }
 
 def move_to_front(lst, *items):

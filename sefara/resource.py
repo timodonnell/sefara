@@ -45,7 +45,7 @@ class Resource(AttrMap):
         except TypeError:
             return eval(expression, {"resource": self}, self)
 
-    def to_dict(self):
+    def to_plain_types(self):
         result = collections.OrderedDict()
         result["tags"] = list(self.tags)
         for (field, value) in self.items():
@@ -59,6 +59,9 @@ class Tags(set):
             check_valid_tag(tag)
         set.__init__(self, tags)
 
+    def to_plain_types(self):
+        return list(self)
+
     def __getattr__(self, attribute):
         return attribute in self
 
@@ -66,7 +69,7 @@ class Tags(set):
         return "<Tags: %s>" % " ".join(self)
 
 def check_valid_tag(tag):
-    if tag in vars(set):
+    if tag in vars(Tags):
         raise ValueError(
             "Invalid tag (may not be a method on set objects): '%s'" % tag)
     if re.match('^[\w][\w-]*$', tag) is None:

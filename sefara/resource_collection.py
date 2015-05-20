@@ -71,14 +71,14 @@ class ResourceCollection(object):
     def __iter__(self):
         return iter(self.resources.values())
 
-    def to_dict(self):
+    def to_plain_types(self):
         result = collections.OrderedDict()
         for resource in self:
-            result[resource.name] = resource.to_dict()
+            result[resource.name] = resource.to_plain_types()
         return result
 
-    def to_json(self):
-        return json.dumps(self.to_dict())
+    def to_json(self, indent=4):
+        return json.dumps(self.to_plain_types(), indent=indent)
 
     @property
     def summary(self):

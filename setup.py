@@ -15,7 +15,9 @@ setup(
     long_description=open('README.md').read(),
     entry_points={
         'console_scripts': [
-            'sefara-select = sefara.commands.select:run'
+            'sefara-select = sefara.commands.select:run',
+            'sefara-dump = sefara.commands.dump:run'
+
         ]
     },
     classifiers=[
