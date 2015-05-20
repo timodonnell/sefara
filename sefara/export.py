@@ -14,9 +14,10 @@
 
 from __future__ import absolute_import
 
-from .load import load, loads
-from .resource_collection import ResourceCollection
 from .resource import Resource
-from .export import export
 
-__all__ = [load, loads, ResourceCollection, Resource, export]
+_EXPORTED_RESOURCES = []
+def export(*args, **kwargs):
+    resource = Resource(*args, **kwargs)
+    _EXPORTED_RESOURCES.append(resource)
+    return resource

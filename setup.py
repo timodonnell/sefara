@@ -11,8 +11,13 @@ setup(
     packages=["sefara"],
     url="https://github.com/timodonnell/sefara",
     license="Apache License",
-    description="Simple library to keep track of datasets",
+    description="Brutally practical dataset management",
     long_description=open('README.md').read(),
+    entry_points={
+        'consolte_scripts': [
+            'sefara = sefara.command:run'
+        ]
+    },
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",
@@ -22,4 +27,8 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
     ],
+    install_requires=[
+        "attrdict>=2.0.0",
+        "nose2>=0.5.0",
+    ]
 )

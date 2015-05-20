@@ -14,9 +14,10 @@
 
 from __future__ import absolute_import
 
-from .load import load, loads
-from .resource_collection import ResourceCollection
-from .resource import Resource
-from .export import export
+import sys
+import argparse
 
-__all__ = [load, loads, ResourceCollection, Resource, export]
+parser = argparse.Parser(usage=__doc__)
+
+def run():
+    raise NotImplemented

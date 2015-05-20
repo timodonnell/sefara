@@ -14,9 +14,22 @@
 
 from __future__ import absolute_import
 
-from .load import load, loads
-from .resource_collection import ResourceCollection
-from .resource import Resource
-from .export import export
+import os
 
-__all__ = [load, loads, ResourceCollection, Resource, export]
+def exec_in_directory(filename=None, code=None):
+    old_cwd = None
+    directory = os.path.dirname(filename) if filename else None
+    if code is None:
+        with open(filename) as fd:
+            code = fd.read()
+    compiled = compile(code, filename if filename else '<none>', 'exec')
+    result = {}
+    try:
+        if directory:
+            old_cwd = os.getcwd()
+            os.chdir(directory)
+        exec(compiled, result)
+    finally:
+        if directory:
+            os.chdir(old_cwd)
+    return result
