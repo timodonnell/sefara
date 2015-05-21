@@ -20,10 +20,16 @@ def add_load_arguments(parser):
     parser.add_argument("collection")
     parser.add_argument("--filter", action="append", default=[])
     parser.add_argument("--transform", action="append", default=[])
+    parser.add_argument("--no-environment-transforms",
+        dest="environment_transforms",
+        action="store_false",
+        default=True)
+
     return parser
 
 def load_from_args(args):
-    rc = load(args.collection)
+    rc = load(
+        args.collection, environment_transforms=args.environment_transforms)
     for value in args.filter:
         rc = rc.filter(value)
     for transform in args.transform:

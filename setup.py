@@ -16,7 +16,8 @@ setup(
     entry_points={
         'console_scripts': [
             'sefara-select = sefara.commands.select:run',
-            'sefara-dump = sefara.commands.dump:run'
+            'sefara-dump = sefara.commands.dump:run',
+            'sefara-check = sefara.commands.check:run',
         ]
     },
     classifiers=[

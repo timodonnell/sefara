@@ -14,18 +14,5 @@
 
 from __future__ import absolute_import
 
-from .load import load, loads
-from .resource_collection import ResourceCollection
-from .resource import Resource
-from .export import export, transform_exports
-from . import environment
-
-__all__ = [
-    load,
-    loads,
-    ResourceCollection,
-    Resource,
-    export,
-    transform_exports,
-    environment,
-]
+TRANSFORM_ENVIRONMENT_VARIABLE = "SEFARA_TRANSFORM"
+CHECKER_ENVIRONMENT_VARIABLE = "SEFARA_CHECKER"

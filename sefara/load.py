@@ -22,7 +22,7 @@ from .resource import Resource
 from .util import exec_in_directory
 from . import export
 
-def load(filename):
+def load(filename, environment_transforms=True):
     if filename.endswith(".py"):
         format = "python"
     elif filename.endswith(".json"):
@@ -31,9 +31,12 @@ def load(filename):
         raise ValueError("Unsupported file format: %s" % filename)
     
     with open(filename) as fd:
-        return loads(fd.read(), format=format)
+        return loads(
+            fd.read(),
+            format=format,
+            environment_transforms=environment_transforms)
 
-def loads(data, filename=None, format="json"):
+def loads(data, filename=None, format="json", environment_transforms=True):
     rc = None
     transforms = []
     if format == "python":
@@ -62,6 +65,10 @@ def loads(data, filename=None, format="json"):
 
     for transform in transforms:
         rc.transform(transform)
+
+    if environment_transforms:
+        rc.transform_from_environment()
+
     return rc
 
 def remove_keys_starting_with_hash(obj):

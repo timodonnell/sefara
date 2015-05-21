@@ -56,10 +56,9 @@ def test_transform_ex1_py_2():
 
     def transformer(rc):
         for r in rc:
-            r.foo = "bar-" + r.name
+            r.name = "bar-" + r.name
     rc.transform(transformer)
-    eq_(rc.filter("tags.beta").singleton().foo,
-        "bar-dataset1")
+    eq_(rc["bar-dataset1"].name, "bar-dataset1")
 
 def test_roundtrip():
     rc = sefara.load(data_path("ex1.py"))

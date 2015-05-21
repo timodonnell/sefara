@@ -28,12 +28,13 @@ import typechecks
 
 from . import util
 from ..resource import Tags
-from ..util import shell_quote
+from ..util import shell_quote, move_to_front
 
 parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
 parser.add_argument("--field", action="append", nargs="+", default=[])
-parser.add_argument("--format", choices=('csv', 'args'), default="csv")
+parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),
+    default="csv")
 parser.add_argument("--header", choices=('on', 'off'))
 parser.add_argument("--out")
 parser.add_argument("--all-fields", action="store_true", default=False)
@@ -96,15 +97,14 @@ def run():
     elif args.field:
         for original_field in args.field:
             field = list(original_field)
-            expression = field.pop(-1)
+            expression = field.pop(0)
             name = (
                 default_field_name(args, expression) if not field
-                else field.pop(-1))
-            kind = "best" if not field else field.pop(-1)
+                else field.pop(0))
+            kind = "best" if not field else field.pop(0)
             if field:
                 raise ValueError(
                     "Too many (>3) --field arguments: %s" % original_field)
-
             try:
                 extractor = extractors[kind]
             except KeyError:
@@ -144,12 +144,22 @@ def run():
             for row in generate_rows():
                 writer.writerow(row)
         elif args.format == "args":
+            rows = list(generate_rows())
+            for (i, field_name) in enumerate(field_names):
+                fd.write(" ")
+                fd.write(shell_quote("--%s" % field_name))
+                for row in rows:
+                    fd.write(" ")
+                    fd.write(shell_quote(row[i]))
+            fd.write("\n")
+        elif args.format == "args-repeated":
             for row in generate_rows():
                 for (field_name, value) in zip(field_names, row):
                     fd.write(" ")
                     fd.write(shell_quote("--%s" % field_name))
                     fd.write(" ")
                     fd.write(shell_quote(value))
+            fd.write("\n")
         else:
             raise ValueError("Unknown format: %s" % format)
     finally:

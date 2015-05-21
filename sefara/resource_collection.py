@@ -19,8 +19,13 @@ import json
 import collections
 import datetime
 import getpass
+import os
 
 from .util import exec_in_directory, shell_quote
+from . import environment
+
+class NoCheckers(Exception):
+    pass
 
 class ResourceCollection(object):
     def __init__(self, resources, filename="<no file>"):
@@ -35,18 +40,72 @@ class ResourceCollection(object):
         self.resources = resources
         self.filename = filename
 
-    def transform(self, filename_or_callable, name='default'):
-        if hasattr(filename_or_callable, '__call__'):
-            filename_or_callable(self)
+    def transform_from_environment(self):
+        transforms = os.environ.get(
+            environment.TRANSFORM_ENVIRONMENT_VARIABLE, "").split(":")
+
+        for transform in transforms:
+            transform = transform.strip()
+            if transform:
+                self.transform(transform)
+
+    def transform(self, path_or_callable, name='transform', *args, **kwargs):
+        self.run_hook(path_or_callable, name, *args, **kwargs)
+
+    def check(self, checkers=None, include_environment_checkers=True):
+        '''
+        Checkers is a list. Each element can either be a callable, a string
+        (path to file), or tuple of (path, name, args, kwargs).
+
+        Each checker should return an iterable of
+        # (resource, attempted?, None if no errors otherwise error message )
+        '''
+        if checkers is None:
+            checkers = []
+
+        if include_environment_checkers:
+            checkers.extend(
+                e.strip()
+                for e in os.environ.get(
+                    environment.CHECKER_ENVIRONMENT_VARIABLE, "").split(":")
+                if e.strip())
+
+        generators = []
+        for checker in checkers:
+            if isinstance(checker, tuple):
+                (path, name, args, kwargs) = checker
+                generator = self.run_hook(path, name, *args, **kwargs)
+            else:
+                generator = self.run_hook(checker, name="checker")
+            generators.append(generator)
+
+        if not generators:
+            raise NoCheckers()
+
+        for row in zip(self, *generators):
+            (expected_resource, results) = (row[0], row[1:])
+            results = []  # (checker, attempted, error)
+            for (i, (resource, attempted, error)) in enumerate(results):
+                if resource != expected_resource:
+                    raise ValueError(
+                        "Checker %d (%s): skipping / reordering: %s != %s"
+                        % (i, checkers[i], resource, expected_resource))
+                results.append((str(checkers[i]), attempted, error))
+            yield (expected_resource, results) 
+    
+    def run_hook(self, path_or_callable, name, *args, **kwargs):
+        if hasattr(path_or_callable, '__call__'):
+            function = path_or_callable
         else:
-            filename = filename_or_callable
+            filename = path_or_callable
             defines = exec_in_directory(filename)
-            function = defines.get(name)
-            if function is None:
+            try:
+                function = defines[name]
+            except KeyError:
                 raise AttributeError(
-                    "Decorator '%s' defines no such field '%s'"
+                    "Hook '%s' defines no such field '%s'"
                     % (filename, name))
-            function(self)
+        return function(self, *args, **kwargs)
 
     @property
     def tags(self):
@@ -70,7 +129,16 @@ class ResourceCollection(object):
     def __getitem__(self, index_or_key):
         if isinstance(index_or_key, int):
             return list(self.resources.values())[index_or_key]
-        return self.resources[index_or_key]
+        try:
+            result = self.resources[index_or_key]
+            if result.name != index_or_key:
+                raise KeyError
+            return result
+        except KeyError:
+            # Rebuild dictionary since names may have changed.
+            self.resources = collections.OrderedDict(
+                (x.name, x) for x in self)
+            return self.resources[index_or_key]
 
     def __len__(self):
         return len(self.resources)
