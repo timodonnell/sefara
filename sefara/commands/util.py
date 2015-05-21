@@ -19,13 +19,13 @@ from .. import load
 def add_load_arguments(parser):
     parser.add_argument("collection")
     parser.add_argument("--filter", action="append", default=[])
-    parser.add_argument("--decorate", action="append", default=[])
+    parser.add_argument("--transform", action="append", default=[])
     return parser
 
 def load_from_args(args):
     rc = load(args.collection)
     for value in args.filter:
         rc = rc.filter(value)
-    for decorate in args.decorate:
-        rc.decorate(decorate)
+    for transform in args.transform:
+        rc.transform(transform)
     return rc

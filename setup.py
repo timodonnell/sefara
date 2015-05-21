@@ -17,7 +17,6 @@ setup(
         'console_scripts': [
             'sefara-select = sefara.commands.select:run',
             'sefara-dump = sefara.commands.dump:run'
-
         ]
     },
     classifiers=[

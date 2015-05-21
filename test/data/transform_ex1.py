@@ -1,4 +1,4 @@
-# This is an example decorator.
+# This is an example transformer.
 
 def default(resource_collection):
     for resource in resource_collection:

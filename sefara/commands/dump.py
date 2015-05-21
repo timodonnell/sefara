@@ -27,6 +27,7 @@ parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
 parser.add_argument("--format", choices=('json', 'python'), default="json")
 parser.add_argument("--out")
+parser.add_argument("--indent", type=int, default=4)
 
 def run():
     args = parser.parse_args()
@@ -34,9 +35,9 @@ def run():
     fd = open(args.out, "w") if args.out else sys.stdout
     try:
         if args.format == "python":
-            raise NotImplementedError()
+            print(rc.to_python(indent=args.indent), file=fd)
         elif args.format == "json":
-            print(rc.to_json(), file=fd)
+            print(rc.to_json(indent=args.indent), file=fd)
         else:
             raise ValueError("Unknown format: %s" % format)
     finally:

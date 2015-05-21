@@ -12,10 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import re
 import collections
+import sys
+import exceptions
 
 from attrdict import AttrMap
+
+from . import util
 
 NEXT_RESOURCE_NUM = 1
 class Resource(AttrMap):
@@ -30,20 +35,40 @@ class Resource(AttrMap):
         AttrMap.__init__(self, fields)
         
     def __str__(self):
-        key_fill = min(30, max(len(x) for x in self.keys()))
+        keys = list(self.keys())
+        util.move_to_front(keys, "name", "tags")
+        key_fill = min(30, max(len(x) for x in keys))
         attributes = "\n           ".join(
-            "%s = %s" % (key.ljust(key_fill), value)
-            for (key, value) in self.items()) + "\n"
-        return "<Resource: %s>" % attributes
+            "%s = %s" % (key.ljust(key_fill), self[key])
+            for key in keys)
+        return "<Resource: %s >" % attributes
 
     def __repr__(self):
         return str(self)
 
     def evaluate(self, expression):
         try:
-            return expression(self)
-        except TypeError:
-            return eval(expression, {"resource": self}, self)
+            try:
+                return expression(self)
+            except TypeError:
+                # Give some basic modules.
+                environment = {
+                    "resource": self,
+                    "os": os,
+                    "sys": sys,
+                    "collections": collections,
+                    "re": re,
+                }
+                return eval(expression, environment, self)
+        except Exception as e:
+            # See http://stackoverflow.com/questions/6062576/adding-information-to-a-python-exception
+            extra = "\nWhile evaluating: \n\t%s\non resource:\n%s" % (
+                expression, self)
+            try:
+                # Python 3
+                raise type(e)(str(e) + extra).with_traceback(sys.exc_info()[2])
+            except exceptions.AttributeError:
+                raise type(e), type(e)(e.message + extra), sys.exc_info()[2]
 
     def to_plain_types(self):
         result = collections.OrderedDict()

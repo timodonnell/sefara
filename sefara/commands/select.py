@@ -24,15 +24,11 @@ import sys
 import functools
 import re
 
-try:  # py3
-    from shlex import quote
-except ImportError:  # py2
-    from pipes import quote
-
 import typechecks
 
 from . import util
 from ..resource import Tags
+from ..util import shell_quote
 
 parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
@@ -55,21 +51,19 @@ def extract_best(datum):
     return extractors[extractor](datum)
 
 def json_dumps(datum):
-    return json.dumps(datum, default=list)
+    def default(o):
+        try:
+            return o.to_plain_types()
+        except AttributeError:
+            return str(o)
+    return json.dumps(datum, default=default)
 
 extractors = {
     "best": extract_best,
     "string": lambda x: str(x) if x is not None else '',
     "joined": " ".join,
-    "json":
-        lambda datum: json.dumps(datum, default=lambda o: o.to_plain_types()),
+    "json": json_dumps,
 }
-
-def move_to_front(lst, *items):
-    for item in reversed(items):
-        if item in lst:
-            lst.remove(item)
-            lst.insert(0, item)
 
 def stderr(s=''):
     print(s, file=sys.stderr)
@@ -125,7 +119,7 @@ def run():
             "No fields selected. Use the --field argument to specify a field "
             "to select, or --all-fields to select all fields.")
         stderr()
-        stderr("Fields found in all resources in your collection:\n\t%s"
+        stderr("Your collection has these fields:\n\t%s"
             % ", ".join(intersect_fields))
         return
 
@@ -153,9 +147,9 @@ def run():
             for row in generate_rows():
                 for (field_name, value) in zip(field_names, row):
                     fd.write(" ")
-                    fd.write(quote("--%s" % field_name))
+                    fd.write(shell_quote("--%s" % field_name))
                     fd.write(" ")
-                    fd.write(quote(value))
+                    fd.write(shell_quote(value))
         else:
             raise ValueError("Unknown format: %s" % format)
     finally:

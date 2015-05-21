@@ -16,6 +16,11 @@ from __future__ import absolute_import
 
 import os
 
+try:  # py3
+    from shlex import quote as shell_quote
+except ImportError:  # py2
+    from pipes import quote as shell_quote
+
 def exec_in_directory(filename=None, code=None):
     old_cwd = None
     directory = os.path.dirname(filename) if filename else None
@@ -33,3 +38,9 @@ def exec_in_directory(filename=None, code=None):
         if directory:
             os.chdir(old_cwd)
     return result
+
+def move_to_front(lst, *items):
+    for item in reversed(items):
+        if item in lst:
+            lst.remove(item)
+            lst.insert(0, item)

@@ -34,15 +34,21 @@ def load(filename):
         return loads(fd.read(), format=format)
 
 def loads(data, filename=None, format="json"):
+    rc = None
+    transforms = []
     if format == "python":
         try:
             old_resources = export._EXPORTED_RESOURCES
+            old_transforms = export._TRANSFORMS
             export._EXPORTED_RESOURCES = []
+            export._TRANSFORMS = []
             exec_in_directory(filename=filename, code=data)
         finally:
+            transforms = export._TRANSFORMS
             resources = export._EXPORTED_RESOURCES
             export._EXPORTED_RESOURCES = old_resources
-        return ResourceCollection(resources, filename)
+            export._TRANSFORMS = old_transforms
+        rc = ResourceCollection(resources, filename)
     elif format == "json":
         parsed = json.loads(data, object_pairs_hook=collections.OrderedDict)
         with_comments_removed = remove_keys_starting_with_hash(parsed)
@@ -50,15 +56,18 @@ def loads(data, filename=None, format="json"):
             Resource(name=key, **value)
             for (key, value) in with_comments_removed.items()
         ]
-        return ResourceCollection(resources, filename)
+        rc = ResourceCollection(resources, filename)
     else:
         raise ValueError("Unsupported file format: %s" % filename)
 
+    for transform in transforms:
+        rc.transform(transform)
+    return rc
+
 def remove_keys_starting_with_hash(obj):
     if isinstance(obj, dict):
-        return {
-            key: remove_keys_starting_with_hash(value)
+        return collections.OrderedDict(
+            (key, remove_keys_starting_with_hash(value))
             for (key, value) in obj.items()
-            if not key.startswith("#")
-        }
+            if not key.startswith("#"))
     return obj

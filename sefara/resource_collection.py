@@ -14,10 +14,13 @@
 
 from __future__ import absolute_import
 
+import sys
 import json
 import collections
+import datetime
+import getpass
 
-from .util import exec_in_directory
+from .util import exec_in_directory, shell_quote
 
 class ResourceCollection(object):
     def __init__(self, resources, filename="<no file>"):
@@ -32,14 +35,18 @@ class ResourceCollection(object):
         self.resources = resources
         self.filename = filename
 
-    def decorate(self, filename, name='default'):
-        defines = exec_in_directory(filename)
-        function = defines.get(name)
-        if function is None:
-            raise AttributeError(
-                "Decorator '%s' defines no such field '%s'"
-                % (filename, name))
-        function(self)
+    def transform(self, filename_or_callable, name='default'):
+        if hasattr(filename_or_callable, '__call__'):
+            filename_or_callable(self)
+        else:
+            filename = filename_or_callable
+            defines = exec_in_directory(filename)
+            function = defines.get(name)
+            if function is None:
+                raise AttributeError(
+                    "Decorator '%s' defines no such field '%s'"
+                    % (filename, name))
+            function(self)
 
     @property
     def tags(self):
@@ -79,6 +86,32 @@ class ResourceCollection(object):
 
     def to_json(self, indent=4):
         return json.dumps(self.to_plain_types(), indent=indent)
+
+    def to_python(self, indent=4):
+        lines = []
+
+        def w(s=''):
+            lines.append(s)
+
+        w("# Generated on %s by %s with the command:"
+            % (datetime.datetime.now(), getpass.getuser()))
+        w("# " + " ".join(shell_quote(x) for x in sys.argv))
+        w()
+        w("from sefara import export")
+        w()
+        spaces = " " * indent
+        for resource in self:
+            w("export(")
+            w(spaces + "name=%s," % json.dumps(resource.name))
+            plain_types = resource.to_plain_types()
+            w(spaces + "tags=%s," % json.dumps(plain_types.pop('tags', [])))
+            for (key, value) in plain_types.items():
+                json_value = json.dumps(value, indent=indent)
+                indented = json_value.replace("\n", "\n" + spaces)
+                w(spaces + "%s=%s," % (key, indented))
+            lines[-1] = lines[-1][:-1] + ")"  # Drop last comma and close paren
+            w()
+        return "\n".join(lines)
 
     @property
     def summary(self):
