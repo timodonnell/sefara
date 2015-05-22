@@ -1,3 +1,4 @@
+
 # Copyright (c) 2015. Mount Sinai School of Medicine
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +21,17 @@ try:  # py3
     from shlex import quote as shell_quote
 except ImportError:  # py2
     from pipes import quote as shell_quote
+
+try:
+    # Python 2
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
+
+try:
+    from urllib2 import urlopen  # py 2
+except ImportError:
+    from urllib.request import urlopen  # py 3
 
 def exec_in_directory(filename=None, code=None):
     old_cwd = None

@@ -16,25 +16,95 @@ from __future__ import absolute_import
 
 import collections
 import json
+import os
+import contextlib
+
+from urlparse import parse_qsl
 
 from .resource_collection import ResourceCollection
 from .resource import Resource
-from .util import exec_in_directory
+from .util import exec_in_directory, urlparse, urlopen
 from . import export
 
-def load(filename, environment_transforms=True):
-    if filename.endswith(".py"):
-        format = "python"
-    elif filename.endswith(".json"):
-        format = "json"
+def load(filename, filters=None, transforms=None, environment_transforms=None):
+    parsed = urlparse(filename)
+
+    # Parse operations (filters and transforms) from the URL fragment
+    # (everything after the '#')
+    # Operations is a list of (op [either 'filter' or 'transform'], value))
+    operations = []
+    fragment = parse_qsl(parsed.fragment)
+    data_format = None
+    for (key, value) in fragment:
+        key = key.lower()
+        if key == 'filter' or key == 'transform':
+            operations.append((key, value))
+        elif key == 'format':
+            data_format = value
+        elif key == 'environment_transforms':
+            value = value.lower()
+            if environment_transforms is None:
+                # If environment_transforms is given as an argument to this
+                # function, than that value overrides.
+                if value == "true":
+                    environment_transforms = True
+                elif value == "false":
+                    environment_transforms = False
+                else:
+                    raise ValueError(
+                        "Expected environment_transforms to be 'true' or "
+                        "'false, not: %s" % value)
+        else:
+            raise ValueError("Unsupported operation: %s" % key)
+
+    # Add filters and transforms specified in the arguments after anything
+    # parsed from the URL.
+    if filters:
+        operations.extend(("filter", x) for x in filters)
+    if transforms:
+        operations.extend(("transform", x) for x in filters)
+
+    # Read the data.
+    if parsed.scheme == 'mongodb':
+        raise NotImplementedError()
     else:
-        raise ValueError("Unsupported file format: %s" % filename)
-    
-    with open(filename) as fd:
-        return loads(
-            fd.read(),
-            format=format,
-            environment_transforms=environment_transforms)
+        # Default scheme is 'file', and needs an absolute path.
+        if not parsed.scheme or parsed.scheme.lower() == 'file':
+            parsed = parsed._replace(
+                scheme="file",
+                path=os.path.abspath(parsed.path))
+            filename = parsed.geturl()
+
+        # Guess data format from filename extension if not specified.
+        if data_format is None:
+            if parsed.path.endswith(".py"):
+                data_format = "python"
+            elif parsed.path.endswith(".json"):
+                data_format = "json"
+            else:
+                raise ValueError("Couldn't guess format: %s" % filename)
+
+        with contextlib.closing(urlopen(filename)) as fd:
+            # We don't apply environment_transforms here as we will apply them
+            # ourselves after any other specified transforms or filters.    
+            rc = loads(
+                fd.read(),
+                format=data_format,
+                environment_transforms=False)
+
+    # Apply filters and transforms.
+    for (operation, value) in operations:
+        if operation == 'filter':
+            rc = rc.filter(value)
+        elif operation == 'transform':
+            rc.transform(value)
+        else:
+            assert(False)
+
+    if environment_transforms:
+        rc.transform_from_environment()
+
+    return rc
 
 def loads(data, filename=None, format="json", environment_transforms=True):
     rc = None
