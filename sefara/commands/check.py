@@ -19,9 +19,11 @@ from __future__ import absolute_import, print_function
 
 import argparse
 import sys
+import textwrap
 
 from . import util
 from .. import resource_collection
+from .util import print_stderr as stderr
 
 parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
@@ -32,20 +34,17 @@ parser.add_argument("--no-environment-checkers",
         default=True)
 parser.add_argument("--format", choices=('human', 'json'), default="human")
 parser.add_argument("--out")
-parser.add_argument("--verbose", action="store_true", default=False)
-parser.add_argument("--quiet", action="store_true", default=False)
-parser.add_argument("--indent", type=int, default=4)
+parser.add_argument("-v", "--verbose", action="store_true", default=False)
+parser.add_argument("-q", "--quiet", action="store_true", default=False)
+parser.add_argument("--width", type=int, default=100)
 
 def run():
     args = parser.parse_args()
     rc = util.load_from_args(args)
 
-    try:
-        results = rc.check(
-            args.checker,
-            include_environment_checkers=args.environment_checkers)
-    except resource_collection.NoCheckers:
-        results = None
+    results = rc.check(
+        args.checker,
+        include_environment_checkers=args.environment_checkers)
 
     fd = open(args.out, "w") if args.out else sys.stdout
 
@@ -54,34 +53,27 @@ def run():
 
     try:
         if args.format == "human":
-            if results is None:
-                fdprint("No checkers. Use the --checker argument to specify a "
-                    "checker.")
-                return
-
-            problematic_datasets = []
+            problematic_resources = []
             for (i, (resource, tpls)) in enumerate(results):
                 if i == 0:
                     fdprint("Checkers:")
                     for (checker_num, (checker, _, _)) in enumerate(tpls):
                         print("\t[%d]\t%s" % (checker_num, checker))
-                fdprint()
+                    fdprint()
+                fd.flush()
                 num_errors = sum(
-                    1 for (_, attempted, error) in tpls
+                    1 for (checker, attempted, error) in tpls
                     if attempted and error)
                 num_attempted = sum(
-                    1 for (_, attempted, _) in tpls if attempted)
+                    1 for (checker, attempted, error) in tpls if attempted)
                 
                 if not args.quiet:
-                    if num_errors == 0 and num_attempted > 0:
-                        summary = "OK (%d checked)" % num_attempted
-                    elif num_attempted == 0:
-                        summary = "UNMATCHED"
-                    else:
-                        summary = "ERROR (%d error / %d checked)" % (
-                            num_errors, num_attempted)
+                    summary = " ".join(
+                        "--" if not attempted else (
+                            "ER" if error else "OK")
+                        for (_, attempted, error) in tpls)
                     fdprint("[%3d / %3d] %s %s" % (
-                        i + 1, len(rc), resource.name.rfill(30), summary))
+                        i + 1, len(rc), resource.name.ljust(55), summary))
 
                 if args.verbose or num_attempted == 0 or num_errors > 0:
                     details_lines = []
@@ -91,24 +83,47 @@ def run():
                         else:
                             message = "UNMATCHED"
                         if args.verbose or (attempted and error):
-                            details_lines.append(
-                                "\t[%d]\t%s" % (checker_num, message))
+                            details_lines.extend(
+                                textwrap.wrap(
+                                    "[%d] %s" % (check_num, message),
+                                    args.width,
+                                    initial_indent=' ' * 4,
+                                    subsequent_indent=' ' * 8))
                     details = "\n".join(details_lines)
-                    fdprint(details)
+                    if details:
+                        fdprint(details)
+                        fdprint()
 
                 if num_attempted == 0 or num_errors > 0:
-                    problematic_datasets.append(resource)
+                    problematic_resources.append(
+                        (resource,
+                            [(checker, error) for (checker, attempted, error)
+                            in tpls
+                            if attempted and error]))
 
             fdprint()
-            if problematic_datasets:
-                fdprint("PROBLEMATIC RESOURCES: %s"
-                    % " ".join(problematic_datasets))
+            if problematic_resources:
+                fdprint("PROBLEMS (%d / %d):" % (
+                    len(problematic_resources),
+                    len(rc)))
+                for (resource, pairs) in problematic_resources:
+                    if not pairs:
+                        fdprint("UNMATCHED:")
+                    fdprint(('{:-^%d}' % args.width).format(resource.name))
+                    fdprint(resource)
+                    fdprint()
+                    for (checker, error) in pairs:
+                        fdprint("\t%s" % checker)
+                        fdprint("\t---> %s" % error)
+                        fdprint()
             else:
-                fdprint("ALL RESOURCES OK")
+                fdprint("ALL OK")
 
         elif args.format == "json":
             raise NotImplementedError()
         else:
             raise ValueError("Unknown format: %s" % format)
+    except resource_collection.NoCheckers:
+        stderr("No checkers. Use the --checker argument to specify a checker.")
     finally:
         fd.close()

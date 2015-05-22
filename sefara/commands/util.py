@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
+
+import sys
 
 from .. import load
 
@@ -35,3 +37,6 @@ def load_from_args(args):
     for transform in args.transform:
         rc.transform(transform)
     return rc
+
+def print_stderr(s=''):
+    print(s, file=sys.stderr)

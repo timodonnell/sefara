@@ -39,7 +39,9 @@ class Resource(AttrMap):
         util.move_to_front(keys, "name", "tags")
         key_fill = min(30, max(len(x) for x in keys))
         attributes = "\n           ".join(
-            "%s = %s" % (key.ljust(key_fill), self[key])
+            "%s = %s" % (
+                key.ljust(key_fill),
+                " ".join(self.tags) if key == 'tags' else self[key])
             for key in keys)
         return "<Resource: %s >" % attributes
 

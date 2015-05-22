@@ -76,7 +76,7 @@ class ResourceCollection(object):
                 (path, name, args, kwargs) = checker
                 generator = self.run_hook(path, name, *args, **kwargs)
             else:
-                generator = self.run_hook(checker, name="checker")
+                generator = self.run_hook(checker, name="check")
             generators.append(generator)
 
         if not generators:
@@ -84,14 +84,14 @@ class ResourceCollection(object):
 
         for row in zip(self, *generators):
             (expected_resource, results) = (row[0], row[1:])
-            results = []  # (checker, attempted, error)
+            tuples = []  # (checker, attempted, error)
             for (i, (resource, attempted, error)) in enumerate(results):
                 if resource != expected_resource:
                     raise ValueError(
                         "Checker %d (%s): skipping / reordering: %s != %s"
                         % (i, checkers[i], resource, expected_resource))
-                results.append((str(checkers[i]), attempted, error))
-            yield (expected_resource, results) 
+                tuples.append((str(checkers[i]), attempted, error))
+            yield (expected_resource, tuples) 
     
     def run_hook(self, path_or_callable, name, *args, **kwargs):
         if hasattr(path_or_callable, '__call__'):
