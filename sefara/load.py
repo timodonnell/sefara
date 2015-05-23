@@ -64,33 +64,29 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
     if transforms:
         operations.extend(("transform", x) for x in filters)
 
-    # Read the data.
-    if parsed.scheme == 'mongodb':
-        raise NotImplementedError()
-    else:
-        # Default scheme is 'file', and needs an absolute path.
-        if not parsed.scheme or parsed.scheme.lower() == 'file':
-            parsed = parsed._replace(
-                scheme="file",
-                path=os.path.abspath(parsed.path))
-            filename = parsed.geturl()
+    # Default scheme is 'file', and needs an absolute path.
+    if not parsed.scheme or parsed.scheme.lower() == 'file':
+        parsed = parsed._replace(
+            scheme="file",
+            path=os.path.abspath(parsed.path))
+        filename = parsed.geturl()
 
-        # Guess data format from filename extension if not specified.
-        if data_format is None:
-            if parsed.path.endswith(".py"):
-                data_format = "python"
-            elif parsed.path.endswith(".json"):
-                data_format = "json"
-            else:
-                raise ValueError("Couldn't guess format: %s" % filename)
+    # Guess data format from filename extension if not specified.
+    if data_format is None:
+        if parsed.path.endswith(".py"):
+            data_format = "python"
+        elif parsed.path.endswith(".json"):
+            data_format = "json"
+        else:
+            raise ValueError("Couldn't guess format: %s" % filename)
 
-        with contextlib.closing(urlopen(filename)) as fd:
-            # We don't apply environment_transforms here as we will apply them
-            # ourselves after any other specified transforms or filters.    
-            rc = loads(
-                fd.read(),
-                format=data_format,
-                environment_transforms=False)
+    with contextlib.closing(urlopen(filename)) as fd:
+        # We don't apply environment_transforms here as we will apply them
+        # ourselves after any other specified transforms or filters.    
+        rc = loads(
+            fd.read(),
+            format=data_format,
+            environment_transforms=False)
 
     # Apply filters and transforms.
     for (operation, value) in operations:
