@@ -75,24 +75,25 @@ def run():
                     fdprint("[%3d / %3d] %s %s" % (
                         i + 1, len(rc), resource.name.ljust(55), summary))
 
-                if args.verbose or num_attempted == 0 or num_errors > 0:
-                    details_lines = []
-                    for (check_num, (_, attempted, error)) in enumerate(tpls):
-                        if attempted:
-                            message = error if error else "OK"
-                        else:
-                            message = "UNMATCHED"
-                        if args.verbose or (attempted and error):
-                            details_lines.extend(
-                                textwrap.wrap(
-                                    "[%d] %s" % (check_num, message),
-                                    args.width,
-                                    initial_indent=' ' * 4,
-                                    subsequent_indent=' ' * 8))
-                    details = "\n".join(details_lines)
-                    if details:
-                        fdprint(details)
-                        fdprint()
+                    if args.verbose or num_attempted == 0 or num_errors > 0:
+                        details_lines = []
+                        for (check_num,
+                                (_, attempted, error)) in enumerate(tpls):
+                            if attempted:
+                                message = error if error else "OK"
+                            else:
+                                message = "UNMATCHED"
+                            if args.verbose or (attempted and error):
+                                details_lines.extend(
+                                    textwrap.wrap(
+                                        "[%d] %s" % (check_num, message),
+                                        args.width,
+                                        initial_indent=' ' * 4,
+                                        subsequent_indent=' ' * 8))
+                        details = "\n".join(details_lines)
+                        if details:
+                            fdprint(details)
+                            fdprint()
 
                 if num_attempted == 0 or num_errors > 0:
                     problematic_resources.append(
@@ -103,7 +104,7 @@ def run():
 
             fdprint()
             if problematic_resources:
-                fdprint("PROBLEMS (%d / %d):" % (
+                fdprint("PROBLEMS (%d failed / %d total):" % (
                     len(problematic_resources),
                     len(rc)))
                 for (resource, pairs) in problematic_resources:
