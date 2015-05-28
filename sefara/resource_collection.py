@@ -21,6 +21,8 @@ import datetime
 import getpass
 import os
 
+import typechecks
+
 from .util import exec_in_directory, shell_quote
 from . import environment
 
@@ -180,6 +182,38 @@ class ResourceCollection(object):
             lines[-1] = lines[-1][:-1] + ")"  # Drop last comma and close paren
             w()
         return "\n".join(lines)
+
+    def write(self, file=None, format=None, indent=None):
+        close_on_exit = False
+        if typechecks.is_string(file):
+            fd = open(file, "w")
+            close_on_exit = True
+            if format is None:
+                if file.endswith(".json"):
+                    format = "json"
+                elif file.endswith(".py"):
+                    format = "python"
+                else:
+                    raise ValueError(
+                        "Couldn't guess format from filename: %s" % file)
+        elif not file:
+            fd = sys.stdout
+            if format is None:
+                format = "json"
+        else:
+            fd = file
+        try:
+            extra_args = {} if indent is None else {"indent": indent}
+            if format == "json":
+                value = self.to_json(**extra_args)
+            elif format == "python":
+                value = self.to_python(**extra_args)
+            else:
+                raise ValueError("Unsupported format: %s" % format)
+            fd.write(value)
+        finally:
+            if close_on_exit:
+                fd.close()
 
     @property
     def summary(self):

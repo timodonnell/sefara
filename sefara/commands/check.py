@@ -38,8 +38,8 @@ parser.add_argument("-v", "--verbose", action="store_true", default=False)
 parser.add_argument("-q", "--quiet", action="store_true", default=False)
 parser.add_argument("--width", type=int, default=100)
 
-def run():
-    args = parser.parse_args()
+def run(argv=sys.argv[1:]):
+    args = parser.parse_args(argv)
     rc = util.load_from_args(args)
 
     results = rc.check(

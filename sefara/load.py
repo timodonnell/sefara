@@ -65,10 +65,12 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
         operations.extend(("transform", x) for x in filters)
 
     # Default scheme is 'file', and needs an absolute path.
+    absolute_local_filename = None
     if not parsed.scheme or parsed.scheme.lower() == 'file':
+        absolute_local_filename = os.path.abspath(parsed.path)
         parsed = parsed._replace(
             scheme="file",
-            path=os.path.abspath(parsed.path))
+            path=absolute_local_filename)
         filename = parsed.geturl()
 
     # Guess data format from filename extension if not specified.
@@ -85,6 +87,7 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
         # ourselves after any other specified transforms or filters.    
         rc = loads(
             fd.read(),
+            filename=absolute_local_filename,
             format=data_format,
             environment_transforms=False)
 

@@ -22,6 +22,9 @@ def export(*args, **kwargs):
     _EXPORTED_RESOURCES.append(resource)
     return resource
 
+def export_resources(resources):
+    _EXPORTED_RESOURCES.extend(resources)
+
 _TRANSFORMS = []
 def transform_exports(transformer):
     _TRANSFORMS.append(transformer)

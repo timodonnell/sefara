@@ -25,20 +25,11 @@ from . import util
 
 parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
-parser.add_argument("--format", choices=('json', 'python'), default="json")
+parser.add_argument("--format", choices=('json', 'python'))
 parser.add_argument("--out")
 parser.add_argument("--indent", type=int, default=4)
 
-def run():
-    args = parser.parse_args()
+def run(argv=sys.argv[1:]):
+    args = parser.parse_args(argv)
     rc = util.load_from_args(args)
-    fd = open(args.out, "w") if args.out else sys.stdout
-    try:
-        if args.format == "python":
-            print(rc.to_python(indent=args.indent), file=fd)
-        elif args.format == "json":
-            print(rc.to_json(indent=args.indent), file=fd)
-        else:
-            raise ValueError("Unknown format: %s" % format)
-    finally:
-        fd.close()
+    rc.write(args.out, args.format, indent=args.indent)

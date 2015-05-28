@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 '''
-Select fields from a sefara dataset.
+Select fields from a sefara collection.
 '''
 
 from __future__ import absolute_import, print_function
@@ -23,21 +23,25 @@ import json
 import sys
 import functools
 import re
+import traceback
 
 import typechecks
 
 from . import util
 from ..resource import Tags
+from .util import print_stderr as stderr
 from ..util import shell_quote, move_to_front
 
 parser = argparse.ArgumentParser(usage=__doc__)
 util.add_load_arguments(parser)
-parser.add_argument("--field", action="append", nargs="+", default=[])
+parser.add_argument("-f", "--field", action="append", nargs="+", default=[])
 parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),
     default="csv")
 parser.add_argument("--header", choices=('on', 'off'))
 parser.add_argument("--out")
 parser.add_argument("--all-fields", action="store_true", default=False)
+parser.add_argument("--stop-on-error", action="store_true", default=False)
+parser.add_argument("--skip-errors", action="store_true", default=False)
 
 def extract_best(datum):
     if (typechecks.is_string(datum) or
@@ -66,9 +70,6 @@ extractors = {
     "json": json_dumps,
 }
 
-def stderr(s=''):
-    print(s, file=sys.stderr)
-
 def default_field_name(args, expression):
     if args.format == 'args':
         if re.match('^[\w][\w-]*$', expression) is None:
@@ -78,8 +79,8 @@ def default_field_name(args, expression):
         return expression.replace("_", "-")
     return expression
 
-def run():
-    args = parser.parse_args()
+def run(argv=sys.argv[1:]):
+    args = parser.parse_args(argv)
 
     rc = util.load_from_args(args)
 
@@ -123,13 +124,26 @@ def run():
             % ", ".join(intersect_fields))
         return
 
+    errors = []
+
     def generate_rows():
         for resource in rc:
             row = []
             for (extractor, name, expression) in fields:
-                value = resource.evaluate(expression)
+                value = None
+                try:
+                    value = resource.evaluate(expression)
+                except:
+                    if args.stop_on_error:
+                        raise
+                    elif args.skip_errors:
+                        break
+                    else:
+                        errors.append(traceback.format_exc())
                 row.append(extractor(value))
-            yield row
+            else:
+                # Executed if we didn't break above.
+                yield row
 
     field_names = [field_name for (_, field_name, _) in fields]
     fd = open(args.out, "w") if args.out else sys.stdout
@@ -162,6 +176,15 @@ def run():
             fd.write("\n")
         else:
             raise ValueError("Unknown format: %s" % format)
+
+        if errors:
+            stderr("ERRORS (%d)" % len(errors))
+            for error in errors:
+                stderr()
+                stderr(error)
     finally:
         fd.close()
+
+    
+
 

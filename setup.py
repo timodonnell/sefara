@@ -18,6 +18,7 @@ setup(
             'sefara-select = sefara.commands.select:run',
             'sefara-dump = sefara.commands.dump:run',
             'sefara-check = sefara.commands.check:run',
+            'sefara-env = sefara.commands.env:run',
         ]
     },
     classifiers=[
