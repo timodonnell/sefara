@@ -16,7 +16,11 @@ import os
 import re
 import collections
 import sys
-import exceptions
+
+try:
+    from exceptions import AttributeError
+except ImportError:
+    pass
 
 from attrdict import AttrMap
 
@@ -68,10 +72,10 @@ class Resource(AttrMap):
                 expression, self)
             try:
                 # Python 3
-                raise type(e)(str(e) + extra).with_traceback(sys.exc_info()[2])
-            except exceptions.AttributeError:
-                raise type(e), type(e)(e.message + extra), sys.exc_info()[2]
-
+                raise(type(e)(str(e) + extra).with_traceback(sys.exc_info()[2]))
+            except AttributeError:
+                raise(type(e), type(e)(e.message + extra), sys.exc_info()[2])
+                
     def to_plain_types(self):
         result = collections.OrderedDict()
         result["tags"] = list(self.tags)

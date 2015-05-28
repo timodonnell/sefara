@@ -18,8 +18,11 @@ import collections
 import json
 import os
 import contextlib
-
-from urlparse import parse_qsl
+try:
+    # Python 2
+    from urlparse import parse_qsl
+except ImportError:
+    from urllib.parse import parse_qsl
 
 from .resource_collection import ResourceCollection
 from .resource import Resource
