@@ -103,7 +103,7 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
         else:
             assert(False)
 
-    if environment_transforms:
+    if environment_transforms is not False:
         rc.transform_from_environment()
 
     return rc

@@ -17,10 +17,9 @@ import re
 import collections
 import sys
 
-try:
-    from exceptions import AttributeError
-except ImportError:
-    pass
+from future.utils import raise_
+
+import typechecks
 
 from attrdict import AttrMap
 
@@ -54,9 +53,7 @@ class Resource(AttrMap):
 
     def evaluate(self, expression):
         try:
-            try:
-                return expression(self)
-            except TypeError:
+            if typechecks.is_string(expression):
                 # Give some basic modules.
                 environment = {
                     "resource": self,
@@ -66,15 +63,13 @@ class Resource(AttrMap):
                     "re": re,
                 }
                 return eval(expression, environment, self)
+            else:
+                return expression(self)                
         except Exception as e:
-            # See http://stackoverflow.com/questions/6062576/adding-information-to-a-python-exception
-            extra = "\nWhile evaluating: \n\t%s\non resource:\n%s" % (
+            extra = "Error while evaluating: \n\t%s\non resource:\n%s" % (
                 expression, self)
-            try:
-                # Python 3
-                raise(type(e)(str(e) + extra).with_traceback(sys.exc_info()[2]))
-            except AttributeError:
-                raise(type(e), type(e)(e.message + extra), sys.exc_info()[2])
+            traceback = sys.exc_info()[2]
+            raise_(ValueError, str(e) + "\n" + extra, traceback)
                 
     def to_plain_types(self):
         result = collections.OrderedDict()

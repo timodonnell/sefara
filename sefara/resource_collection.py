@@ -124,8 +124,8 @@ class ResourceCollection(object):
 
     def singleton(self):
         if len(self.resources) != 1:
-            raise ValueError("Expected exactly 1 resource, not %d."
-                % len(self.resources))
+            raise ValueError("Expected exactly 1 resource, not %d: %s."
+                % (len(self.resources), ' '.join(self.resources)))
         return self[0]
 
     def __getitem__(self, index_or_key):
