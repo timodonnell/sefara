@@ -122,8 +122,8 @@ class ResourceCollection(object):
             if x.evaluate(expression)
         ], self.filename)
 
-    def singleton(self):
-        if len(self.resources) != 1:
+    def singleton(self, raise_on_multiple=True):
+        if len(self) == 0 or (raise_on_multiple and len(self) > 1):
             raise ValueError("Expected exactly 1 resource, not %d: %s."
                 % (len(self.resources), ' '.join(self.resources)))
         return self[0]
@@ -218,38 +218,15 @@ class ResourceCollection(object):
     @property
     def summary(self):
         lines = []
-        indentation_boxed = [0]
-        
-        def w(s):
-            lines.append(" " * indentation_boxed[0] + s)
 
-        def indent():
-            indentation_boxed[0] += 2
-
-        def dedent():
-            indentation_boxed[0] -= 2
+        def w(s=""):
+            lines.append(s)
         
         w("ResourceCollection: %d resources from %s" %
             (len(self), self.filename))
-        indent()
-        w("Context:")
-        for (field, value) in self.context.items():
-            indent()
-            w("%s = %s" % (field.ljust(20), value))
-            dedent()
-        w("")
-        w("Resources:")
         for resource in self:
-            indent()
-            w(resource.name)
-            for (key, value) in sorted(resource.items()):
-                if key in ("name", "context"):
-                    continue
-                indent()
-                w("%s = %s" % (key.ljust(20), str(value)))
-                dedent()
-            dedent()
-            w("")
+            w(str(resource))
+            w()
         return "\n".join(lines)
 
     def __str__(self):

@@ -38,7 +38,7 @@ class Resource(AttrMap):
         AttrMap.__init__(self, fields)
         
     def __str__(self):
-        keys = list(self.keys())
+        keys = sorted(self.keys())
         util.move_to_front(keys, "name", "tags")
         key_fill = min(30, max(len(x) for x in keys))
         attributes = "\n           ".join(
