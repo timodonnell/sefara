@@ -129,7 +129,7 @@ class ResourceCollection(object):
         return self[0]
 
     def __getitem__(self, index_or_key):
-        if isinstance(index_or_key, int):
+        if isinstance(index_or_key, (int, slice)):
             return list(self.resources.values())[index_or_key]
         try:
             result = self.resources[index_or_key]

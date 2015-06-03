@@ -27,7 +27,7 @@ except ImportError:
 from .resource_collection import ResourceCollection
 from .resource import Resource
 from .util import exec_in_directory, urlparse, urlopen
-from . import export
+from . import export_util
 
 def load(filename, filters=None, transforms=None, environment_transforms=None):
     parsed = urlparse(filename)
@@ -113,16 +113,16 @@ def loads(data, filename=None, format="json", environment_transforms=True):
     transforms = []
     if format == "python":
         try:
-            old_resources = export._EXPORTED_RESOURCES
-            old_transforms = export._TRANSFORMS
-            export._EXPORTED_RESOURCES = []
-            export._TRANSFORMS = []
+            old_resources = export_util._EXPORTED_RESOURCES
+            old_transforms = export_util._TRANSFORMS
+            export_util._EXPORTED_RESOURCES = []
+            export_util._TRANSFORMS = []
             exec_in_directory(filename=filename, code=data)
         finally:
-            transforms = export._TRANSFORMS
-            resources = export._EXPORTED_RESOURCES
-            export._EXPORTED_RESOURCES = old_resources
-            export._TRANSFORMS = old_transforms
+            transforms = export_util._TRANSFORMS
+            resources = export_util._EXPORTED_RESOURCES
+            export_util._EXPORTED_RESOURCES = old_resources
+            export_util._TRANSFORMS = old_transforms
         rc = ResourceCollection(resources, filename)
     elif format == "json":
         parsed = json.loads(data, object_pairs_hook=collections.OrderedDict)

@@ -17,7 +17,7 @@ from __future__ import absolute_import
 from .load import load, loads
 from .resource_collection import ResourceCollection
 from .resource import Resource
-from .export import export, export_resources, transform_exports
+from .export_util import export, export_resources, transform_exports
 from . import environment
 
 __all__ = [
