@@ -38,9 +38,9 @@ export(
 )
 ```
 
-This defines two resources named `patientA_sequencing_blood_2010` and `patientA_sequencing_tumor_2012`. Sefara resources always have a `name` attribute (the first parameter to the `export` function). Everything else is optional. If you define a `tags` attribute for your resource, as in the file above, then Sefara treats that attribute specially, as we'll see below. All the other fields (like `path` and `capture_kit`) are up to the user and are not interpreted by Sefara in any way. 
+This defines two resources named `patientA_sequencing_blood_2010` and `patientA_sequencing_tumor_2012`. Sefara resources always have a `name` attribute (the first parameter to the `export` function). Everything else is optional. If you define a `tags` attribute for your resource, as in the file above, then Sefara treats that attribute specially, as we'll see below. All the other fields (like `path` and `capture_kit`) are up to the user and are not interpreted by Sefara in any way.
 
-and here is the equivalent JSON:
+We could also have defined these resources by making a JSON file, like this:
 
 ```
 {
@@ -67,11 +67,15 @@ and here is the equivalent JSON:
 }
 ```
 
+## Two commandline tools: sefara-select and sefara-dump
+
+Use 
+
+
 
 ## Opening a resource collection in Python
 
 
-## Two commandline tools: sefara-select and sefara-dump
 
 
 ## Site-specific configuration with hooks
