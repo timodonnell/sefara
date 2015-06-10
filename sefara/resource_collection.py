@@ -30,7 +30,27 @@ class NoCheckers(Exception):
     pass
 
 class ResourceCollection(object):
+    """
+    Collection of zero or more resources.
+
+    Resources in a ResourceCollection can be accessed either by name:
+        resource_collection["my_dataset"]
+
+    or by index (or slice):
+        resource_collection[0]
+    """
     def __init__(self, resources, filename="<no file>"):
+        """
+        Create a new ResourceCollection from a list of resources.
+
+        Parameters
+        ----------
+        resources : list of `Resource` instances
+            Resources.
+
+        filename : string [optional]
+            Filename these resources were loaded from. Used in error messages.
+        """
         if isinstance(resources, list):
             resources = collections.OrderedDict(
                 (x.name, x) for x in resources)
@@ -43,6 +63,14 @@ class ResourceCollection(object):
         self.filename = filename
 
     def transform_from_environment(self):
+        """
+        Run the environment-variable-defined transforms on the resources in
+        this collection. The transforms will mutate the resources in this
+        collection; a new ResourceCollection is NOT returned.
+
+        See the `environment` module for the definition of the environment
+        variable used here.
+        """
         transforms = os.environ.get(
             environment.TRANSFORM_ENVIRONMENT_VARIABLE, "").split(":")
 
@@ -52,10 +80,54 @@ class ResourceCollection(object):
                 self.transform(transform)
 
     def transform(self, path_or_callable, name='transform', *args, **kwargs):
+        """
+        Run a function on the resources in this collection. The function is
+        expected to mutate the resources in this collection; a new collection
+        is NOT returned.
+
+        Parameters
+        ----------
+        path_or_callable : string or callable
+            If string, then this is interpreted as a path to a Python file. The
+            file will be exec'd and is expected to define a module attribute
+            given by the `name` argument. This attribute will be used as the
+            callable. It should take a ResourceCollection instance as an
+            argument.
+
+            Otherwise, this parameter should be a callable that takes a
+            ResourceCollection instance. It will be invoked on this
+            ResourceCollection.
+
+        name : string [optional, default 'transform']
+            If `path_or_callable` is a string giving a path to a Python file
+            to execute, this parameter gives the attribute in that module to
+            use as the callable. Defaults to "transform", i.e. the Python file
+            specified by `path_or_callable` is expected to define a function
+            called "transform".
+
+        *args, **kwargs
+            Additional args and kwargs are passed to the transform function.
+        """
         self.run_hook(path_or_callable, name, *args, **kwargs)
 
     def check(self, checkers=None, include_environment_checkers=True):
         '''
+        Run "checkers", either specified directly or using environment
+        variables, on this resource collection.
+
+        Checkers are used to validate that the resources in a collection
+        meet user-defined criteria, for example, that the paths they point
+        to exist.
+
+        Parameters
+        ----------
+        checkers : list of either callables, strings, or
+                    (path, name, args kwargs) tuples [optional]
+
+        include_environment_checkers : boolean [optional, default: True]
+
+
+
         Checkers is a list. Each element can either be a callable, a string
         (path to file), or tuple of (path, name, args, kwargs).
 
@@ -96,6 +168,33 @@ class ResourceCollection(object):
             yield (expected_resource, tuples) 
     
     def run_hook(self, path_or_callable, name, *args, **kwargs):
+        """
+        Invoke a Python callable (either passed directly or defined in the
+        specified Python file) on this ResourceCollection and return the
+        result.
+
+        Parameters
+        ----------
+        path_or_callable : string or callable
+            If string, then this is interpreted as a path to a Python file. The
+            file will be exec'd and is expected to define a module attribute
+            given by the `name` argument. This attribute will be used as the
+            callable. It should take a ResourceCollection instance as an
+            argument.
+
+            Otherwise, this parameter should be a callable that takes a
+            ResourceCollection instance. It will be invoked on this
+            ResourceCollection.
+
+        name : string [optional, default 'transform']
+            If `path_or_callable` is a string giving a path to a Python file
+            to execute, this parameter gives the attribute in that module to
+            use as the callable.
+
+        *args, **kwargs
+            Additional args and kwargs are passed to the callable after the
+            ResourceCollection.
+        """
         if hasattr(path_or_callable, '__call__'):
             function = path_or_callable
         else:
@@ -111,18 +210,50 @@ class ResourceCollection(object):
 
     @property
     def tags(self):
+        """
+        All tags associated with any Resource in this collection.
+        """
         result = set()
         for resource in self:
             result.update(resource.tags)
         return result
     
     def filter(self, expression):
+        """
+        Return a new collection containing only those resources for which
+        `expression` evaluated to True.
+
+        Parameters
+        ----------
+        expression : string or callable
+            If a string, then it should give a valid Python expression.
+            This expression will be evaluated with the
+            attributes of this resource in the local namespace. For
+            example, since the resource has a `name` attribute, the
+            expression "name.startswith('bar')" is a valid expression.
+            Tags can be accessed through the `tags` variable.
+            If the resource has a tag called `foo`, then the expression
+            "tags.foo" will evaluate to True. If there is no such tag,
+            then "tags.foo" will evaluate to False.
+
+            If a callable, then it will be called and passed this Resource
+            instance as its argument.
+
+        Returns
+        ----------
+        A new ResourceCollection containing those resources for which
+        `expression` evaluated to True.        
+        """
         return ResourceCollection([
             x for x in self
             if x.evaluate(expression)
         ], self.filename)
 
     def singleton(self, raise_on_multiple=True):
+        """
+        If this ResourceCollection contains exactly 1 resource, return it.
+        Otherwise, raise a ValueError.
+        """
         if len(self) == 0 or (raise_on_multiple and len(self) > 1):
             raise ValueError("Expected exactly 1 resource, not %d: %s."
                 % (len(self.resources), ' '.join(self.resources)))
@@ -149,15 +280,25 @@ class ResourceCollection(object):
         return iter(self.resources.values())
 
     def to_plain_types(self):
+        """
+        Return a representation of this collection using Python dicts, lists,
+        and strings.
+        """
         result = collections.OrderedDict()
         for resource in self:
             result[resource.name] = resource.to_plain_types()
         return result
 
     def to_json(self, indent=4):
+        """
+        Return a string giving this collection represented as JSON.
+        """
         return json.dumps(self.to_plain_types(), indent=indent)
 
     def to_python(self, indent=4):
+        """
+        Return a string giving this collection represented as Python code.
+        """
         lines = []
 
         def w(s=''):
@@ -184,6 +325,21 @@ class ResourceCollection(object):
         return "\n".join(lines)
 
     def write(self, file=None, format=None, indent=None):
+        """
+        Serialize this collection to disk.
+
+        Parameters
+        ----------
+        file : string or file handle [optional, default: sys.stdout]
+            Path or file handle to write to.
+
+        format : string, one of "python" or "json" [optional]
+            Output format. If not specified, it is guessed from the filename
+            extension.
+
+        indent : int [optional]
+            Number of spaces to use for indentation.
+        """
         close_on_exit = False
         if typechecks.is_string(file):
             fd = open(file, "w")
@@ -217,6 +373,10 @@ class ResourceCollection(object):
 
     @property
     def summary(self):
+        """
+        Return a string summarzing the resources in this collection, including
+        their attributes.
+        """
         lines = []
 
         def w(s=""):
