@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Environment variables used by sefara.
+"""
+
 from __future__ import absolute_import
 
 TRANSFORM_ENVIRONMENT_VARIABLE = "SEFARA_TRANSFORM"

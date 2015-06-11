@@ -12,38 +12,118 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Instantiate ResourceCollection instances from files or strings.
+"""
+
 from __future__ import absolute_import
 
 import collections
 import json
 import os
 import contextlib
-try:
-    # Python 2
-    from urlparse import parse_qsl
-except ImportError:
-    from urllib.parse import parse_qsl
 
 from .resource_collection import ResourceCollection
 from .resource import Resource
-from .util import exec_in_directory, urlparse, urlopen
+from .util import exec_in_directory, urlparse, urlopen, parse_qsl
 from . import export_util
 
-def load(filename, filters=None, transforms=None, environment_transforms=None):
+def load(
+        filename,
+        format=None,
+        filters=None,
+        transforms=None,
+        environment_transforms=None):
+
+    """
+    Load a ResourceCollection from a file or URL.
+
+    Collections can be defined using either Python or JSON.
+
+    Parameters
+    ----------
+    filename : string
+        Path or URL to resource collection. If a path is given, it is
+        equivalent to a "file://<path>" URL. Supports any protocol handled by
+        `urlopen`, such as HTTP and HTTPS.
+
+        Filename may include a "fragment", the part of a URL following a "#"
+        symbol, e.g. "file1.py#filter=tags.foo". The fragment is a query string
+        of key/value pairs separated by "&" symbols, e.g.
+        "file1.txt#filter=tags.foo&format=json".
+
+        Valid fragment keys are:
+            filter - The value is a Python expression giving a sefara filter.
+
+            transform - The value is a path to a Python file with a sefara
+                transform.
+
+            format - the value gives the format of the data, either "python" or
+                "json".
+
+            environment_transforms - the value should be "true" or "false"
+                indicating whether to run transforms configured with
+                environment variables.
+
+        The fragment operations are processed in order, left to right, and
+        can be specified multiple times. That is, the URL
+            "file.py#filter=tags.bar&filter=tags.baz"
+        is equivalent to
+            "file.py#filter=tags.bar and tags.baz".
+
+        Fragment values can have spaces, and should not be quoted even if they
+        do (as in the above example).
+
+    format : "python" or "json" [optional]
+        Format of data. Overrides any setting specified in the filename URL. If
+        it is not specified in either place, it is guessed from the filename
+        extension.
+
+    filters : list of strings or callbles [optional]
+        Filters to run on the ResourceCollection, in addition to any
+        specified in the filename. Anything you can pass to
+        `ResourceCollection.filter` is accepted.
+
+    transforms : list of strings [optional]
+        Transforms to run on the ResourceCollection, in addition to any
+        specified in the filename or from the environment. Anything you
+        you can pass to `ResourceCollection.transform` is accepted.
+
+    environment_transforms : Boolean [optional]
+        Whether to run environment_transforms. If specified, this will override
+        the "environment_transforms" fragment setting specified in the filename
+        URL. If not specified in either place, the default is True.
+
+    Returns
+    ----------
+    ``ResourceCollection`` instance.
+
+    """
     parsed = urlparse(filename)
 
     # Parse operations (filters and transforms) from the URL fragment
     # (everything after the '#')
     # Operations is a list of (op [either 'filter' or 'transform'], value))
     operations = []
-    fragment = parse_qsl(parsed.fragment)
-    data_format = None
+    try:
+        if parsed.fragment:
+            # If our fragment begins with an '&' symbol, we ignore it. 
+            unparsed_fragment = parsed.fragment
+            if unparsed_fragment.startswith("&"):
+                unparsed_fragment = unparsed_fragment[1:]
+            fragment = parse_qsl(unparsed_fragment, strict_parsing=True)
+        else:
+            fragment = []
+    except ValueError as e:
+        raise ValueError("Couldn't parse fragment '%s': %s" % (
+            parsed.fragment, e))
     for (key, value) in fragment:
         key = key.lower()
         if key == 'filter' or key == 'transform':
             operations.append((key, value))
         elif key == 'format':
-            data_format = value
+            if format is None:
+                format = value
         elif key == 'environment_transforms':
             value = value.lower()
             if environment_transforms is None:
@@ -73,15 +153,16 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
         absolute_local_filename = os.path.abspath(parsed.path)
         parsed = parsed._replace(
             scheme="file",
+            fragment="",
             path=absolute_local_filename)
         filename = parsed.geturl()
 
     # Guess data format from filename extension if not specified.
-    if data_format is None:
+    if format is None:
         if parsed.path.endswith(".py"):
-            data_format = "python"
+            format = "python"
         elif parsed.path.endswith(".json"):
-            data_format = "json"
+            format = "json"
         else:
             raise ValueError("Couldn't guess format: %s" % filename)
 
@@ -91,7 +172,7 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
         rc = loads(
             fd.read(),
             filename=absolute_local_filename,
-            format=data_format,
+            format=format,
             environment_transforms=False)
 
     # Apply filters and transforms.
@@ -109,6 +190,27 @@ def load(filename, filters=None, transforms=None, environment_transforms=None):
     return rc
 
 def loads(data, filename=None, format="json", environment_transforms=True):
+    """
+    Load a ResourceCollection from a string.
+
+    Parameters
+    ----------
+    data : string
+        ResourceCollection specification in either Python or JSON.
+
+    filename : string [optional]
+        filename where this data originally came from to use in error messages
+
+    format : string,  either "python" or "json" [default: "json"]
+        format of the data
+
+    environment_transforms : Boolean [default: True]
+        whether to run transforms configured in environment variables.
+
+    Returns
+    -------
+    ResourceCollection instance.
+    """
     rc = None
     transforms = []
     if format == "python":
@@ -126,10 +228,9 @@ def loads(data, filename=None, format="json", environment_transforms=True):
         rc = ResourceCollection(resources, filename)
     elif format == "json":
         parsed = json.loads(data, object_pairs_hook=collections.OrderedDict)
-        with_comments_removed = remove_keys_starting_with_hash(parsed)
         resources = [
             Resource(name=key, **value)
-            for (key, value) in with_comments_removed.items()
+            for (key, value) in parsed.items()
         ]
         rc = ResourceCollection(resources, filename)
     else:
@@ -142,11 +243,3 @@ def loads(data, filename=None, format="json", environment_transforms=True):
         rc.transform_from_environment()
 
     return rc
-
-def remove_keys_starting_with_hash(obj):
-    if isinstance(obj, dict):
-        return collections.OrderedDict(
-            (key, remove_keys_starting_with_hash(value))
-            for (key, value) in obj.items()
-            if not key.startswith("#"))
-    return obj

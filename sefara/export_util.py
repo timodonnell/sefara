@@ -12,20 +12,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+Functions used to define a resource collection.
+
+These functions are intended to be called from resource collections defined
+using Python, i.e. code in a file that you pass to ``load.load()``.
+"""
+
 from __future__ import absolute_import
 
 from .resource import Resource
 
 _EXPORTED_RESOURCES = []
 def export(*args, **kwargs):
+    """
+    Create and export a Resource with the specified attributes.
+
+    All arguments are passed to ``Resource``.
+    """
     resource = Resource(*args, **kwargs)
     _EXPORTED_RESOURCES.append(resource)
     return resource
 
 def export_resources(resources):
+    """
+    Export one or more Resource instances.
+
+    Parameters
+    ----------
+    resources : list of Resource instances
+        Resource instances to be exported.
+    """
     _EXPORTED_RESOURCES.extend(resources)
 
 _TRANSFORMS = []
 def transform_exports(transformer):
+    """
+
+    """
     _TRANSFORMS.append(transformer)
     

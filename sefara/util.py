@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+A few utility functions and imports.
+"""
+
 from __future__ import absolute_import
 
 import os
@@ -28,11 +32,39 @@ except ImportError:
     from urllib.parse import urlparse
 
 try:
+    # Python 2
+    from urlparse import parse_qsl
+except ImportError:
+    from urllib.parse import parse_qsl
+
+try:
     from urllib2 import urlopen  # py 2
 except ImportError:
     from urllib.request import urlopen  # py 3
 
 def exec_in_directory(filename=None, code=None):
+    """
+    Execute Python code from either a file or passed as an argument. If a file
+    is specified, the code will be executed with the current working directory
+    set to the directory where the file resides.
+
+    If both ``filename`` and ``code`` are specified, then ``code`` is executed,
+    but ``filename`` is used to set the current working directory, and in error
+    messages.
+
+    Parameters
+    ----------
+    filename : string [optional]
+        Path to file with Python code to execute.
+
+    code : string [optional]
+        Python code to execute
+
+    Returns
+    ----------
+    dict giving module-level attributes defined by the executed code
+
+    """
     old_cwd = None
     directory = os.path.dirname(filename) if filename else None
     if code is None:
@@ -51,6 +83,12 @@ def exec_in_directory(filename=None, code=None):
     return result
 
 def move_to_front(lst, *items):
+    """
+    Move the specified items to the front of the given list. If an item is not
+    in the list, it is ignored.
+
+    Mutates the list. Does not return anything.
+    """ 
     for item in reversed(items):
         if item in lst:
             lst.remove(item)

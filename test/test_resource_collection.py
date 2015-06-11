@@ -38,6 +38,28 @@ def test_ex1_py_from_uri():
     eq_([x.name for x in rc],
         ["dataset3", "dataset4"])
 
+    rc = sefara.load(
+        "file://" + data_path("ex1.py#filter=tags.gamma&filter=tags.sigma"))
+    eq_([x.name for x in rc],
+        ["dataset3", "dataset4"])
+
+    rc = sefara.load(
+        "file://" + data_path("ex1.py#&filter=tags.gamma&filter=tags.sigma&filter='3' not in name"))
+    eq_([x.name for x in rc],
+        ["dataset4"])
+
+    rc = sefara.load(
+        "file://" + data_path(
+            "ex1.py#filter=tags.gamma#&filter=tags.sigma#filter='#' not in name"))
+    eq_([x.name for x in rc],
+        ["dataset3", "dataset4"])
+
+    rc = sefara.load(
+        "file://" + data_path(
+            'ex1.py#&filter=tags.gamma&filter=tags.sigma&filter="#" not in name'))
+    eq_([x.name for x in rc],
+        ["dataset3", "dataset4"])
+
 def test_transform_ex1_py():
     rc = sefara.load("file://" + data_path("ex1.py"))
     rc.transform(data_path("transform_ex1.py"))

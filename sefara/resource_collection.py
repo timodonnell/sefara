@@ -112,7 +112,7 @@ class ResourceCollection(object):
 
     def check(self, checkers=None, include_environment_checkers=True):
         '''
-        Run "checkers", either specified directly or using environment
+        Run "checkers", either specified as an argument or using environment
         variables, on this resource collection.
 
         Checkers are used to validate that the resources in a collection
@@ -122,17 +122,44 @@ class ResourceCollection(object):
         Parameters
         ----------
         checkers : list of either callables, strings, or
-                    (path, name, args kwargs) tuples [optional]
+                    (path, name, args, kwargs) tuples [optional]
+            Like transforms, checkers are called with this ResourceCollection
+            instance as an argument. Unlike transforms, checkers should NOT
+            mutate the resources. They are expected to return a list or
+            generator of three element tuples, giving:
+                 ``(resource, attempted, problem)``
+            where ``resource`` is a Resource in this collection, ``attempted``
+            is True if validation was attempted on this resource, and
+            ``problem`` is a string error message if validation was unsuccesful
+            (None otherwise).
+
+            By returning ``attempted=False`` in the tuple above, checkers
+            indicate that a resource did not conform to the schema the checker
+            knows how to validate. For example, a checker might be verifying
+            that files pointed to by resources exist, but some resource may not
+            specify any file. In this case, the checker should set
+            ``attempted=False``. Another checker in use may know how to
+            validate that resource. The ``sefara-check`` tool reports any
+            resources that were not attempted by any checker as an error.
+
+            Checkers should generate a tuple for *every* resource in the
+            collection *in the order they appear in the collection*.
 
         include_environment_checkers : boolean [optional, default: True]
+            If True, then checkers configured in environment variables are run,
+            in addition to any checkers specified in the first argument.
 
+            See the `environment` module for the definition of the environment
+            variable used here.
 
-
-        Checkers is a list. Each element can either be a callable, a string
-        (path to file), or tuple of (path, name, args, kwargs).
-
-        Each checker should return an iterable of
-        # (resource, attempted?, None if no errors otherwise error message )
+        Returns
+        ----------
+        Generator giving (resource, tuples) pairs, where resource is a Resource
+        in this collection, and tuples is a list of
+            ``(checker, attempted, error)`` giving whether each checker
+        attempted validation of that resource, and, if so, the result.
+        ``error`` is None if validation was successful, otherwise a string
+        giving the error.
         '''
         if checkers is None:
             checkers = []
