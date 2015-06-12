@@ -34,7 +34,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'numpydoc',
     'sphinxcontrib.programoutput',
-    'sphinxcontrib.autorun',
+    'sphinxcontrib.autorun2',
     'sphinxcontrib.autoprogram',
 ]
 
