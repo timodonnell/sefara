@@ -6,12 +6,8 @@ env:
   - secure: LtLG4uwY3KP+zf2rMc78TtzPNpzFWgnQkXBI6dzDycc+RjSDsstJv6vU1VW3hSGqTFvqgnAJoiOOPJtCZifgydJJL/xPyO1iohHqQVEzKNSddQNrSF2CAnb37iw6zpcIV0YeeqKofb3BggoBzycoi/JI7VMUOdzQCpb5OU1zrwE=
 
 python:
-    - "2.6"
     - "2.7"
-    - "3.2"
-    - "3.3"
     - "3.4"
-    - "nightly"
 
 # command to install dependencies
 install: "pip install ."
