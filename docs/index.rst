@@ -1,16 +1,18 @@
 Sefara Documentation
 ==================================
 
-.. toctree::
-   :hidden:
-
-   tutorial
-
 .. include:: ../README.rst
 
-.. include:: tutorial.rst
+Contents
+==================
+.. toctree::
+    :maxdepth: 2
 
-API Documentation
+   tutorial
+   sefara
+   tools
+
+Indices and tables
 ==================
 
 * :ref:`modindex`

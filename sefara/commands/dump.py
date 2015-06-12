@@ -23,7 +23,7 @@ import sys
 
 from . import util
 
-parser = argparse.ArgumentParser(usage=__doc__)
+parser = argparse.ArgumentParser(description=__doc__)
 util.add_load_arguments(parser)
 parser.add_argument("--format", choices=('json', 'python'))
 parser.add_argument("--out")

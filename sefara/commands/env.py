@@ -19,11 +19,16 @@ from __future__ import absolute_import, print_function
 
 import sys
 import os
+import argparse
 
 from .. import environment
 from ..util import shell_quote
 
+parser = argparse.ArgumentParser(description=__doc__)
+
 def run(argv=sys.argv[1:]):
+    parser.parse_args(argv)
+
     variables = [
         environment.TRANSFORM_ENVIRONMENT_VARIABLE,
         environment.CHECKER_ENVIRONMENT_VARIABLE,

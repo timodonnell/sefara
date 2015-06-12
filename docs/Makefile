@@ -23,7 +23,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 # Added by Tim:
 rst:
-	sphinx-apidoc -f -o . ../sefara
+	sphinx-apidoc -T -f -o . ../sefara ../sefara/commands
 
 view:
 	open _build/html/index.html

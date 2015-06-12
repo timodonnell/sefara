@@ -32,7 +32,7 @@ from ..resource import Tags
 from .util import print_stderr as stderr
 from ..util import shell_quote, move_to_front
 
-parser = argparse.ArgumentParser(usage=__doc__)
+parser = argparse.ArgumentParser(description=__doc__)
 util.add_load_arguments(parser)
 parser.add_argument("-f", "--field", action="append", nargs="+", default=[])
 parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),

@@ -1,44 +1,72 @@
 Tutorial
 ==============================
 
-Resources
+Creating a resource collection
 ------------------------------
 
-We use the term "resource" to mean any entity used in an analysis. In
-practice resources usually correspond to files on a filesystem, but
-sefara makes no assumptions about this.
+A "resource" describes an entity used in an analysis. Resources
+often point to files on a filesystem, but sefara makes no assumptions
+about this. Sefara is a tool for managing resources.
 
 Users define a "resource collection" in a file that sefara reads. Two
-formats are supported for resource collection files: executable Python
-and JSON.
+formats are supported for these files: executable Python and JSON.
 
-Here's an example resource collection with two resources, defined using
-Python:
+Here's a resource collection defined using Python:
 
 .. literalinclude:: resource-collections/ex1.py
 
-This defines two resources named ``patientA_sequencing_blood_2010`` and
-``patientA_sequencing_tumor_2012``. Sefara resources always have a
-``name`` attribute (the first parameter to the ``export`` function).
+This defines five resources named ``patientA_sequencing_blood_2010``,
+``patientA_sequencing_tumor_2012``, and so on (this example is from a cancer DNA sequencing analysis).
+
+Sefara resources always have a ``name`` attribute, given as the first parameter to the ``export`` function.
 Everything else is optional. If you define a ``tags`` attribute for your
-resource, as in the file above, then Sefara treats that attribute
+resource, as in the file above, then Sefara treats that attribute slightly
 specially, as we'll see below. All the other fields (like ``path`` and
 ``capture_kit``) are up to the user and are not interpreted by Sefara in
 any way.
 
-We could also have defined these resources by making a JSON file, like
-this:
+.. note::
+    Using Python as a configuration language for resource collections has pros and cons. Python enables concise descriptions of collections that have repetitive structure. However, full-fledged programs can be difficult to debug and maintain.
+
+    The best practice is to keep collection files very simple. Loops and string manipulation are fine, but libraries, filesystems, or network services should be avoided.
+
+    If you find yourself writing a complex Python script to define a collection, consider instead writing a script that *creates* the collection. That script can be called once to write out a collection (in either Python or JSON format), to be used for subsequent analysis.
+
+We could also have defined these resources in JSON file. Here is the same collection defined using JSON:
 
 .. program-output:: sefara-dump resource-collections/ex1.py
 
+Opening a resource collection in Python
+---------------------------------------
 
-Two commandline tools: sefara-select and sefara-dump
-----------------------------------------------------
+The collection shown before can be opened in Python using `sefara.load`:
+
+.. runblock:: pycon
+
+    >>> import sefara
+    >>> resources = sefara.load("resource-collections/ex1.py")
+    >>> print(resources)
+
+Individual resources in a collection can be accessed by name or index:
+
+.. runblock:: pycon
+
+    >>> resources["patientA_sequencing_tumor_2012"]
+    >>> resources[0]
+
+
+Two tools: sefara-select and sefara-dump
+---------------------------------------------------- 
+
+The ``sefara-select`` tool extracts fields from a sefara collection.
+
+
+
+
 
 Use
 
-Opening a resource collection in Python
----------------------------------------
+
 
 Site-specific configuration with hooks
 --------------------------------------
