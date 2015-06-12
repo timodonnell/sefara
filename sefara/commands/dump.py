@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 '''
-Dump a sefara dataset, possibly into a different format or after applying
-filters or decorators.
+Read and then write a sefara resource collection, possibly into a different
+format or after applying filters or transforms.
 '''
 
 from __future__ import absolute_import, print_function
@@ -23,11 +23,16 @@ import sys
 
 from . import util
 
-parser = argparse.ArgumentParser(description=__doc__)
-util.add_load_arguments(parser)
-parser.add_argument("--format", choices=('json', 'python'))
-parser.add_argument("--out")
-parser.add_argument("--indent", type=int, default=4)
+parser = argparse.ArgumentParser(
+    description=__doc__,
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    parents=[util.load_collection_parser])
+parser.add_argument("--format", choices=('json', 'python'),
+    help="Output format")
+parser.add_argument("--out",
+    help="Output file. Default: stdout.")
+parser.add_argument("--indent", type=int, default=4,
+    help="Number of spaces for indentation in output. Default: %(default)d.")
 
 def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)

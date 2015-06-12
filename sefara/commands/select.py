@@ -32,16 +32,29 @@ from ..resource import Tags
 from .util import print_stderr as stderr
 from ..util import shell_quote, move_to_front
 
-parser = argparse.ArgumentParser(description=__doc__)
-util.add_load_arguments(parser)
-parser.add_argument("-f", "--field", action="append", nargs="+", default=[])
+parser = argparse.ArgumentParser(
+    description=__doc__,
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    parents=[util.load_collection_parser])
+parser.add_argument("-f", "--field", action="append", nargs="+", default=[],
+    help="Field to select. Can be specified multiple times. Interpreted as a "
+    "Python expression, so things like 'name.lower()' are valid.")
 parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),
-    default="csv")
-parser.add_argument("--header", choices=('on', 'off'))
-parser.add_argument("--out")
-parser.add_argument("--all-fields", action="store_true", default=False)
-parser.add_argument("--stop-on-error", action="store_true", default=False)
-parser.add_argument("--skip-errors", action="store_true", default=False)
+    default="csv",
+    help="Output format. Default: %(default)s.")
+parser.add_argument("--header", choices=('on', 'off'),
+    help="Whether to output a header row in csv format. Defaults to 'on' if "
+    "more than one field is selected, 'off' otherwise.")
+parser.add_argument("--out", help="Output file. Default: stdout.")
+parser.add_argument("--all-fields", action="store_true", default=False,
+    help="Select all fields")
+parser.add_argument("--stop-on-error", action="store_true", default=False,
+    help="If an error occurs processing a resource, quit. By default, the "
+    "problematic field is set to None, and any errors are printed at the "
+    "end.")
+parser.add_argument("--skip-errors", action="store_true", default=False,
+    help="If an error occurs processing a resource, silently skip that "
+    "resource.")
 
 def extract_best(datum):
     if (typechecks.is_string(datum) or

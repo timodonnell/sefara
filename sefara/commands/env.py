@@ -24,7 +24,8 @@ import argparse
 from .. import environment
 from ..util import shell_quote
 
-parser = argparse.ArgumentParser(description=__doc__)
+parser = argparse.ArgumentParser(
+    description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 
 def run(argv=sys.argv[1:]):
     parser.parse_args(argv)

@@ -15,19 +15,24 @@
 from __future__ import absolute_import, print_function
 
 import sys
+import argparse
 
 from .. import load
 
-def add_load_arguments(parser):
-    parser.add_argument("collection")
-    parser.add_argument("--filter", action="append", default=[])
-    parser.add_argument("--transform", action="append", default=[])
-    parser.add_argument("--no-environment-transforms",
-        dest="environment_transforms",
-        action="store_false",
-        default=True)
-
-    return parser
+load_collection_parser = argparse.ArgumentParser(add_help=False)
+load_collection_parser.add_argument("collection",
+    help="Resource collection path or URL")
+load_collection_parser.add_argument("--filter", action="append", default=[],
+    help="Filter expression. Can be specified multiple times; "
+    "the result is the intersection of the filters.")
+load_collection_parser.add_argument("--transform", action="append", default=[],
+    help="Path to Python file with transform function to run. Can be "
+    "specified multiple times.")
+load_collection_parser.add_argument("--no-environment-transforms",
+    dest="environment_transforms",
+    action="store_false",
+    default=True,
+    help="Do not run transforms configured in environment variables.")
 
 def load_from_args(args):
     rc = load(
