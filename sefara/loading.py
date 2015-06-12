@@ -26,7 +26,7 @@ import contextlib
 from .resource_collection import ResourceCollection
 from .resource import Resource
 from .util import exec_in_directory, urlparse, urlopen, parse_qsl
-from . import export_util
+from . import exporting
 
 def load(
         filename,
@@ -215,16 +215,16 @@ def loads(data, filename=None, format="json", environment_transforms=True):
     transforms = []
     if format == "python":
         try:
-            old_resources = export_util._EXPORTED_RESOURCES
-            old_transforms = export_util._TRANSFORMS
-            export_util._EXPORTED_RESOURCES = []
-            export_util._TRANSFORMS = []
+            old_resources = exporting._EXPORTED_RESOURCES
+            old_transforms = exporting._TRANSFORMS
+            exporting._EXPORTED_RESOURCES = []
+            exporting._TRANSFORMS = []
             exec_in_directory(filename=filename, code=data)
         finally:
-            transforms = export_util._TRANSFORMS
-            resources = export_util._EXPORTED_RESOURCES
-            export_util._EXPORTED_RESOURCES = old_resources
-            export_util._TRANSFORMS = old_transforms
+            transforms = exporting._TRANSFORMS
+            resources = exporting._EXPORTED_RESOURCES
+            exporting._EXPORTED_RESOURCES = old_resources
+            exporting._TRANSFORMS = old_transforms
         rc = ResourceCollection(resources, filename)
     elif format == "json":
         parsed = json.loads(data, object_pairs_hook=collections.OrderedDict)

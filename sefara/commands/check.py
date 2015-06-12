@@ -25,7 +25,7 @@ from . import util
 from .. import resource_collection
 from .util import print_stderr as stderr
 
-parser = argparse.ArgumentParser(usage=__doc__)
+parser = argparse.ArgumentParser(description=__doc__)
 util.add_load_arguments(parser)
 parser.add_argument("--checker", action="append", default=[])
 parser.add_argument("--no-environment-checkers",
