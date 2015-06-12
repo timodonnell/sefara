@@ -19,8 +19,10 @@ from .resource import Resource
 from .loading import load, loads
 from .exporting import export, export_resources, transform_exports
 from . import environment
+from . import commands
 
 __all__ = [
+    commands,
     load,
     loads,
     ResourceCollection,
