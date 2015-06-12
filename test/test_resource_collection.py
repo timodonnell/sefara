@@ -8,8 +8,7 @@ def test_ex1_py():
     eq_(rc["dataset1"].something, "something-bar")
 
     dataset1 = rc.resources["dataset1"]
-    tags = list(dataset1.tags)
-    eq_(tags, ["alpha", "beta"])
+    eq_(dataset1.tags, set(["alpha", "beta"]))
 
     eq_(rc.resources["dataset2"].name, "dataset2")
     eq_(len(rc.resources), 4)
