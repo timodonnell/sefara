@@ -16,4 +16,11 @@ script:
     - nose2
 
 after_success:
+    - pip install Sphinx
+    - cd docs
+    - make clean
+    - make setup
+    - make rst
+    - make html
+    - cd ..
     - bash ./deploy-gh-pages.sh

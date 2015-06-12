@@ -2,14 +2,7 @@
 
 # Adapted from https://github.com/w3ctag/promises-guide/blob/master/deploy-gh-pages.sh
 
-pip install Sphinx
-
-cd docs
-make clean
-make setup
-make rst
-make html
-cd _build
+cd docs/_build
 
 touch .nojekyll
 
