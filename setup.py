@@ -33,7 +33,6 @@ setup(
     install_requires=[
         "attrdict>=2.0.0",
         "nose>=1.3.1",
-        "nose2>=0.5.0",
         "typechecks>=0.0.2",
         "future>=0.14.3",
     ]
