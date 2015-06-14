@@ -85,13 +85,14 @@ def check(collection, checkers=None, include_environment_checkers=True):
 
     Parameters
     ----------
-    checkers : list of either callables, strings, or
-                (path, name, args, kwargs) tuples [optional]
+    checkers : list of either callables, strings, or tuples [optional]
+        
+        If tuples, the elements are ``(path, name, args, kwargs)``.
+
         Like transforms, checkers are called with this ResourceCollection
         instance as an argument. Unlike transforms, checkers should NOT
         mutate the resources. They are expected to return a list or
-        generator of three element tuples, giving:
-             ``(resource, attempted, problem)``
+        generator of three element tuples, ``(resource, attempted, problem)``
         where ``resource`` is a Resource in this collection, ``attempted``
         is True if validation was attempted on this resource, and
         ``problem`` is a string error message if validation was unsuccesful
@@ -120,7 +121,7 @@ def check(collection, checkers=None, include_environment_checkers=True):
     ----------
     Generator giving (resource, tuples) pairs, where resource is a Resource
     in this collection, and tuples is a list of
-        ``(checker, attempted, error)`` giving whether each checker
+    ``(checker, attempted, error)`` giving whether each checker
     attempted validation of that resource, and, if so, the result.
     ``error`` is None if validation was successful, otherwise a string
     giving the error.

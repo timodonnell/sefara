@@ -50,6 +50,7 @@ The collection shown before can be opened in Python using `sefara.load`:
 To get a detailed summary of each resource, use the `ResourceCollection.summary` property:
 
 .. runblock:: pycon
+
     >>> resources.summary
 
 Individual resources in a collection can be accessed by name or index:
