@@ -60,7 +60,7 @@ Individual resources in a collection can be accessed by name or index:
     >>> resources["patientA_sequencing_tumor_2012"]
     >>> resources[0]
 
-Use `Resource.select` to pick out certain fields, as a pandas dataframe:
+Use `ResourceCollection.select` to pick out certain fields, as a pandas dataframe:
 
 .. runblock:: pycon
 

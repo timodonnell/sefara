@@ -85,12 +85,12 @@ class Resource(AttrMap):
             If a string, then it should give a valid Python expression.
             This expression will be evaluated with the
             attributes of this resource in the local namespace. For
-            example, since the resource has a `name` attribute, the
+            example, since the resource has a ``name`` attribute, the
             expression "name.lower()" would return the name in lower
             case. Tags can be accessed through the `tags` variable.
-            If the resource has a tag called `foo`, then the expression
-            "tags.foo" will evaluate to True. If there is no such tag,
-            then "tags.foo" will evaluate to False.
+            If the resource has a tag called ``foo``, then the expression
+            "tags.foo" will evaluate to ``True``. If there is no such tag,
+            then "tags.foo" will evaluate to ``False``.
 
             If a callable, then it will be called and passed this Resource
             instance as its argument.
@@ -147,8 +147,8 @@ class Tags(set):
 
     This class inherits from Python's `set` class and supports all the
     functionality of that class. Additionally, it supports attribute
-    access as a way to test membership: tags.foo will return True if
-    the string `foo` is in the set, and False otherwise.
+    access as a way to test membership: ``tags.foo`` will return ``True`` if
+    the string "foo" is in the set, and ``False`` otherwise.
     """
     def __init__(self, tags):
         for tag in tags:

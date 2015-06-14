@@ -285,8 +285,8 @@ class ResourceCollection(object):
     @property
     def summary(self):
         """
-        Return a string summarzing the resources in this collection, including
-        their attributes.
+        A string summarzing the resources in this collection, including their
+        attributes.
         """
         lines = []
 
