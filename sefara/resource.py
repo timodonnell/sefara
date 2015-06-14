@@ -83,24 +83,56 @@ class Resource(AttrMap):
         ----------
         expression : string or callable
             If a string, then it should give a valid Python expression.
-            This expression will be evaluated with the
-            attributes of this resource in the local namespace. For
-            example, since the resource has a ``name`` attribute, the
-            expression "name.lower()" would return the name in lower
-            case. Tags can be accessed through the `tags` variable.
-            If the resource has a tag called ``foo``, then the expression
-            "tags.foo" will evaluate to ``True``. If there is no such tag,
-            then "tags.foo" will evaluate to ``False``.
+            This expression will be evaluated with the attributes of this
+            resource in the local namespace. For example, since the resource
+            has a ``name`` attribute, the expression "name.lower()" would
+            return the name in lower case. Tags can be accessed through the
+            ``tags`` variable. If the resource has a tag called ``foo``, then
+            the expression "tags.foo" will evaluate to ``True``. If there is no
+            such tag, then "tags.foo" will evaluate to ``False``.
 
-            If a callable, then it will be called and passed this Resource
-            instance as its argument.
+            A few common modules are included in the evaluation namespace,
+            including ``os``, ``sys``, ``collections``, ``re``, and ``json``.
+            The resource object itself is also available in the ``resource``
+            variable.
+
+            As a hack to support a primitive form of exception handling, a
+            function called ``on_error`` is also included in the evaluation
+            namespace. This function takes a single argument, ``value``, of
+            any type and returns None. If ``on_error`` is called while
+            evaluating the expression, and the expression subsequently raises
+            an exception, then the exception is caught and ``value`` is
+            returned as the value of the expression. This means you can write
+            expressions like:
+
+                ``on_error(False) or foo.startswith("bar")``
+
+            and if the right side of the expression raises an error (for
+            example, if there is no such attribute ``foo`` in the resource),
+            then the value ``False`` will be used as the expression's value.
+            Note that you must write the expression as it is here: put the
+            ``on_error`` clause first, and connect it with the main expression
+            with `or` (this ensures that it gets called before the rest of the
+            expression).
+
+            If ``expression`` is a callable, then it will be called and passed
+            this Resource instance as its argument.
+
+        error_value : object [optional]
+            If evaluating the expression results in an uncaught exception,
+            the ``error_value`` value will be returned instead. If not
+            specified, then ``evaluate`` will raise the exception to the
+            caller.
 
         Returns
         ----------
         The Python object returned by evaluating the expression.
 
         """
-        error_box = [error_value]
+        # Since Python 2 doesn't have a nonlocal keyword, we have to box up the
+        # error_value, so we can reassign to it in the ``on_error`` function
+        # below.
+        error_box = [error_value] 
         try:
             if typechecks.is_string(expression):
                 # Give some basic modules.

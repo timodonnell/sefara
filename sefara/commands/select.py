@@ -13,6 +13,24 @@
 # limitations under the License.
 '''
 Select fields from a sefara collection.
+
+To get the 'name' and 'path' fields from a resource collection called
+"collection.sefara.py":
+
+    sefara-select collection.sefara.py name path
+
+Fields are interpreted as Python expressions and evaluated in a context that
+includes the resource's attributes as local variables. For example, this is a
+valid invocation:
+
+    sefara-select collection.sefara.py "name.lower()" "os.path.abspath(path)"
+
+In csv output, a header row is included by default when more than one field is
+selected. To customize the label, give a label of the form "LABEL: EXPRESSION".
+For example:
+
+    sefara-select rc.py "resource: name" "full_path: os.path.abspath(path)"
+
 '''
 
 from __future__ import absolute_import, print_function
@@ -20,6 +38,8 @@ from __future__ import absolute_import, print_function
 import argparse
 import csv
 import sys
+
+from future.utils import raise_
 
 from . import util
 from .util import print_stderr as stderr
@@ -29,10 +49,9 @@ parser = argparse.ArgumentParser(
     description=__doc__,
     formatter_class=argparse.RawDescriptionHelpFormatter,
     parents=[util.load_collection_parser])
-
 parser.add_argument("field", nargs="*",
-    help="Field(s) to select. Can be specified multiple times. Interpreted as "
-    "a Python expression, so things like 'name.lower()' are valid.")
+    help="Expressions to select from each resource. Specify one or more "
+    "times.")
 parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),
     default="csv",
     help="Output format. Default: %(default)s.")
@@ -51,7 +70,12 @@ parser.add_argument("--skip-errors", action="store_true", default=False,
     "resource.")
 parser.add_argument("--if-error",
     choices=("raise", "skip", "none"),
-        default="raise")
+    default="raise",
+    help="How to handle exceptions raised in expression evaluation. "
+    "If 'raise', the script will halt with a traceback. If 'skip', the "
+    "problematic resource(s) will be silently omitted from the result. "
+    "If 'none', the Python None value will be silently used in place of "
+    "the expression. Default: %(default)s.")
 
 def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)
@@ -74,9 +98,9 @@ def run(argv=sys.argv[1:]):
             % ", ".join(intersect_fields))
         return
 
-    result = rc.select(*fields, if_error=args.if_error)
     fd = open(args.out, "w") if args.out else sys.stdout
     try:
+        result = rc.select(*fields, if_error=args.if_error)
         if args.format == "csv":
             writer = csv.writer(fd)
             if (args.header == 'on' or
@@ -104,6 +128,13 @@ def run(argv=sys.argv[1:]):
             fd.write("\n")
         else:
             raise ValueError("Unknown format: %s" % format)
+
+    except Exception as e:
+        extra = """
+        To skip errors like this, pass --if-error skip or --if-error none
+        """
+        traceback = sys.exc_info()[2]
+        raise_(ValueError, str(e) + "\n\n" + extra.strip(), traceback)
 
     finally:
         fd.close()

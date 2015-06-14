@@ -19,14 +19,12 @@ import json
 import collections
 import datetime
 import getpass
-import os
 import pandas
 import re
 
 import typechecks
 
-from .util import exec_in_directory, shell_quote
-from . import environment
+from .util import shell_quote
 from . import Resource
 
 class NoCheckers(Exception):
@@ -117,6 +115,53 @@ class ResourceCollection(object):
         return self[0]
 
     def select(self, *expressions, **kwargs):
+        """
+        Pick out certain fields (or functions of fields) from each resource in
+        the collection as a pandas DataFrame.
+
+        Parameters
+        ----------
+        *expressions : string, callable, or (string, string or callable) pair
+            One or more expressions giving the fields to select.
+
+            Each expression can be either a ``string`` expression, a
+            ``callable``, or a ``(string, string | callable)`` pair giving a
+            label and an expression.
+
+            Labels give the column names in the result. Labels can be specified
+            either by giving a ``(label, expression)`` pair, or giving a string
+            of the form "LABEL: EXPRESSION", such as
+            "upper_name: name.upper()". Here "upper_name" is the label, and
+            "name.upper()" is the expression that will be evaluated. If not
+            specified, labels default to the text of the ``expression`` if
+            ``expression`` is a string, and an automatically generated label if
+            ``expression`` is a callable.
+
+            Each ``expression`` will be passed to `Resource.evaluate` for each
+            resource in the collection. See that method's docs for details on
+            expression evaluation.
+
+        if_error : string, one of "raise", "skip", or "none" [default: "raise"]
+            Must be specified as a keyword argument. Controls the behavior when
+            evaluation of an expression raises an uncaught exception. One of:
+
+            raise
+                Raise the exception to the caller. This is the default.
+
+            skip
+                Skip resources where evaluation of any of the expressions
+                raises an error. These resources will be omitted from the
+                result.
+
+            none
+                If evaluating an expression on a resource raises an exception,
+                set that entry in the result to ``None``.
+
+        Returns
+        -------
+        A `pandas.DataFrame`. Rows correspond to resources. Columns correspond
+        to the specified expressions.
+        """
         if_error = kwargs.pop("if_error", "raise")
         if if_error == "raise" or if_error == "skip":
             error_value = Resource.RAISE_ON_ERROR
