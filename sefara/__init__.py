@@ -14,12 +14,12 @@
 
 from __future__ import absolute_import
 
-from .resource_collection import ResourceCollection
+from . import environment
 from .resource import Resource
 from .loading import load, loads
 from .exporting import export, export_resources, transform_exports
-from . import environment
 from . import commands
+from .resource_collection import ResourceCollection
 
 __all__ = [
     commands,

@@ -27,6 +27,17 @@ def test_ex1_py():
     eq_([x.name for x in rc.filter(lambda resource: resource.tags.gamma)],
         ["dataset2", "dataset3", "dataset4"])
 
+def test_ex1_select():
+    rc = sefara.load(data_path("ex1.py"))
+    eq_(list(rc.select("name")["name"]),
+        ["dataset1", "dataset2", "dataset3", "dataset4"])
+    eq_(list(rc.select("thing:name")["thing"]),
+        ["dataset1", "dataset2", "dataset3", "dataset4"])
+    eq_(list(rc.select("thing 17:name")["thing 17"]),
+        ["dataset1", "dataset2", "dataset3", "dataset4"])
+    eq_(list(rc.select("a_b: on_error(-17) or name_non_existant")["a_b"]),
+        [-17, -17, -17, -17])
+
 def test_ex1_py_from_uri():
     rc = sefara.load(data_path("ex1.py#filter=tags.gamma"))
     eq_([x.name for x in rc],

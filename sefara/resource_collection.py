@@ -20,11 +20,14 @@ import collections
 import datetime
 import getpass
 import os
+import pandas
+import re
 
 import typechecks
 
 from .util import exec_in_directory, shell_quote
 from . import environment
+from . import Resource
 
 class NoCheckers(Exception):
     pass
@@ -285,6 +288,60 @@ class ResourceCollection(object):
             raise ValueError("Expected exactly 1 resource, not %d: %s."
                 % (len(self.resources), ' '.join(self.resources)))
         return self[0]
+
+    def select(self, *expressions, **kwargs):
+        if_error = kwargs.pop("if_error", "raise")
+        if if_error == "raise" or if_error == "skip":
+            error_value = Resource.RAISE_ON_ERROR
+        elif if_error == "none":
+            error_value = None
+        else:
+            raise TypeError("if_error should be 'raise', 'skip', or 'none'")
+        if kwargs:
+            raise TypeError("Invalid keyword arguments: %s" % " ".join(kwargs))
+
+        labels_and_expressions = []
+        expr_num = 1
+        for expression in expressions:
+            if isinstance(expression, tuple):
+                (label, expression) = expression
+            elif typechecks.is_string(expression):
+                match = re.match(r"^([\w ]+):(.*)$", expression)
+                if match is None:
+                    label = expression
+                else:
+                    (label, expression) = match.groups()
+            else:
+                label = "expr_%d" % expr_num
+                expr_num += 1
+            labels_and_expressions.append((label, expression))
+
+        df_dict = collections.OrderedDict(
+            (label, []) for (label, _) in labels_and_expressions)
+
+        def values_for_resource(resource):
+            result = []
+            for (label, expression) in labels_and_expressions:
+                try:
+                    value = resource.evaluate(
+                        expression, error_value=error_value)
+                except:
+                    if if_error == "raise":
+                        raise
+                    elif if_error == "skip":
+                        return None
+                    elif if_error == "none":
+                        value = None
+                result.append(value)
+            return result
+
+        for resource in self:
+            row = values_for_resource(resource)
+            if row is not None:
+                for ((label, _), value) in zip(labels_and_expressions, row):
+                    df_dict[label].append(value)
+
+        return pandas.DataFrame(df_dict)
 
     def __getitem__(self, index_or_key):
         if isinstance(index_or_key, (int, slice)):

@@ -47,12 +47,37 @@ The collection shown before can be opened in Python using `sefara.load`:
     >>> resources = sefara.load("resource-collections/ex1.py")
     >>> print(resources)
 
+To get a detailed summary of each resource, use the `ResourceCollection.summary` property:
+
+.. runblock:: pycon
+    >>> resources.summary
+
 Individual resources in a collection can be accessed by name or index:
 
 .. runblock:: pycon
 
     >>> resources["patientA_sequencing_tumor_2012"]
     >>> resources[0]
+
+Use `Resource.select` to pick out certain fields, as a pandas dataframe:
+
+.. runblock:: pycon
+
+    >>> resources.select("name", "path")
+
+By default, if you try to select a field that doesn't exist in some resource, you'll get an exception. To instead skip these resources, pass ``if_error="skip"`` to `select`. Here, we'll skip the last resource, which has no "capture_kit" field.
+
+.. runblock:: pycon
+
+    >>> resources.select("name", "capture_kit", if_error="skip")
+
+
+Everything is a Python expression
+---------------------------------------
+
+
+
+
 
 
 Two tools: sefara-select and sefara-dump

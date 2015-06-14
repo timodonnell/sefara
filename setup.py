@@ -35,5 +35,6 @@ setup(
         "nose>=1.3.1",
         "typechecks>=0.0.2",
         "future>=0.14.3",
+        "pandas>=0.16.1",
     ]
 )

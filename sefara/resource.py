@@ -16,6 +16,7 @@ import os
 import re
 import collections
 import sys
+import json
 from future.utils import raise_
 import typechecks
 from attrdict import AttrMap
@@ -71,7 +72,9 @@ class Resource(AttrMap):
     def __repr__(self):
         return str(self)
 
-    def evaluate(self, expression):
+    RAISE_ON_ERROR = object()
+
+    def evaluate(self, expression, error_value=RAISE_ON_ERROR):
         """
         Evaluate a Python expression or callable in the context of this
         resource.
@@ -97,6 +100,7 @@ class Resource(AttrMap):
         The Python object returned by evaluating the expression.
 
         """
+        error_box = [error_value]
         try:
             if typechecks.is_string(expression):
                 # Give some basic modules.
@@ -106,11 +110,20 @@ class Resource(AttrMap):
                     "sys": sys,
                     "collections": collections,
                     "re": re,
+                    "json": json,
                 }
+
+                # We also add our "on_error" hack.
+                def on_error(value):
+                    error_box[0] = value
+                environment["on_error"] = on_error
+
                 return eval(expression, environment, self)
             else:
                 return expression(self)                
         except Exception as e:
+            if error_box[0] is not Resource.RAISE_ON_ERROR:
+                return error_box[0]
             extra = "Error while evaluating: \n\t%s\non resource:\n%s" % (
                 expression, self)
             traceback = sys.exc_info()[2]
