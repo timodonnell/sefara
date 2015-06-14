@@ -14,6 +14,10 @@ make rst
 make html
 
 cd _build
+
+mkdir docs
+mv html docs
+
 touch .nojekyll
 
 git init
