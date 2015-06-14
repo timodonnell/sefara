@@ -6,7 +6,6 @@ Sefara Documentation
 Contents
 ==================
 .. toctree::
-    :maxdepth: 2
 
    tutorial
    sefara

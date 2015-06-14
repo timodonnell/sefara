@@ -66,9 +66,12 @@ def load(
                 environment variables.
 
         The fragment operations are processed in order, left to right, and
-        can be specified multiple times. That is, the URL
+        can be specified multiple times. That is, the URL:
+
             "file.py#filter=tags.bar&filter=tags.baz"
-        is equivalent to
+        
+        is equivalent to:
+        
             "file.py#filter=tags.bar and tags.baz".
 
         Fragment values can have spaces, and should not be quoted even if they
