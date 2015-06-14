@@ -53,26 +53,29 @@ def load(
         "file1.txt#filter=tags.foo&format=json".
 
         Valid fragment keys are:
-            filter - The value is a Python expression giving a sefara filter.
+        
+            filter
+                The value is a Python expression giving a sefara filter.
 
-            transform - The value is a path to a Python file with a sefara
-                transform.
+            transform
+                The value is a path to a Python file with a sefara transform.
 
-            format - the value gives the format of the data, either "python" or
+            format
+                The value gives the format of the data, either "python" or
                 "json".
 
-            environment_transforms - the value should be "true" or "false"
-                indicating whether to run transforms configured with
-                environment variables.
+            environment_transforms
+                The value should be "true" or "false" indicating whether to run
+                transforms configured with environment variables.
 
         The fragment operations are processed in order, left to right, and
         can be specified multiple times. That is, the URL:
 
-            "file.py#filter=tags.bar&filter=tags.baz"
+            ``file.py#filter=tags.bar&filter=tags.baz``
         
         is equivalent to:
         
-            "file.py#filter=tags.bar and tags.baz".
+            ``file.py#filter=tags.bar and tags.baz``
 
         Fragment values can have spaces, and should not be quoted even if they
         do (as in the above example).
