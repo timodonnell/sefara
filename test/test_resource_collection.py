@@ -72,7 +72,7 @@ def test_ex1_py_from_uri():
 
 def test_transform_ex1_py():
     rc = sefara.load("file://" + data_path("ex1.py"))
-    rc.transform(data_path("transform_ex1.py"))
+    sefara.hooks.transform(rc, data_path("transform_ex1.py"))
     eq_(rc["dataset1"].posix_path, "/path/to/dataset1.bam")
 
 def test_transform_ex1_py_2():
@@ -81,7 +81,7 @@ def test_transform_ex1_py_2():
     def transformer(rc):
         for r in rc:
             r.name = "bar-" + r.name
-    rc.transform(transformer)
+    sefara.hooks.transform(rc, transformer)
     eq_(rc["bar-dataset1"].name, "bar-dataset1")
 
 def test_roundtrip():

@@ -26,7 +26,7 @@ import sys
 import textwrap
 
 from . import util
-from .. import resource_collection
+from .. import resource_collection, hooks
 from .util import print_stderr as stderr
 
 parser = argparse.ArgumentParser(
@@ -52,7 +52,8 @@ def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)
     rc = util.load_from_args(args)
 
-    results = rc.check(
+    results = hooks.check(
+        rc,
         args.checker,
         include_environment_checkers=args.environment_checkers)
 

@@ -14,7 +14,7 @@
 
 from __future__ import absolute_import
 
-from . import environment
+from . import environment, hooks
 from .resource import Resource
 from .loading import load, loads
 from .exporting import export, export_resources, transform_exports
@@ -31,4 +31,5 @@ __all__ = [
     export_resources,
     transform_exports,
     environment,
+    hooks,
 ]

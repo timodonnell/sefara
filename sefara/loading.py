@@ -26,7 +26,7 @@ import contextlib
 from .resource_collection import ResourceCollection
 from .resource import Resource
 from .util import exec_in_directory, urlparse, urlopen, parse_qsl
-from . import exporting
+from . import exporting, hooks
 
 def load(
         filename,
@@ -87,7 +87,7 @@ def load(
     transforms : list of strings [optional]
         Transforms to run on the ResourceCollection, in addition to any
         specified in the filename or from the environment. Anything you
-        you can pass to `ResourceCollection.transform` is accepted.
+        you can pass to `hooks.transform` is accepted.
 
     environment_transforms : Boolean [optional]
         Whether to run environment_transforms. If specified, this will override
@@ -180,12 +180,12 @@ def load(
         if operation == 'filter':
             rc = rc.filter(value)
         elif operation == 'transform':
-            rc.transform(value)
+            hooks.transform(rc, value)
         else:
             assert(False)
 
     if environment_transforms is not False:
-        rc.transform_from_environment()
+        hooks.transform_from_environment(rc)
 
     return rc
 
@@ -237,9 +237,8 @@ def loads(data, filename=None, format="json", environment_transforms=True):
         raise ValueError("Unsupported file format: %s" % filename)
 
     for transform in transforms:
-        rc.transform(transform)
+        hooks.transform(rc, transform)
 
     if environment_transforms:
-        rc.transform_from_environment()
-
+        hooks.transform_from_environment(rc)
     return rc
