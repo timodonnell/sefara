@@ -3,7 +3,6 @@
 # Adapted from https://github.com/w3ctag/promises-guide/blob/master/deploy-gh-pages.sh
 
 set -e
-set -x
 
 pip install Sphinx
 

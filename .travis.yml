@@ -3,7 +3,7 @@ language: python
 env:
   global:
   - GH_REF: github.com/timodonnell/sefara.git
-  - secure: "In5yeAKDra0/yVNWBZbCrjAMUyxunGyo0Itcs1mdbuf0TjjnFFi1yOlacsKhDIDkU/j650FgtFSbJ4hUy39U5kUwOi7F0CLuUoTt08IBIY7Fxq9OUpPzDALSZbsmUBwxMsW2x6/qevFXcnQnvdmR+Cbr2GN+QPgTzsA8SJPkz0o="
+  - secure: "LKOTsxZMfN/NVXW6q/4sWEF4a6w9I1Lw6yJGPPPRYXtTymUfp1jIgaPnADxel1pbvXuFD/9RFTunoVBS/++JIrHPKHHB4TS2Z287aB8RObk/bvUPKFbJzEDL+dO3y0lsjn8g1ySFmF6M3QS9Q3mLWtop4dF01ySmY8YCLeTG74k="
 
 python:
     - "2.7"
