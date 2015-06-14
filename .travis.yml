@@ -10,6 +10,8 @@ python:
     - "3.4"
 
 # command to install dependencies
+# for some reason, Sphinx gives an ImportError building the docs without the -e
+# option here.
 install: "pip install -e ."
 
 script:
