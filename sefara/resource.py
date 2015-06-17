@@ -136,14 +136,8 @@ class Resource(AttrMap):
         try:
             if typechecks.is_string(expression):
                 # Give some basic modules.
-                environment = {
-                    "resource": self,
-                    "os": os,
-                    "sys": sys,
-                    "collections": collections,
-                    "re": re,
-                    "json": json,
-                }
+                environment = dict(STANDARD_EVALUATION_ENVIRONMENT)
+                environment["resource"] = self
 
                 # We also add our "on_error" hack.
                 def on_error(value):
@@ -208,3 +202,11 @@ def check_valid_tag(tag):
             "Invalid tag (may not be a method on set objects): '%s'" % tag)
     if re.match('^[\w][\w-]*$', tag) is None:
         raise ValueError("Invalid tag: '%s'" % tag)
+
+STANDARD_EVALUATION_ENVIRONMENT = {
+    "os": os,
+    "sys": sys,
+    "collections": collections,
+    "re": re,
+    "json": json,
+}

@@ -21,7 +21,8 @@ from __future__ import absolute_import
 import collections
 import json
 import os
-import contextlib
+import sys
+import re
 
 from .resource_collection import ResourceCollection
 from .resource import Resource
@@ -36,7 +37,7 @@ def load(
         environment_transforms=None):
 
     """
-    Load a ResourceCollection from a file or URL.
+    Load a `ResourceCollection` from a file or URL.
 
     Collections can be defined using either Python or JSON.
 
@@ -53,7 +54,7 @@ def load(
         "file1.txt#filter=tags.foo&format=json".
 
         Valid fragment keys are:
-        
+
             filter
                 The value is a Python expression giving a sefara filter.
 
@@ -154,25 +155,31 @@ def load(
         operations.extend(("transform", x) for x in filters)
 
     # Default scheme is 'file', and needs an absolute path.
+    fd = None
     absolute_local_filename = None
     if not parsed.scheme or parsed.scheme.lower() == 'file':
-        absolute_local_filename = os.path.abspath(parsed.path)
-        parsed = parsed._replace(
-            scheme="file",
-            fragment="",
-            path=absolute_local_filename)
-        filename = parsed.geturl()
+        if parsed.path == '-':
+            # Read from stdin.
+            fd = sys.stdin
+        else:
+            absolute_local_filename = os.path.abspath(parsed.path)
+            parsed = parsed._replace(
+                scheme="file",
+                fragment="",
+                path=absolute_local_filename)
+            filename = parsed.geturl()
 
-    # Guess data format from filename extension if not specified.
+    # Try to guess data format from filename extension if not specified.
     if format is None:
         if parsed.path.endswith(".py"):
             format = "python"
         elif parsed.path.endswith(".json"):
             format = "json"
-        else:
-            raise ValueError("Couldn't guess format: %s" % filename)
 
-    with contextlib.closing(urlopen(filename)) as fd:
+    try:
+        if fd is None:
+            fd = urlopen(filename)
+
         # We don't apply environment_transforms here as we will apply them
         # ourselves after any other specified transforms or filters.    
         rc = loads(
@@ -180,6 +187,9 @@ def load(
             filename=absolute_local_filename,
             format=format,
             environment_transforms=False)
+    finally:
+        if fd is not None and fd is not sys.stdin:
+            fd.close()        
 
     # Apply filters and transforms.
     for (operation, value) in operations:
@@ -195,7 +205,7 @@ def load(
 
     return rc
 
-def loads(data, filename=None, format="json", environment_transforms=True):
+def loads(data, filename=None, format=None, environment_transforms=True):
     """
     Load a ResourceCollection from a string.
 
@@ -207,7 +217,7 @@ def loads(data, filename=None, format="json", environment_transforms=True):
     filename : string [optional]
         filename where this data originally came from to use in error messages
 
-    format : string,  either "python" or "json" [default: "json"]
+    format : string,  either "python" or "json" [default: guess from data]
         format of the data
 
     environment_transforms : Boolean [default: True]
@@ -217,6 +227,12 @@ def loads(data, filename=None, format="json", environment_transforms=True):
     -------
     ResourceCollection instance.
     """
+    if format is None:
+        # Attempt to guess format from data.
+        # We call it JSON if the first non whitespace character is '{',
+        # otherwise Python.
+        format = "json" if re.match(r"^\W*{", data) else "python"
+
     rc = None
     transforms = []
     if format == "python":

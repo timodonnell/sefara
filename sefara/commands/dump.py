@@ -20,8 +20,10 @@ from __future__ import absolute_import, print_function
 
 import argparse
 import sys
+import six
 
 from . import util
+from .. import resource
 
 parser = argparse.ArgumentParser(
     description=__doc__,
@@ -33,8 +35,17 @@ parser.add_argument("--out",
     help="Output file. Default: stdout.")
 parser.add_argument("--indent", type=int, default=4,
     help="Number of spaces for indentation in output. Default: %(default)d.")
+parser.add_argument("--code", nargs="+")
 
 def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)
     rc = util.load_from_args(args)
+
+    if args.code:
+        code = "\n".join(args.code)
+        environment = dict(resource.STANDARD_EVALUATION_ENVIRONMENT)
+        for r in rc:
+            environment["resource"] = r
+            six.exec_(code, environment, r)
+
     rc.write(args.out, args.format, indent=args.indent)

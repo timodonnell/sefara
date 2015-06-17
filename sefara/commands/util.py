@@ -22,7 +22,9 @@ from .. import load
 load_collection_parser = argparse.ArgumentParser(add_help=False)
 load_collection_parser.add_argument("collection",
     help="Resource collection path or URL")
-load_collection_parser.add_argument("--filter", action="append", default=[],
+load_collection_parser.add_argument("-f", "--filter",
+    action="append",
+    default=[],
     help="Filter expression. Can be specified multiple times; "
     "the result is the intersection of the filters.")
 load_collection_parser.add_argument("--transform", action="append", default=[],

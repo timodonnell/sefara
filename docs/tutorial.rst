@@ -28,7 +28,7 @@ any way.
 .. note::
     Using Python as a configuration language for resource collections has pros and cons. Python enables concise descriptions of collections that have repetitive structure. However, full-fledged programs can be difficult to debug and maintain.
 
-    The best practice is to keep collection files very simple. Loops and string manipulation are fine, but libraries, filesystems, or network services should be avoided.
+    The best practice is to keep collection files very simple. Loops and string manipulation are fine, but using libraries, filesystems, or network services should be avoided.
 
     If you find yourself writing a complex Python script to define a collection, consider instead writing a script that *creates* the collection. That script can be called once to write out a collection (in either Python or JSON format), to be used for subsequent analysis.
 
@@ -36,8 +36,8 @@ We could also have defined these resources in JSON file. Here is the same collec
 
 .. program-output:: sefara-dump resource-collections/ex1.py
 
-Opening a resource collection in Python
----------------------------------------
+Opening and inspecting a resource collection
+--------------------------------------------
 
 The collection shown before can be opened in Python using `sefara.load`:
 
@@ -51,33 +51,46 @@ To get a detailed summary of each resource, use the `ResourceCollection.summary`
 
 .. runblock:: pycon
 
-    >>> resources.summary
+    >>> print(resources.summary)
 
-Individual resources in a collection can be accessed by name or index:
+Individual resources in a collection can be accessed by name or numeric index:
 
 .. runblock:: pycon
 
     >>> resources["patientA_sequencing_tumor_2012"]
     >>> resources[0]
 
-Use `ResourceCollection.select` to pick out certain fields, as a pandas dataframe:
+Each `Resource` is a dict-like object (an `AttrDict`). You can access fields in the resource using either brackets (``resource["name"]``) or attributes (``resource.name``).
+
+Use `ResourceCollection.select` to pick out fields across all the resources in a collection, as a `pandas.DataFrame`:
 
 .. runblock:: pycon
 
     >>> resources.select("name", "path")
 
-By default, if you try to select a field that doesn't exist in some resource, you'll get an exception. To instead skip these resources, pass ``if_error="skip"`` to `select`. Here, we'll skip the last resource, which has no "capture_kit" field.
+If you try to select a field that doesn't exist in some resource, you'll get an exception. To instead skip these resources, pass ``if_error="skip"`` to `select`. Here, we'll skip the last resource, which has no "capture_kit" field.
 
 .. runblock:: pycon
 
     >>> resources.select("name", "capture_kit", if_error="skip")
+
+Filtering
+--------------------------------------
+
+The `ResourceCollection.filter` function filters a `ResourceCollection` using a Python expression, given as a string:
+
+.. runblock:: pycon
+
+    >>> resources.filter("tags.patient_A")
+
 
 
 Everything is a Python expression
 ---------------------------------------
 
 
-
+Loading from URLs
+---------------------------------------
 
 
 
