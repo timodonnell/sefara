@@ -8,7 +8,7 @@ setup(
     version="0.2",
     author="Tim O'Donnell",
     author_email="timodonnell@gmail.com",
-    packages=["sefara"],
+    packages=["sefara", "sefara.commands"],
     url="https://github.com/timodonnell/sefara",
     license="Apache License",
     description="Practical dataset management",
