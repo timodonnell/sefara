@@ -3,9 +3,11 @@ try:
 except ImportError:
     from distutils.core import setup
 
+version = "0.2.1",
+
 setup(
     name="sefara",
-    version="0.2",
+    version=version,
     author="Tim O'Donnell",
     author_email="timodonnell@gmail.com",
     packages=["sefara", "sefara.commands"],
@@ -13,7 +15,7 @@ setup(
     license="Apache License",
     description="Practical dataset management",
     long_description=open('README.rst').read(),
-    download_url = 'https://github.com/timodonnell/sefara/tarball/0.2',
+    download_url = 'https://github.com/timodonnell/sefara/tarball/%s' % version,
     entry_points={
         'console_scripts': [
             'sefara-select = sefara.commands.select:run',
