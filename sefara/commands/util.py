@@ -21,7 +21,7 @@ from .. import load
 
 load_collection_parser = argparse.ArgumentParser(add_help=False)
 load_collection_parser.add_argument("collection",
-    help="Resource collection path or URL")
+    help="Resource collection path or URL. Specify '-' for stdin.")
 load_collection_parser.add_argument("-f", "--filter",
     action="append",
     default=[],

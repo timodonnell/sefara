@@ -13,10 +13,10 @@
 # limitations under the License.
 
 """
-Functions used to define a resource collection.
+Functions to define a resource collection.
 
-These functions are intended to be called from resource collections defined
-using Python, i.e. code in a file that you pass to ``load.load()``.
+These functions should be called only from sefara resource collections, not
+normal scripts.
 """
 
 from __future__ import absolute_import
@@ -28,7 +28,7 @@ def export(*args, **kwargs):
     """
     Create and export a Resource with the specified attributes.
 
-    All arguments are passed to ``Resource``.
+    All arguments are passed to `Resource`.
     """
     resource = Resource(*args, **kwargs)
     _EXPORTED_RESOURCES.append(resource)
@@ -40,16 +40,20 @@ def export_resources(resources):
 
     Parameters
     ----------
-    resources : list of Resource instances
+    resources : list of `Resource` instances
         Resource instances to be exported.
     """
     _EXPORTED_RESOURCES.extend(resources)
 
 _TRANSFORMS = []
-def transform_exports(transformer):
+def transform_exports(path_or_callable):
     """
-    
+    Transform the resources exported by this collection.
 
+    Parameters
+    ----------
+    path_or_callable : string or callable
+        Passed to `hooks.transform`; see those docs for details.
     """
-    _TRANSFORMS.append(transformer)
+    _TRANSFORMS.append(path_or_callable)
     

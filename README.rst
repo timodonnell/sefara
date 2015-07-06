@@ -1,13 +1,9 @@
 sefara
 ======
 
-Sefara is a small Python library for managing dataset metadata.
+Sefara is a Python library for managing your datasets. It provides a way to specify once what your datasets are (usually fileystem paths) and any metadata (e.g. which experiment they came from), then refer to them conveniently in analysis scripts and notebooks.
 
-If your data analysis project is using spreadsheets, environment variables, or hard-coded paths in scripts to keep track of your datasets, you might consider using Sefara.
-
-Sefara gives programmatic and commandline interfaces for working with descriptions of datasets, called "resources." Resources are specified in text files as either JSON or Python code. Sefara doesn't assume anything about what your datasets are or are how they are accessed.
-
-The use case is to manage the ~10 to ~1,000 datasets that commonly go into a single publication. Sefara is good for answering **what datasets went into this plot?** but not **what datasets are available at my institution?** It's complimentary to any scientific workflow management system you may be using.
+Sefara doesn't assume anything about what your datasets are, what format they're in, or are how they are accessed.
 
 Quick example
 -------------
@@ -28,7 +24,7 @@ Define a "resource collection" by making a file like this, which we'll call ``da
         tags=["second", "unimportant"],
     )
 
-Then, load it up in Python:
+Then, use Sefara to open it in Python:
 
 ::
 

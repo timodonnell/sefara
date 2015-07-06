@@ -14,6 +14,20 @@
 '''
 Read and then write a sefara resource collection, possibly into a different
 format or after applying filters or transforms.
+
+As an experimental feature, the resources can be mutated with Python code
+specified with the --code argument. For example:
+
+    sefara-dump data.py --code 'name = name.upper()'
+
+would capitalize all the resource names. Multiple code arguments can be given,
+and any new variables defined become attributes of the resources:
+
+    sefara-dump data.py --code 'upper_name = name.upper()' 'lower_name = name.lower()'
+
+This would add two new attributes to each resource, upper_name and lower_name. 
+Note that the input file is never modified. The --code argument only affects
+the output.
 '''
 
 from __future__ import absolute_import, print_function
@@ -29,13 +43,16 @@ parser = argparse.ArgumentParser(
     description=__doc__,
     formatter_class=argparse.RawDescriptionHelpFormatter,
     parents=[util.load_collection_parser])
-parser.add_argument("--format", choices=('json', 'python'),
+parser.add_argument("--format", choices=('python', 'json'),
     help="Output format")
 parser.add_argument("--out",
     help="Output file. Default: stdout.")
 parser.add_argument("--indent", type=int, default=4,
     help="Number of spaces for indentation in output. Default: %(default)d.")
-parser.add_argument("--code", nargs="+")
+parser.add_argument("--code", nargs="+",
+    help="Code to run in the context of each resource. Any new varialbes "
+    "defined become attributes of each resource. Any number of arguments "
+    "may be specified, each giving one line of code.")
 
 def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)

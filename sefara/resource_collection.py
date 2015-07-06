@@ -24,7 +24,7 @@ import re
 
 import typechecks
 
-from .util import shell_quote
+from . import util
 from . import Resource
 
 class NoCheckers(Exception):
@@ -66,17 +66,27 @@ class ResourceCollection(object):
     @property
     def tags(self):
         """
-        All tags associated with any Resource in this collection.
+        The tags associated with any resources in this collection.
         """
         result = set()
         for resource in self:
             result.update(resource.tags)
         return result
-    
+
+    @property
+    def attributes(self):
+        """
+        The attribute names used by resouces in this collection.
+        """
+        result = set()
+        for resource in self:
+            result.update(resource)
+        return result
+
     def filter(self, expression):
         """
         Return a new collection containing only those resources for which
-        `expression` evaluated to True.
+        ``expression`` evaluated to True.
 
         Parameters
         ----------
@@ -84,14 +94,14 @@ class ResourceCollection(object):
             If a string, then it should give a valid Python expression.
             This expression will be evaluated with the
             attributes of this resource in the local namespace. For
-            example, since the resource has a `name` attribute, the
+            example, since the resource has a ``name`` attribute, the
             expression "name.startswith('bar')" is a valid expression.
-            Tags can be accessed through the `tags` variable.
-            If the resource has a tag called `foo`, then the expression
+            Tags can be accessed through the ``tags`` variable.
+            If the resource has a tag called ``foo``, then the expression
             "tags.foo" will evaluate to True. If there is no such tag,
             then "tags.foo" will evaluate to False.
 
-            If a callable, then it will be called and passed this Resource
+            If a callable, then it will be called and passed this `Resource`
             instance as its argument.
 
         Returns
@@ -99,9 +109,10 @@ class ResourceCollection(object):
         A new ResourceCollection containing those resources for which
         `expression` evaluated to True.        
         """
+        extra_bindings = {key: None for key in self.attributes}
         return ResourceCollection([
             x for x in self
-            if x.evaluate(expression)
+            if x.evaluate(expression, extra_bindings=extra_bindings)
         ], self.filename)
 
     def singleton(self, raise_on_multiple=True):
@@ -114,10 +125,18 @@ class ResourceCollection(object):
                 % (len(self.resources), ' '.join(self.resources)))
         return self[0]
 
+    def select_series(self, expression):
+        """
+        Select a single field as a pandas series.
+
+        See `select`.
+        """
+        return self.select(('value', expression))['value']
+
     def select(self, *expressions, **kwargs):
         """
-        Pick out certain fields (or functions of fields) from each resource in
-        the collection as a pandas DataFrame.
+        Select fields (or expressions) from each resource as a pandas
+        DataFrame.
 
         Parameters
         ----------
@@ -125,7 +144,7 @@ class ResourceCollection(object):
             One or more expressions giving the fields to select.
 
             Each expression can be either a ``string`` expression, a
-            ``callable``, or a ``(string, string | callable)`` pair giving a
+            ``callable``, or a ``(string, string or callable)`` pair giving a
             label and an expression.
 
             Labels give the column names in the result. Labels can be specified
@@ -164,7 +183,7 @@ class ResourceCollection(object):
         """
         if_error = kwargs.pop("if_error", "raise")
         if if_error == "raise" or if_error == "skip":
-            error_value = Resource.RAISE_ON_ERROR
+            error_value = Resource.RAISE
         elif if_error == "none":
             error_value = None
         else:
@@ -191,12 +210,16 @@ class ResourceCollection(object):
         df_dict = collections.OrderedDict(
             (label, []) for (label, _) in labels_and_expressions)
 
+        extra_bindings = {key: None for key in self.attributes}
+
         def values_for_resource(resource):
             result = []
             for (label, expression) in labels_and_expressions:
                 try:
                     value = resource.evaluate(
-                        expression, error_value=error_value)
+                        expression,
+                        error_value=error_value,
+                        extra_bindings=extra_bindings)
                 except:
                     if if_error == "raise":
                         raise
@@ -262,7 +285,7 @@ class ResourceCollection(object):
 
         w("# Generated on %s by %s with the command:"
             % (datetime.datetime.now(), getpass.getuser()))
-        w("# " + " ".join(shell_quote(x) for x in sys.argv))
+        w("# " + " ".join(util.shell_quote(x) for x in sys.argv))
         w()
         w("from sefara import export")
         w()
@@ -311,7 +334,7 @@ class ResourceCollection(object):
         elif not file:
             fd = sys.stdout
             if format is None:
-                format = "json"
+                format = "python"
         else:
             fd = file
         try:

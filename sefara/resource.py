@@ -72,9 +72,9 @@ class Resource(AttrMap):
     def __repr__(self):
         return str(self)
 
-    RAISE_ON_ERROR = object()
+    RAISE = object()
 
-    def evaluate(self, expression, error_value=RAISE_ON_ERROR):
+    def evaluate(self, expression, error_value=RAISE, extra_bindings={}):
         """
         Evaluate a Python expression or callable in the context of this
         resource.
@@ -124,6 +124,9 @@ class Resource(AttrMap):
             specified, then ``evaluate`` will raise the exception to the
             caller.
 
+        extra_bindings : dict [optional]
+            Additional local variables to include in the evaluation context.
+
         Returns
         ----------
         The Python object returned by evaluating the expression.
@@ -143,12 +146,13 @@ class Resource(AttrMap):
                 def on_error(value):
                     error_box[0] = value
                 environment["on_error"] = on_error
+                environment.update(extra_bindings)
 
                 return eval(expression, environment, self)
             else:
                 return expression(self)                
         except Exception as e:
-            if error_box[0] is not Resource.RAISE_ON_ERROR:
+            if error_box[0] is not Resource.RAISE:
                 return error_box[0]
             extra = "Error while evaluating: \n\t%s\non resource:\n%s" % (
                 expression, self)

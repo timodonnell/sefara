@@ -24,10 +24,11 @@ import os
 import sys
 import re
 
-from .resource_collection import ResourceCollection
-from .resource import Resource
-from .util import exec_in_directory, urlparse, urlopen, parse_qsl
-from . import exporting, hooks
+from . import resource_collection
+from . import resource
+from . import util
+from . import exporting
+from . import hooks
 
 def load(
         filename,
@@ -48,9 +49,11 @@ def load(
         equivalent to a "file://<path>" URL. Supports any protocol handled by
         `urlopen`, such as HTTP and HTTPS.
 
-        Filename may include a "fragment", the part of a URL following a "#"
-        symbol, e.g. "file1.py#filter=tags.foo". The fragment is a query string
-        of key/value pairs separated by "&" symbols, e.g.
+        Can be the string '-' to read from stdin. 
+
+        May include a "fragment", the part of a URL following a "#" symbol,
+        e.g. "file1.py#filter=tags.foo". The fragment is a query string of
+        key/value pairs separated by "&" symbols, e.g.
         "file1.txt#filter=tags.foo&format=json".
 
         Valid fragment keys are:
@@ -106,7 +109,7 @@ def load(
     ``ResourceCollection`` instance.
 
     """
-    parsed = urlparse(filename)
+    parsed = util.urlparse(filename)
 
     # Parse operations (filters and transforms) from the URL fragment
     # (everything after the '#')
@@ -118,7 +121,7 @@ def load(
             unparsed_fragment = parsed.fragment
             if unparsed_fragment.startswith("&"):
                 unparsed_fragment = unparsed_fragment[1:]
-            fragment = parse_qsl(unparsed_fragment, strict_parsing=True)
+            fragment = util.parse_qsl(unparsed_fragment, strict_parsing=True)
         else:
             fragment = []
     except ValueError as e:
@@ -178,7 +181,7 @@ def load(
 
     try:
         if fd is None:
-            fd = urlopen(filename)
+            fd = util.urlopen(filename)
 
         # We don't apply environment_transforms here as we will apply them
         # ourselves after any other specified transforms or filters.    
@@ -241,20 +244,20 @@ def loads(data, filename=None, format=None, environment_transforms=True):
             old_transforms = exporting._TRANSFORMS
             exporting._EXPORTED_RESOURCES = []
             exporting._TRANSFORMS = []
-            exec_in_directory(filename=filename, code=data)
+            util.exec_in_directory(filename=filename, code=data)
         finally:
             transforms = exporting._TRANSFORMS
             resources = exporting._EXPORTED_RESOURCES
             exporting._EXPORTED_RESOURCES = old_resources
             exporting._TRANSFORMS = old_transforms
-        rc = ResourceCollection(resources, filename)
+        rc = resource_collection.ResourceCollection(resources, filename)
     elif format == "json":
         parsed = json.loads(data, object_pairs_hook=collections.OrderedDict)
         resources = [
-            Resource(name=key, **value)
+            resource.Resource(name=key, **value)
             for (key, value) in parsed.items()
         ]
-        rc = ResourceCollection(resources, filename)
+        rc = resource_collection.ResourceCollection(resources, filename)
     else:
         raise ValueError("Unsupported file format: %s" % filename)
 
