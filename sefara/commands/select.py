@@ -102,7 +102,7 @@ def run(argv=sys.argv[1:]):
     try:
         result = rc.select(*fields, if_error=args.if_error)
         if args.format == "csv":
-            writer = csv.writer(fd)
+            writer = csv.writer(fd, lineterminator='\n')
             if (args.header == 'on' or
                     (args.header is None and len(fields) > 1)):
                 header = list(result.columns)
