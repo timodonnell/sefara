@@ -17,7 +17,7 @@ from __future__ import absolute_import, print_function
 import sys
 import argparse
 
-from .. import load
+from .. import load, hooks
 
 load_collection_parser = argparse.ArgumentParser(add_help=False)
 load_collection_parser.add_argument("collection",
@@ -42,7 +42,7 @@ def load_from_args(args):
     for value in args.filter:
         rc = rc.filter(value)
     for transform in args.transform:
-        rc.transform(transform)
+        hooks.transform(rc, transform)
     return rc
 
 def print_stderr(s=''):

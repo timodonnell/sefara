@@ -1,5 +1,5 @@
-Tools
-==============
+Commandline Tools Usage
+=======================
 
 .. autoprogram:: sefara.commands.select:parser
    :prog: sefara-select

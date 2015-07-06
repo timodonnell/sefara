@@ -8,10 +8,10 @@ We've all found ourselves hard coding paths to input files in analysis scripts a
 
 With Sefara, you write Python code to specify the files you're analyzing and their metadata. Defining your datasets with code may seem strange but it allows for a lot flexibility. These files describing your datasets are called "resource collections" and can be put under version control and in general treated like code. Sefara is a Python library and a few commandline tools for reading, writing, and querying these files.
 
-Resource collections
+Essentials
 ------------------------------
 
-Creating
+Specifying a resource collection
 +++++++++++++++++++++++++++++++
 
 A "resource" describes an entity used in an analysis. Resources
@@ -41,9 +41,7 @@ any way.
 
     If you find yourself writing a complex Python script to define a collection, consider instead writing a script that *creates* the collection. That script can be called once to write out a collection (in either Python or JSON format), to be used for subsequent analysis.
 
-
-
-Opening
+Loading
 +++++++++++++++++++++++++++++++
 
 The collection shown before can be opened in Python using `sefara.load`:
@@ -135,6 +133,11 @@ To select one column as a pandas series instead of a dataframe, use `select_seri
 
     >>> resources.select_series("path")
 
+Note that in Python expressions evaluated by `select` or `filter`, if a field exists in some resources but not others, it defaults to ``None`` in the resources where it is missing:
+
+.. runblock:: pycon
+
+    >>> resources.select("name", "capture_kit")
 
 Loading with URLs and filters
 +++++++++++++++++++++++++++++++
@@ -152,7 +155,7 @@ The syntax for filtering is "<filename>#filter=<filter expression>". Here's an e
 
 This comes in handy for analysis scripts that take a resource collection as a commandline argument. If the script passes the argument to `load`, then it automatically supports filtering.
 
-Outputting a resource collection
+Writing
 ++++++++++++++++++++++++++++++++++
 
 The `ResourceCollection.to_python` method gives string of Python code representing the collection:
@@ -213,60 +216,93 @@ Filters are supported:
 
 If you only select one field, by default no header is printed. That's convenient for writing shell loops like this:
 
-.. command-output:: for p in $(sefara-select resource-collections/ex1.py path) ; do ls $p ; done
+.. command-output:: for p in $(sefara-select resource-collections/ex1.py path) ; do echo $p ; done
     :shell: 
 
-The tool provides rudimentary support for building up argument lists, suitable for passing to analysis scripts that don't use sefara. Here's an example (note that the first line is the command we typed -- the second line is the output of the command, which is an argument string):
+The tool provides rudimentary support for building up argument lists, suitable for passing to analysis scripts that don't use sefara. Here are two examples (note that the first line is the command we typed -- the second line is the output of the command, which is an argument string):
 
 .. command-output:: sefara-select resource-collections/ex1.py name path --format args
 
-and another:
-
 .. command-output:: sefara-select resource-collections/ex1.py 'filename:path' --format args-repeated
 
+The usual way to use this functionality is to put the `sefara-select` command as a "command substitution" using the shell's ``$()`` operator, for example:
 
-
-.. command-output:: python -c 'import sys; print("\n".join(sys.argv[1:]))' $(sefara-select resource-collections/ex1.py path --format args-repeated)
+.. command-output:: ./example_tool.py --foo bar $(sefara-select resource-collections/ex1.py path --format args-repeated)
     :shell:
 
 Note that for any sefara tool (and the `load` function), you can pass ``-`` as a path to a resource collection to read from stdin.
 
 With creative use of the ``--code`` argument to `sefara-dump` and piping the results to `sefara-select`, it's often possible to munge a resource collection into the argument format your tool expects.
 
-.. command-output:: python -c 'import sys; print(sys.argv)' $(sefara-dump resource-collections/ex1.py --code 'kind = os.path.splitext(path)[1]' | sefara-select - kind path --format args-repeated 
+.. command-output:: ./example_tool.py $(sefara-dump resource-collections/ex1.py --code 'kind = os.path.splitext(path)[1][1:]' | sefara-select - kind path --format args-repeated) 
     :shell:
 
+Hooks
+----------------------------------------------------
 
+Sefara supports a mechanism to transform resources as they are loaded, and also to configure arbitrary validation routines. This advanced feature comes in handy if you want to integrate Sefara with other pieces of infrastructure at your site. If you're just getting started with sefara, you can probably skip this section.
 
-Advanced functionality
----------------------------------------------------- 
+The features described here are configured with a few environment variables. To print out what these variables are set to in your environment, run `sefara-env`.
 
-
-
-Things to be aware of
+Checking
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
-If you `select` or `filter` by a field that exists in some resources but not others, it defaults to ``None`` in the resources where it is missing:
+Sefara doesn't concern itself with what attributes your resources have or what they signify, but you probably do. For example, your resources might have a ``path`` attribute that should always be a filename. You might want to verify that your resources with this attribute point to a file that exists. Sefara provides a mechanism to help make this a bit more convenient than doing it manually.
 
-.. runblock:: pycon
+Make a file that defines a ``check`` function, like the following:
 
-    >>> resources.select("name", "capture_kit")
+.. literalinclude:: example_hook.py
+    :end-before: def transform
 
+The ``check`` function should yield tuples, as documented in the code above.
 
+Now set the environment variable ``SEFARA_CHECKER`` to the path to this file:
 
-Site-specific configuration with hooks
+.. command-output:: export SEFARA_CHECKER=/path/to/example_hook.py
+    :shell:
+
+This environment variable can specify any number of checkers, separated by a colon.
+
+You can now use the `sefara-check` tool to validate this file:
+
+.. code-block:: shell
+
+    sefara-check resource-collections/ex1.py
+
+which, if all the resources validate, will give this output:
+
+.. program-output:: sefara-check resource-collections/ex1.py --checker hook_always_success.py --no-environment-checkers
+
+or will spot errors:
+
+.. program-output:: FAILURE_NUM=2 sefara-check resource-collections/ex1.py --checker hook_always_success.py --no-environment-checkers
+    :shell:
+
+You may have multiple kinds of resources, each with their own concept of validation. One way to handle this is to write a checker for each type of resource, and include all of them in the ``SEFARA_CHECKER`` environment variable. Each checker should skip the resources that don't match the schema it knows how to validate, as our example does for resources that don't have a ``path`` attribute. The ``sefara-check`` tool will raise errors for any resources that are not validated by at least one checker.
+
+Transforming
 +++++++++++++++++++++++++++++++++++++++++++++++++
 
+In some specialized circumstances, you may want to change resources as they are loaded. To do this, we can add a ``transform`` function to our ``example_hook.py`` file:
 
-This is currently a very rough cut, not ready for general use. More
-soon.
+.. literalinclude:: example_hook.py
+    :pyobject: transform
 
-The `test/data <test/data>`__ directory has some example resource files.
+Note that the ``transform`` function *mutates* the resources in the collection. It does not return a new collection.
 
-Example code:
+We can configure this by setting the ``SEFARA_TRANSFORM`` environment variable, which, like ``SEFARA_CHECKER``, can be a colon separated list of files:
 
-::
+.. command-output:: export SEFARA_TRANSFORM=/path/to/example_hook.py
+    :shell:
 
-    resources = sefara.load("test/data/ex1.py")
-    for resource in resources.filter("tags.gamma"):
-        print("%s = %s" % (resource.name, resource.path))
+Now, whenever we call `sefara.load` or use any of sefara's commandline tools, we will be working with the transformed resources:
+
+.. code-block:: shell
+
+    sefara-select resource-collections/ex1.py name http_url
+
+gives this output:
+
+.. program-output:: sefara-select resource-collections/ex1.py name http_url --transform example_hook.py --no-environment-transforms
+    :shell:
+
