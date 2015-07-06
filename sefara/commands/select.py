@@ -14,14 +14,17 @@
 '''
 Select fields from a sefara collection.
 
+To select all fields, just give the path to the collection:
+
+    sefara-select my_datasets.sefara.py
+
 To get the 'name' and 'path' fields from a resource collection called
 "collection.sefara.py":
 
     sefara-select collection.sefara.py name path
 
 Fields are interpreted as Python expressions and evaluated in a context that
-includes the resource's attributes as local variables. For example, this is a
-valid invocation:
+includes the resource's attributes as local variables. For example:
 
     sefara-select collection.sefara.py "name.lower()" "os.path.abspath(path)"
 
@@ -42,7 +45,7 @@ import sys
 from future.utils import raise_
 
 from . import util
-from .util import print_stderr as stderr
+from .. import resource
 from ..util import shell_quote, move_to_front
 
 parser = argparse.ArgumentParser(
@@ -52,7 +55,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument("field", nargs="*",
     help="Expressions to select from each resource. Specify one or more "
     "times.")
-parser.add_argument("--format", choices=('csv', 'args', 'args-repeated'),
+parser.add_argument("--format",
+    choices=('csv', 'raw', 'args', 'args-repeated'),
     default="csv",
     help="Output format. Default: %(default)s.")
 parser.add_argument("--header", choices=('on', 'off'),
@@ -77,26 +81,23 @@ parser.add_argument("--if-error",
     "If 'none', the Python None value will be silently used in place of "
     "the expression. Default: %(default)s.")
 
+def stringify(value):
+    if value is None:
+        return ''
+    if isinstance(value, resource.Tags):
+        return " ".join(sorted(value))
+    return str(value)
+
 def run(argv=sys.argv[1:]):
     args = parser.parse_args(argv)
 
     rc = util.load_from_args(args)
 
-    if args.all_fields:
-        fields = sorted(set.union(*[set(x) for x in rc]))
-        move_to_front(fields, "name", "tags")
-    else:
+    if args.field:
         fields = args.field
-    
-    if not fields:
-        intersect_fields = sorted(set.union(*[set(x) for x in rc]))
-        move_to_front(intersect_fields, "name", "tags")
-        stderr(
-            "No fields selected. Use --all-fields to select all fields.")
-        stderr()
-        stderr("Your collection has these fields:\n\t%s"
-            % ", ".join(intersect_fields))
-        return
+    else:
+        fields = sorted(rc.attributes)
+        move_to_front(fields, "name", "tags")
 
     fd = open(args.out, "w") if args.out else sys.stdout
     try:
@@ -109,14 +110,17 @@ def run(argv=sys.argv[1:]):
                 header[0] = "# " + header[0]
                 writer.writerow(header)
             for (_, row) in result.iterrows():
-                writer.writerow([str(x) for x in row])
+                writer.writerow([stringify(x) for x in row])
+        elif args.format == "raw":
+            for (_, row) in result.iterrows():
+                print("".join([stringify(x) for x in row]), file=fd)
         elif args.format == "args":
             for (i, label) in enumerate(result.columns):
                 fd.write(" ")
                 fd.write(shell_quote("--%s" % label))
                 for (_, row) in result.iterrows():
                     fd.write(" ")
-                    fd.write(shell_quote(str(row[i])))
+                    fd.write(shell_quote(stringify(row[i])))
             fd.write("\n")
         elif args.format == "args-repeated":
             for (_, row) in result.iterrows():
@@ -124,7 +128,7 @@ def run(argv=sys.argv[1:]):
                     fd.write(" ")
                     fd.write(shell_quote("--%s" % field_name))
                     fd.write(" ")
-                    fd.write(shell_quote(str(value)))
+                    fd.write(shell_quote(stringify(value)))
             fd.write("\n")
         else:
             raise ValueError("Unknown format: %s" % format)
