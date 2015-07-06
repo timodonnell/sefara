@@ -39,11 +39,9 @@ Available at: http://timodonnell.github.io/sefara/docs/html
 
 Installation
 -------------
-From a git checkout, run:
-
 ::
 
-    pip install .
+    pip install sefara
 
 To run the tests:
 

@@ -5,7 +5,7 @@ except ImportError:
 
 setup(
     name="sefara",
-    version="0.0.0",
+    version="0.2",
     author="Tim O'Donnell",
     author_email="timodonnell@gmail.com",
     packages=["sefara"],
@@ -13,6 +13,7 @@ setup(
     license="Apache License",
     description="Practical dataset management",
     long_description=open('README.rst').read(),
+    download_url = 'https://github.com/timodonnell/sefara/tarball/0.2',
     entry_points={
         'console_scripts': [
             'sefara-select = sefara.commands.select:run',
