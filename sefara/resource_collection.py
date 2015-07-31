@@ -197,7 +197,7 @@ class ResourceCollection(object):
             if isinstance(expression, tuple):
                 (label, expression) = expression
             elif typechecks.is_string(expression):
-                match = re.match(r"^([\w ]+):(.*)$", expression)
+                match = re.match(r"^([\w\- ]+):(.*)$", expression)
                 if match is None:
                     label = expression
                 else:
