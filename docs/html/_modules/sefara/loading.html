@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sefara.loading &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>sefara.loading</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for sefara.loading</h1><div class="highlight"><pre>
+<span class="c"># Copyright (c) 2015. Mount Sinai School of Medicine</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Instantiate ResourceCollection instances from files or strings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">resource_collection</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">resource</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">exporting</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">hooks</span>
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../sefara.html#sefara.loading.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+        <span class="n">filename</span><span class="p">,</span>
+        <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">filters</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">transforms</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">environment_transforms</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a `ResourceCollection` from a file or URL.</span>
+
+<span class="sd">    Collections can be defined using either Python or JSON.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : string</span>
+<span class="sd">        Path or URL to resource collection. If a path is given, it is</span>
+<span class="sd">        equivalent to a &quot;file://&lt;path&gt;&quot; URL. Supports any protocol handled by</span>
+<span class="sd">        `urlopen`, such as HTTP and HTTPS.</span>
+
+<span class="sd">        Can be the string &#39;-&#39; to read from stdin. </span>
+
+<span class="sd">        May include a &quot;fragment&quot;, the part of a URL following a &quot;#&quot; symbol,</span>
+<span class="sd">        e.g. &quot;file1.py#filter=tags.foo&quot;. The fragment is a query string of</span>
+<span class="sd">        key/value pairs separated by &quot;&amp;&quot; symbols, e.g.</span>
+<span class="sd">        &quot;file1.txt#filter=tags.foo&amp;format=json&quot;.</span>
+
+<span class="sd">        Valid fragment keys are:</span>
+
+<span class="sd">            filter</span>
+<span class="sd">                The value is a Python expression giving a sefara filter.</span>
+
+<span class="sd">            transform</span>
+<span class="sd">                The value is a path to a Python file with a sefara transform.</span>
+
+<span class="sd">            format</span>
+<span class="sd">                The value gives the format of the data, either &quot;python&quot; or</span>
+<span class="sd">                &quot;json&quot;.</span>
+
+<span class="sd">            environment_transforms</span>
+<span class="sd">                The value should be &quot;true&quot; or &quot;false&quot; indicating whether to run</span>
+<span class="sd">                transforms configured with environment variables.</span>
+
+<span class="sd">        The fragment operations are processed in order, left to right, and</span>
+<span class="sd">        can be specified multiple times. That is, the URL:</span>
+
+<span class="sd">            ``file.py#filter=tags.bar&amp;filter=tags.baz``</span>
+<span class="sd">        </span>
+<span class="sd">        is equivalent to:</span>
+<span class="sd">        </span>
+<span class="sd">            ``file.py#filter=tags.bar and tags.baz``</span>
+
+<span class="sd">        Fragment values can have spaces, and should not be quoted even if they</span>
+<span class="sd">        do (as in the above example).</span>
+
+<span class="sd">    format : &quot;python&quot; or &quot;json&quot; [optional]</span>
+<span class="sd">        Format of data. Overrides any setting specified in the filename URL. If</span>
+<span class="sd">        it is not specified in either place, it is guessed from the filename</span>
+<span class="sd">        extension.</span>
+
+<span class="sd">    filters : list of strings or callbles [optional]</span>
+<span class="sd">        Filters to run on the ResourceCollection, in addition to any</span>
+<span class="sd">        specified in the filename. Anything you can pass to</span>
+<span class="sd">        `ResourceCollection.filter` is accepted.</span>
+
+<span class="sd">    transforms : list of strings [optional]</span>
+<span class="sd">        Transforms to run on the ResourceCollection, in addition to any</span>
+<span class="sd">        specified in the filename or from the environment. Anything you</span>
+<span class="sd">        you can pass to `hooks.transform` is accepted.</span>
+
+<span class="sd">    environment_transforms : Boolean [optional]</span>
+<span class="sd">        Whether to run environment_transforms. If specified, this will override</span>
+<span class="sd">        the &quot;environment_transforms&quot; fragment setting specified in the filename</span>
+<span class="sd">        URL. If not specified in either place, the default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ``ResourceCollection`` instance.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c"># Parse operations (filters and transforms) from the URL fragment</span>
+    <span class="c"># (everything after the &#39;#&#39;)</span>
+    <span class="c"># Operations is a list of (op [either &#39;filter&#39; or &#39;transform&#39;], value))</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span><span class="p">:</span>
+            <span class="c"># If our fragment begins with an &#39;&amp;&#39; symbol, we ignore it. </span>
+            <span class="n">unparsed_fragment</span> <span class="o">=</span> <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span>
+            <span class="k">if</span> <span class="n">unparsed_fragment</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;&amp;&quot;</span><span class="p">):</span>
+                <span class="n">unparsed_fragment</span> <span class="o">=</span> <span class="n">unparsed_fragment</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">fragment</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">unparsed_fragment</span><span class="p">,</span> <span class="n">strict_parsing</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fragment</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Couldn&#39;t parse fragment &#39;</span><span class="si">%s</span><span class="s">&#39;: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">fragment</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;filter&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;transform&#39;</span><span class="p">:</span>
+            <span class="n">operations</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;format&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">format</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;environment_transforms&#39;</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">environment_transforms</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c"># If environment_transforms is given as an argument to this</span>
+                <span class="c"># function, than that value overrides.</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;true&quot;</span><span class="p">:</span>
+                    <span class="n">environment_transforms</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;false&quot;</span><span class="p">:</span>
+                    <span class="n">environment_transforms</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s">&quot;Expected environment_transforms to be &#39;true&#39; or &quot;</span>
+                        <span class="s">&quot;&#39;false, not: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Unsupported operation: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
+
+    <span class="c"># Add filters and transforms specified in the arguments after anything</span>
+    <span class="c"># parsed from the URL.</span>
+    <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+        <span class="n">operations</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="s">&quot;filter&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">transforms</span><span class="p">:</span>
+        <span class="n">operations</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="s">&quot;transform&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">)</span>
+
+    <span class="c"># Default scheme is &#39;file&#39;, and needs an absolute path.</span>
+    <span class="n">fd</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">absolute_local_filename</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">or</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;file&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s">&#39;-&#39;</span><span class="p">:</span>
+            <span class="c"># Read from stdin.</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">absolute_local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">parsed</span> <span class="o">=</span> <span class="n">parsed</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span>
+                <span class="n">scheme</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">,</span>
+                <span class="n">fragment</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">absolute_local_filename</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">parsed</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span>
+
+    <span class="c"># Try to guess data format from filename extension if not specified.</span>
+    <span class="k">if</span> <span class="n">format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.py&quot;</span><span class="p">):</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;python&quot;</span>
+        <span class="k">elif</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.json&quot;</span><span class="p">):</span>
+            <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;json&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fd</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c"># We don&#39;t apply environment_transforms here as we will apply them</span>
+        <span class="c"># ourselves after any other specified transforms or filters.    </span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">absolute_local_filename</span><span class="p">,</span>
+            <span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
+            <span class="n">environment_transforms</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">fd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">fd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="p">:</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>        
+
+    <span class="c"># Apply filters and transforms.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&#39;filter&#39;</span><span class="p">:</span>
+            <span class="n">rc</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&#39;transform&#39;</span><span class="p">:</span>
+            <span class="n">hooks</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">environment_transforms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">False</span><span class="p">:</span>
+        <span class="n">hooks</span><span class="o">.</span><span class="n">transform_from_environment</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rc</span>
+</div>
+<div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../sefara.html#sefara.loading.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">environment_transforms</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a ResourceCollection from a string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : string</span>
+<span class="sd">        ResourceCollection specification in either Python or JSON.</span>
+
+<span class="sd">    filename : string [optional]</span>
+<span class="sd">        filename where this data originally came from to use in error messages</span>
+
+<span class="sd">    format : string,  either &quot;python&quot; or &quot;json&quot; [default: guess from data]</span>
+<span class="sd">        format of the data</span>
+
+<span class="sd">    environment_transforms : Boolean [default: True]</span>
+<span class="sd">        whether to run transforms configured in environment variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ResourceCollection instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="c"># Attempt to guess format from data.</span>
+        <span class="c"># We call it JSON if the first non whitespace character is &#39;{&#39;,</span>
+        <span class="c"># otherwise Python.</span>
+        <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;json&quot;</span> <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&quot;^\W*{&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="k">else</span> <span class="s">&quot;python&quot;</span>
+
+    <span class="n">rc</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">transforms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;python&quot;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">old_resources</span> <span class="o">=</span> <span class="n">exporting</span><span class="o">.</span><span class="n">_EXPORTED_RESOURCES</span>
+            <span class="n">old_transforms</span> <span class="o">=</span> <span class="n">exporting</span><span class="o">.</span><span class="n">_TRANSFORMS</span>
+            <span class="n">exporting</span><span class="o">.</span><span class="n">_EXPORTED_RESOURCES</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">exporting</span><span class="o">.</span><span class="n">_TRANSFORMS</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">util</span><span class="o">.</span><span class="n">exec_in_directory</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">transforms</span> <span class="o">=</span> <span class="n">exporting</span><span class="o">.</span><span class="n">_TRANSFORMS</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="n">exporting</span><span class="o">.</span><span class="n">_EXPORTED_RESOURCES</span>
+            <span class="n">exporting</span><span class="o">.</span><span class="n">_EXPORTED_RESOURCES</span> <span class="o">=</span> <span class="n">old_resources</span>
+            <span class="n">exporting</span><span class="o">.</span><span class="n">_TRANSFORMS</span> <span class="o">=</span> <span class="n">old_transforms</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">resource_collection</span><span class="o">.</span><span class="n">ResourceCollection</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">)</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">resource</span><span class="o">.</span><span class="n">Resource</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="o">**</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">resource_collection</span><span class="o">.</span><span class="n">ResourceCollection</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Unsupported file format: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">transform</span> <span class="ow">in</span> <span class="n">transforms</span><span class="p">:</span>
+        <span class="n">hooks</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">transform</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">environment_transforms</span><span class="p">:</span>
+        <span class="n">hooks</span><span class="o">.</span><span class="n">transform_from_environment</span><span class="p">(</span><span class="n">rc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rc</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

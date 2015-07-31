@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sefara.resource_collection &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>sefara.resource_collection</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for sefara.resource_collection</h1><div class="highlight"><pre>
+<span class="c"># Copyright (c) 2015. Mount Sinai School of Medicine</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">typechecks</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Resource</span>
+
+<div class="viewcode-block" id="NoCheckers"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.NoCheckers">[docs]</a><span class="k">class</span> <span class="nc">NoCheckers</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection">[docs]</a><span class="k">class</span> <span class="nc">ResourceCollection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Collection of zero or more resources.</span>
+
+<span class="sd">    Resources in a ResourceCollection can be accessed either by name:</span>
+<span class="sd">        resource_collection[&quot;my_dataset&quot;]</span>
+
+<span class="sd">    or by index (or slice):</span>
+<span class="sd">        resource_collection[0]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s">&quot;&lt;no file&gt;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new ResourceCollection from a list of resources.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        resources : list of `Resource` instances</span>
+<span class="sd">            Resources.</span>
+
+<span class="sd">        filename : string [optional]</span>
+<span class="sd">            Filename these resources were loaded from. Used in error messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">resources</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">key</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">resources</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The tags associated with any resources in this collection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The attribute names used by resouces in this collection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<div class="viewcode-block" id="ResourceCollection.filter"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new collection containing only those resources for which</span>
+<span class="sd">        ``expression`` evaluated to True.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        expression : string or callable</span>
+<span class="sd">            If a string, then it should give a valid Python expression.</span>
+<span class="sd">            This expression will be evaluated with the</span>
+<span class="sd">            attributes of this resource in the local namespace. For</span>
+<span class="sd">            example, since the resource has a ``name`` attribute, the</span>
+<span class="sd">            expression &quot;name.startswith(&#39;bar&#39;)&quot; is a valid expression.</span>
+<span class="sd">            Tags can be accessed through the ``tags`` variable.</span>
+<span class="sd">            If the resource has a tag called ``foo``, then the expression</span>
+<span class="sd">            &quot;tags.foo&quot; will evaluate to True. If there is no such tag,</span>
+<span class="sd">            then &quot;tags.foo&quot; will evaluate to False.</span>
+
+<span class="sd">            If a callable, then it will be called and passed this `Resource`</span>
+<span class="sd">            instance as its argument.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        A new ResourceCollection containing those resources for which</span>
+<span class="sd">        `expression` evaluated to True.        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">extra_bindings</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="bp">None</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">ResourceCollection</span><span class="p">([</span>
+            <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">extra_bindings</span><span class="o">=</span><span class="n">extra_bindings</span><span class="p">)</span>
+        <span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.singleton"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.singleton">[docs]</a>    <span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raise_on_multiple</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If this ResourceCollection contains exactly 1 resource, return it.</span>
+<span class="sd">        Otherwise, raise a ValueError.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="n">raise_on_multiple</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Expected exactly 1 resource, not </span><span class="si">%d</span><span class="s">: </span><span class="si">%s</span><span class="s">.&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">),</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.select_series"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.select_series">[docs]</a>    <span class="k">def</span> <span class="nf">select_series</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select a single field as a pandas series.</span>
+
+<span class="sd">        See `select`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">((</span><span class="s">&#39;value&#39;</span><span class="p">,</span> <span class="n">expression</span><span class="p">))[</span><span class="s">&#39;value&#39;</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.select"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select fields (or expressions) from each resource as a pandas</span>
+<span class="sd">        DataFrame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *expressions : string, callable, or (string, string or callable) pair</span>
+<span class="sd">            One or more expressions giving the fields to select.</span>
+
+<span class="sd">            Each expression can be either a ``string`` expression, a</span>
+<span class="sd">            ``callable``, or a ``(string, string or callable)`` pair giving a</span>
+<span class="sd">            label and an expression.</span>
+
+<span class="sd">            Labels give the column names in the result. Labels can be specified</span>
+<span class="sd">            either by giving a ``(label, expression)`` pair, or giving a string</span>
+<span class="sd">            of the form &quot;LABEL: EXPRESSION&quot;, such as</span>
+<span class="sd">            &quot;upper_name: name.upper()&quot;. Here &quot;upper_name&quot; is the label, and</span>
+<span class="sd">            &quot;name.upper()&quot; is the expression that will be evaluated. If not</span>
+<span class="sd">            specified, labels default to the text of the ``expression`` if</span>
+<span class="sd">            ``expression`` is a string, and an automatically generated label if</span>
+<span class="sd">            ``expression`` is a callable.</span>
+
+<span class="sd">            Each ``expression`` will be passed to `Resource.evaluate` for each</span>
+<span class="sd">            resource in the collection. See that method&#39;s docs for details on</span>
+<span class="sd">            expression evaluation.</span>
+
+<span class="sd">        if_error : string, one of &quot;raise&quot;, &quot;skip&quot;, or &quot;none&quot; [default: &quot;raise&quot;]</span>
+<span class="sd">            Must be specified as a keyword argument. Controls the behavior when</span>
+<span class="sd">            evaluation of an expression raises an uncaught exception. One of:</span>
+
+<span class="sd">            raise</span>
+<span class="sd">                Raise the exception to the caller. This is the default.</span>
+
+<span class="sd">            skip</span>
+<span class="sd">                Skip resources where evaluation of any of the expressions</span>
+<span class="sd">                raises an error. These resources will be omitted from the</span>
+<span class="sd">                result.</span>
+
+<span class="sd">            none</span>
+<span class="sd">                If evaluating an expression on a resource raises an exception,</span>
+<span class="sd">                set that entry in the result to ``None``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A `pandas.DataFrame`. Rows correspond to resources. Columns correspond</span>
+<span class="sd">        to the specified expressions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">if_error</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&quot;if_error&quot;</span><span class="p">,</span> <span class="s">&quot;raise&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;raise&quot;</span> <span class="ow">or</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;skip&quot;</span><span class="p">:</span>
+            <span class="n">error_value</span> <span class="o">=</span> <span class="n">Resource</span><span class="o">.</span><span class="n">RAISE</span>
+        <span class="k">elif</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;none&quot;</span><span class="p">:</span>
+            <span class="n">error_value</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;if_error should be &#39;raise&#39;, &#39;skip&#39;, or &#39;none&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;Invalid keyword arguments: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+
+        <span class="n">labels_and_expressions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">expr_num</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">expression</span> <span class="ow">in</span> <span class="n">expressions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">expression</span><span class="p">)</span> <span class="o">=</span> <span class="n">expression</span>
+            <span class="k">elif</span> <span class="n">typechecks</span><span class="o">.</span><span class="n">is_string</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&quot;^([\w\- ]+):(.*)$&quot;</span><span class="p">,</span> <span class="n">expression</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">expression</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">expression</span><span class="p">)</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;expr_</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">expr_num</span>
+                <span class="n">expr_num</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">labels_and_expressions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">expression</span><span class="p">))</span>
+
+        <span class="n">df_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="n">labels_and_expressions</span><span class="p">)</span>
+
+        <span class="n">extra_bindings</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="bp">None</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">}</span>
+
+        <span class="k">def</span> <span class="nf">values_for_resource</span><span class="p">(</span><span class="n">resource</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">expression</span><span class="p">)</span> <span class="ow">in</span> <span class="n">labels_and_expressions</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+                        <span class="n">expression</span><span class="p">,</span>
+                        <span class="n">error_value</span><span class="o">=</span><span class="n">error_value</span><span class="p">,</span>
+                        <span class="n">extra_bindings</span><span class="o">=</span><span class="n">extra_bindings</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;raise&quot;</span><span class="p">:</span>
+                        <span class="k">raise</span>
+                    <span class="k">elif</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;skip&quot;</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">None</span>
+                    <span class="k">elif</span> <span class="n">if_error</span> <span class="o">==</span> <span class="s">&quot;none&quot;</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">values_for_resource</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels_and_expressions</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+                    <span class="n">df_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_dict</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_or_key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index_or_key</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">index_or_key</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">[</span><span class="n">index_or_key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">index_or_key</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c"># Rebuild dictionary since names may have changed.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">[</span><span class="n">index_or_key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<div class="viewcode-block" id="ResourceCollection.to_plain_types"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.to_plain_types">[docs]</a>    <span class="k">def</span> <span class="nf">to_plain_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a representation of this collection using Python dicts, lists,</span>
+<span class="sd">        and strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">resource</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">to_plain_types</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.to_json"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string giving this collection represented as JSON.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_plain_types</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.to_python"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.to_python">[docs]</a>    <span class="k">def</span> <span class="nf">to_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string giving this collection represented as Python code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span> <span class="nf">w</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+        <span class="n">w</span><span class="p">(</span><span class="s">&quot;# Generated on </span><span class="si">%s</span><span class="s"> by </span><span class="si">%s</span><span class="s"> with the command:&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()))</span>
+        <span class="n">w</span><span class="p">(</span><span class="s">&quot;# &quot;</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">shell_quote</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">))</span>
+        <span class="n">w</span><span class="p">()</span>
+        <span class="n">w</span><span class="p">(</span><span class="s">&quot;from sefara import export&quot;</span><span class="p">)</span>
+        <span class="n">w</span><span class="p">()</span>
+        <span class="n">spaces</span> <span class="o">=</span> <span class="s">&quot; &quot;</span> <span class="o">*</span> <span class="n">indent</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">(</span><span class="s">&quot;export(&quot;</span><span class="p">)</span>
+            <span class="n">w</span><span class="p">(</span><span class="n">spaces</span> <span class="o">+</span> <span class="s">&quot;name=</span><span class="si">%s</span><span class="s">,&quot;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">plain_types</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">to_plain_types</span><span class="p">()</span>
+            <span class="n">w</span><span class="p">(</span><span class="n">spaces</span> <span class="o">+</span> <span class="s">&quot;tags=</span><span class="si">%s</span><span class="s">,&quot;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plain_types</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;tags&#39;</span><span class="p">,</span> <span class="p">[])))</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">plain_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">json_value</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span>
+                <span class="n">indented</span> <span class="o">=</span> <span class="n">json_value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">spaces</span><span class="p">)</span>
+                <span class="n">w</span><span class="p">(</span><span class="n">spaces</span> <span class="o">+</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">,&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">indented</span><span class="p">))</span>
+            <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span>  <span class="c"># Drop last comma and close paren</span>
+            <span class="n">w</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ResourceCollection.write"><a class="viewcode-back" href="../../sefara.html#sefara.resource_collection.ResourceCollection.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Serialize this collection to disk.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file : string or file handle [optional, default: sys.stdout]</span>
+<span class="sd">            Path or file handle to write to.</span>
+
+<span class="sd">        format : string, one of &quot;python&quot; or &quot;json&quot; [optional]</span>
+<span class="sd">            Output format. If not specified, it is guessed from the filename</span>
+<span class="sd">            extension.</span>
+
+<span class="sd">        indent : int [optional]</span>
+<span class="sd">            Number of spaces to use for indentation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">close_on_exit</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">typechecks</span><span class="o">.</span><span class="n">is_string</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+            <span class="n">close_on_exit</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.json&quot;</span><span class="p">):</span>
+                    <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;json&quot;</span>
+                <span class="k">elif</span> <span class="nb">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.py&quot;</span><span class="p">):</span>
+                    <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;python&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s">&quot;Couldn&#39;t guess format from filename: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">file</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">file</span><span class="p">:</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">format</span> <span class="o">=</span> <span class="s">&quot;python&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="nb">file</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">extra_args</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">indent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">{</span><span class="s">&quot;indent&quot;</span><span class="p">:</span> <span class="n">indent</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="o">**</span><span class="n">extra_args</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;python&quot;</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_python</span><span class="p">(</span><span class="o">**</span><span class="n">extra_args</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Unsupported format: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">format</span><span class="p">)</span>
+            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">close_on_exit</span><span class="p">:</span>
+                <span class="n">fd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A string summarzing the resources in this collection, including their</span>
+<span class="sd">        attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span> <span class="nf">w</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        
+        <span class="n">w</span><span class="p">(</span><span class="s">&quot;ResourceCollection: </span><span class="si">%d</span><span class="s"> resources from </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">resource</span><span class="p">))</span>
+            <span class="n">w</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="s">&quot;: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>         
+        <span class="k">return</span> <span class="p">(</span><span class="s">&quot;&lt;ResourceCollection: </span><span class="si">%d</span><span class="s"> resources</span><span class="si">%s</span><span class="s">&gt;&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">names</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ResourceCollection</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

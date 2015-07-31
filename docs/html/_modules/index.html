@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview: module code &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Overview: module code</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="sefara/exporting.html">sefara.exporting</a></li>
+<li><a href="sefara/hooks.html">sefara.hooks</a></li>
+<li><a href="sefara/loading.html">sefara.loading</a></li>
+<li><a href="sefara/resource.html">sefara.resource</a></li>
+<li><a href="sefara/resource_collection.html">sefara.resource_collection</a></li>
+<li><a href="sefara/util.html">sefara.util</a></li>
+</ul>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

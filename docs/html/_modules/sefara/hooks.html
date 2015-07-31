@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sefara.hooks &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>sefara.hooks</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for sefara.hooks</h1><div class="highlight"><pre>
+<span class="c"># Copyright (c) 2015. Mount Sinai School of Medicine</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Hooks are a mechanism for running site-specific transforms or validation</span>
+<span class="sd">routines on Sefara resources.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">exec_in_directory</span>
+
+<div class="viewcode-block" id="NoCheckers"><a class="viewcode-back" href="../../sefara.html#sefara.hooks.NoCheckers">[docs]</a><span class="k">class</span> <span class="nc">NoCheckers</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="transform_from_environment"><a class="viewcode-back" href="../../sefara.html#sefara.hooks.transform_from_environment">[docs]</a><span class="k">def</span> <span class="nf">transform_from_environment</span><span class="p">(</span><span class="n">collection</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run the environment-variable-defined transforms on the resources in</span>
+<span class="sd">    the collection. The transforms will mutate the resources in this</span>
+<span class="sd">    collection; a new ResourceCollection is NOT returned.</span>
+
+<span class="sd">    See the `environment` module for the definition of the environment</span>
+<span class="sd">    variable used here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transforms</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">environment</span><span class="o">.</span><span class="n">TRANSFORM_ENVIRONMENT_VARIABLE</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">transforms</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">transform</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../sefara.html#sefara.hooks.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">path_or_callable</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;transform&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run a function on the resources in the collection. The function is</span>
+<span class="sd">    expected to mutate the resources in the collection; a new collection</span>
+<span class="sd">    is NOT returned.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path_or_callable : string or callable</span>
+<span class="sd">        If string, then this is interpreted as a path to a Python file. The</span>
+<span class="sd">        file will be exec&#39;d and is expected to define a module attribute</span>
+<span class="sd">        given by the `name` argument. This attribute will be used as the</span>
+<span class="sd">        callable. It should take a ResourceCollection instance as an</span>
+<span class="sd">        argument.</span>
+
+<span class="sd">        Otherwise, this parameter should be a callable that takes a</span>
+<span class="sd">        ResourceCollection instance. It will be invoked on this</span>
+<span class="sd">        ResourceCollection.</span>
+
+<span class="sd">    name : string [optional, default &#39;transform&#39;]</span>
+<span class="sd">        If `path_or_callable` is a string giving a path to a Python file</span>
+<span class="sd">        to execute, this parameter gives the attribute in that module to</span>
+<span class="sd">        use as the callable. Defaults to &quot;transform&quot;, i.e. the Python file</span>
+<span class="sd">        specified by `path_or_callable` is expected to define a function</span>
+<span class="sd">        called &quot;transform&quot;.</span>
+
+<span class="sd">    *args, **kwargs</span>
+<span class="sd">        Additional args and kwargs are passed to the transform function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run_hook</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">path_or_callable</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="check"><a class="viewcode-back" href="../../sefara.html#sefara.hooks.check">[docs]</a><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">checkers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">include_environment_checkers</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run &quot;checkers&quot;, either specified as an argument or using environment</span>
+<span class="sd">    variables, on the resource collection.</span>
+
+<span class="sd">    Checkers are used to validate that the resources in a collection</span>
+<span class="sd">    meet user-defined criteria, for example, that the paths they point</span>
+<span class="sd">    to exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    checkers : list of either callables, strings, or tuples [optional]</span>
+<span class="sd">        </span>
+<span class="sd">        If tuples, the elements are ``(path, name, args, kwargs)``.</span>
+
+<span class="sd">        Like transforms, checkers are called with this ResourceCollection</span>
+<span class="sd">        instance as an argument. Unlike transforms, checkers should NOT</span>
+<span class="sd">        mutate the resources. They are expected to return a list or</span>
+<span class="sd">        generator of three element tuples, ``(resource, attempted, problem)``</span>
+<span class="sd">        where ``resource`` is a Resource in this collection, ``attempted``</span>
+<span class="sd">        is True if validation was attempted on this resource, and</span>
+<span class="sd">        ``problem`` is a string error message if validation was unsuccesful</span>
+<span class="sd">        (None otherwise).</span>
+
+<span class="sd">        By returning ``attempted=False`` in the tuple above, checkers</span>
+<span class="sd">        indicate that a resource did not conform to the schema the checker</span>
+<span class="sd">        knows how to validate. For example, a checker might be verifying</span>
+<span class="sd">        that files pointed to by resources exist, but some resource may not</span>
+<span class="sd">        specify any file. In this case, the checker should set</span>
+<span class="sd">        ``attempted=False``. Another checker in use may know how to</span>
+<span class="sd">        validate that resource. The ``sefara-check`` tool reports any</span>
+<span class="sd">        resources that were not attempted by any checker as an error.</span>
+
+<span class="sd">        Checkers should generate a tuple for *every* resource in the</span>
+<span class="sd">        collection *in the order they appear in the collection*.</span>
+
+<span class="sd">    include_environment_checkers : boolean [optional, default: True]</span>
+<span class="sd">        If True, then checkers configured in environment variables are run,</span>
+<span class="sd">        in addition to any checkers specified in the first argument.</span>
+
+<span class="sd">        See the `environment` module for the definition of the environment</span>
+<span class="sd">        variable used here.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Generator giving (resource, tuples) pairs, where resource is a Resource</span>
+<span class="sd">    in this collection, and tuples is a list of</span>
+<span class="sd">    ``(checker, attempted, error)`` giving whether each checker</span>
+<span class="sd">    attempted validation of that resource, and, if so, the result.</span>
+<span class="sd">    ``error`` is None if validation was successful, otherwise a string</span>
+<span class="sd">    giving the error.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">checkers</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">checkers</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">include_environment_checkers</span><span class="p">:</span>
+        <span class="n">checkers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">environment</span><span class="o">.</span><span class="n">CHECKER_ENVIRONMENT_VARIABLE</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="n">generators</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">checker</span> <span class="ow">in</span> <span class="n">checkers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">checker</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">=</span> <span class="n">checker</span>
+            <span class="n">generator</span> <span class="o">=</span> <span class="n">run_hook</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">generator</span> <span class="o">=</span> <span class="n">run_hook</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">checker</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;check&quot;</span><span class="p">)</span>
+        <span class="n">generators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">generator</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">generators</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">NoCheckers</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="o">*</span><span class="n">generators</span><span class="p">):</span>
+        <span class="p">(</span><span class="n">expected_resource</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">tuples</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># (checker, attempted, error)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="n">attempted</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">resource</span> <span class="o">!=</span> <span class="n">expected_resource</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Checker </span><span class="si">%d</span><span class="s"> (</span><span class="si">%s</span><span class="s">): skipping / reordering: </span><span class="si">%s</span><span class="s"> != </span><span class="si">%s</span><span class="s">&quot;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">checkers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">resource</span><span class="p">,</span> <span class="n">expected_resource</span><span class="p">))</span>
+            <span class="n">tuples</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">checkers</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">attempted</span><span class="p">,</span> <span class="n">error</span><span class="p">))</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">expected_resource</span><span class="p">,</span> <span class="n">tuples</span><span class="p">)</span> 
+</div>
+<div class="viewcode-block" id="run_hook"><a class="viewcode-back" href="../../sefara.html#sefara.hooks.run_hook">[docs]</a><span class="k">def</span> <span class="nf">run_hook</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">path_or_callable</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Invoke a Python callable (either passed directly or defined in the</span>
+<span class="sd">    specified Python file) on the ResourceCollection and return the</span>
+<span class="sd">    result.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path_or_callable : string or callable</span>
+<span class="sd">        If string, then this is interpreted as a path to a Python file. The</span>
+<span class="sd">        file will be exec&#39;d and is expected to define a module attribute</span>
+<span class="sd">        given by the `name` argument. This attribute will be used as the</span>
+<span class="sd">        callable. It should take a ResourceCollection instance as an</span>
+<span class="sd">        argument.</span>
+
+<span class="sd">        Otherwise, this parameter should be a callable that takes a</span>
+<span class="sd">        ResourceCollection instance. It will be invoked on this</span>
+<span class="sd">        ResourceCollection.</span>
+
+<span class="sd">    name : string [optional, default &#39;transform&#39;]</span>
+<span class="sd">        If `path_or_callable` is a string giving a path to a Python file</span>
+<span class="sd">        to execute, this parameter gives the attribute in that module to</span>
+<span class="sd">        use as the callable.</span>
+
+<span class="sd">    *args, **kwargs</span>
+<span class="sd">        Additional args and kwargs are passed to the callable after the</span>
+<span class="sd">        ResourceCollection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">path_or_callable</span><span class="p">,</span> <span class="s">&#39;__call__&#39;</span><span class="p">):</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="n">path_or_callable</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">path_or_callable</span>
+        <span class="n">defines</span> <span class="o">=</span> <span class="n">exec_in_directory</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">function</span> <span class="o">=</span> <span class="n">defines</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="s">&quot;Hook &#39;</span><span class="si">%s</span><span class="s">&#39; defines no such field &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

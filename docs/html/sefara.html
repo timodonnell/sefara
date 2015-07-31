@@ -1,0 +1,1337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sefara package &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Commandline Tools Usage" href="tools.html"/>
+        <link rel="prev" title="Tutorial" href="tutorial.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>sefara package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/sefara.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="sefara-package">
+<h1>sefara package<a class="headerlink" href="#sefara-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-sefara.environment">
+<span id="sefara-environment-module"></span><h2>sefara.environment module<a class="headerlink" href="#module-sefara.environment" title="Permalink to this headline">¶</a></h2>
+<p>Environment variables used by sefara.</p>
+</div>
+<div class="section" id="module-sefara.exporting">
+<span id="sefara-exporting-module"></span><h2>sefara.exporting module<a class="headerlink" href="#module-sefara.exporting" title="Permalink to this headline">¶</a></h2>
+<p>Functions to define a resource collection.</p>
+<p>These functions should be called only from sefara resource collections, not
+normal scripts.</p>
+<dl class="function">
+<dt id="sefara.exporting.export">
+<code class="descclassname">sefara.exporting.</code><code class="descname">export</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.exporting.export" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and export a Resource with the specified attributes.</p>
+<p>All arguments are passed to <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.exporting.export_resources">
+<code class="descclassname">sefara.exporting.</code><code class="descname">export_resources</code><span class="sig-paren">(</span><em>resources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#export_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.exporting.export_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export one or more Resource instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>resources</strong> : list of <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a> instances</p>
+<blockquote class="last">
+<div><p>Resource instances to be exported.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.exporting.transform_exports">
+<code class="descclassname">sefara.exporting.</code><code class="descname">transform_exports</code><span class="sig-paren">(</span><em>path_or_callable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#transform_exports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.exporting.transform_exports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the resources exported by this collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path_or_callable</strong> : string or callable</p>
+<blockquote class="last">
+<div><p>Passed to <a class="reference internal" href="#sefara.hooks.transform" title="sefara.hooks.transform"><code class="xref any py py-func docutils literal"><span class="pre">hooks.transform</span></code></a>; see those docs for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara.hooks">
+<span id="sefara-hooks-module"></span><h2>sefara.hooks module<a class="headerlink" href="#module-sefara.hooks" title="Permalink to this headline">¶</a></h2>
+<p>Hooks are a mechanism for running site-specific transforms or validation
+routines on Sefara resources.</p>
+<dl class="exception">
+<dt id="sefara.hooks.NoCheckers">
+<em class="property">exception </em><code class="descclassname">sefara.hooks.</code><code class="descname">NoCheckers</code><a class="reference internal" href="_modules/sefara/hooks.html#NoCheckers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.hooks.NoCheckers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.hooks.check">
+<code class="descclassname">sefara.hooks.</code><code class="descname">check</code><span class="sig-paren">(</span><em>collection</em>, <em>checkers=None</em>, <em>include_environment_checkers=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/hooks.html#check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.hooks.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run &#8220;checkers&#8221;, either specified as an argument or using environment
+variables, on the resource collection.</p>
+<p>Checkers are used to validate that the resources in a collection
+meet user-defined criteria, for example, that the paths they point
+to exist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>checkers</strong> : list of either callables, strings, or tuples [optional]</p>
+<blockquote>
+<div><p>If tuples, the elements are <code class="docutils literal"><span class="pre">(path,</span> <span class="pre">name,</span> <span class="pre">args,</span> <span class="pre">kwargs)</span></code>.</p>
+<p>Like transforms, checkers are called with this ResourceCollection
+instance as an argument. Unlike transforms, checkers should NOT
+mutate the resources. They are expected to return a list or
+generator of three element tuples, <code class="docutils literal"><span class="pre">(resource,</span> <span class="pre">attempted,</span> <span class="pre">problem)</span></code>
+where <code class="docutils literal"><span class="pre">resource</span></code> is a Resource in this collection, <code class="docutils literal"><span class="pre">attempted</span></code>
+is True if validation was attempted on this resource, and
+<code class="docutils literal"><span class="pre">problem</span></code> is a string error message if validation was unsuccesful
+(None otherwise).</p>
+<p>By returning <code class="docutils literal"><span class="pre">attempted=False</span></code> in the tuple above, checkers
+indicate that a resource did not conform to the schema the checker
+knows how to validate. For example, a checker might be verifying
+that files pointed to by resources exist, but some resource may not
+specify any file. In this case, the checker should set
+<code class="docutils literal"><span class="pre">attempted=False</span></code>. Another checker in use may know how to
+validate that resource. The <code class="docutils literal"><span class="pre">sefara-check</span></code> tool reports any
+resources that were not attempted by any checker as an error.</p>
+<p>Checkers should generate a tuple for <em>every</em> resource in the
+collection <em>in the order they appear in the collection</em>.</p>
+</div></blockquote>
+<p><strong>include_environment_checkers</strong> : boolean [optional, default: True]</p>
+<blockquote>
+<div><p>If True, then checkers configured in environment variables are run,
+in addition to any checkers specified in the first argument.</p>
+<p>See the <a class="reference internal" href="#module-sefara.environment" title="sefara.environment"><code class="xref any py py-mod docutils literal"><span class="pre">environment</span></code></a> module for the definition of the environment
+variable used here.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator giving (resource, tuples) pairs, where resource is a Resource</p>
+<p>in this collection, and tuples is a list of</p>
+<p><code class="docutils literal"><span class="pre">(checker,</span> <span class="pre">attempted,</span> <span class="pre">error)</span></code> giving whether each checker</p>
+<p>attempted validation of that resource, and, if so, the result.</p>
+<p><code class="docutils literal"><span class="pre">error</span></code> is None if validation was successful, otherwise a string</p>
+<p class="last">giving the error.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.hooks.run_hook">
+<code class="descclassname">sefara.hooks.</code><code class="descname">run_hook</code><span class="sig-paren">(</span><em>collection</em>, <em>path_or_callable</em>, <em>name</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/hooks.html#run_hook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.hooks.run_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke a Python callable (either passed directly or defined in the
+specified Python file) on the ResourceCollection and return the
+result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path_or_callable</strong> : string or callable</p>
+<blockquote>
+<div><p>If string, then this is interpreted as a path to a Python file. The
+file will be exec&#8217;d and is expected to define a module attribute
+given by the <code class="xref any docutils literal"><span class="pre">name</span></code> argument. This attribute will be used as the
+callable. It should take a ResourceCollection instance as an
+argument.</p>
+<p>Otherwise, this parameter should be a callable that takes a
+ResourceCollection instance. It will be invoked on this
+ResourceCollection.</p>
+</div></blockquote>
+<p><strong>name</strong> : string [optional, default &#8216;transform&#8217;]</p>
+<blockquote>
+<div><p>If <code class="xref any docutils literal"><span class="pre">path_or_callable</span></code> is a string giving a path to a Python file
+to execute, this parameter gives the attribute in that module to
+use as the callable.</p>
+</div></blockquote>
+<p><strong>*args, **kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional args and kwargs are passed to the callable after the
+ResourceCollection.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.hooks.transform">
+<code class="descclassname">sefara.hooks.</code><code class="descname">transform</code><span class="sig-paren">(</span><em>collection</em>, <em>path_or_callable</em>, <em>name='transform'</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/hooks.html#transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.hooks.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a function on the resources in the collection. The function is
+expected to mutate the resources in the collection; a new collection
+is NOT returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path_or_callable</strong> : string or callable</p>
+<blockquote>
+<div><p>If string, then this is interpreted as a path to a Python file. The
+file will be exec&#8217;d and is expected to define a module attribute
+given by the <code class="xref any docutils literal"><span class="pre">name</span></code> argument. This attribute will be used as the
+callable. It should take a ResourceCollection instance as an
+argument.</p>
+<p>Otherwise, this parameter should be a callable that takes a
+ResourceCollection instance. It will be invoked on this
+ResourceCollection.</p>
+</div></blockquote>
+<p><strong>name</strong> : string [optional, default &#8216;transform&#8217;]</p>
+<blockquote>
+<div><p>If <code class="xref any docutils literal"><span class="pre">path_or_callable</span></code> is a string giving a path to a Python file
+to execute, this parameter gives the attribute in that module to
+use as the callable. Defaults to &#8220;transform&#8221;, i.e. the Python file
+specified by <code class="xref any docutils literal"><span class="pre">path_or_callable</span></code> is expected to define a function
+called &#8220;transform&#8221;.</p>
+</div></blockquote>
+<p><strong>*args, **kwargs</strong></p>
+<blockquote class="last">
+<div><p>Additional args and kwargs are passed to the transform function.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.hooks.transform_from_environment">
+<code class="descclassname">sefara.hooks.</code><code class="descname">transform_from_environment</code><span class="sig-paren">(</span><em>collection</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/hooks.html#transform_from_environment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.hooks.transform_from_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the environment-variable-defined transforms on the resources in
+the collection. The transforms will mutate the resources in this
+collection; a new ResourceCollection is NOT returned.</p>
+<p>See the <a class="reference internal" href="#module-sefara.environment" title="sefara.environment"><code class="xref any py py-mod docutils literal"><span class="pre">environment</span></code></a> module for the definition of the environment
+variable used here.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara.loading">
+<span id="sefara-loading-module"></span><h2>sefara.loading module<a class="headerlink" href="#module-sefara.loading" title="Permalink to this headline">¶</a></h2>
+<p>Instantiate ResourceCollection instances from files or strings.</p>
+<dl class="function">
+<dt id="sefara.loading.load">
+<code class="descclassname">sefara.loading.</code><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em>, <em>filters=None</em>, <em>transforms=None</em>, <em>environment_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/loading.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.loading.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a <a class="reference internal" href="#sefara.ResourceCollection" title="sefara.ResourceCollection"><code class="xref any py py-class docutils literal"><span class="pre">ResourceCollection</span></code></a> from a file or URL.</p>
+<p>Collections can be defined using either Python or JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : string</p>
+<blockquote>
+<div><p>Path or URL to resource collection. If a path is given, it is
+equivalent to a &#8220;<a class="reference external" href="file:/">file:/</a>/&lt;path&gt;&#8221; URL. Supports any protocol handled by
+<code class="xref any docutils literal"><span class="pre">urlopen</span></code>, such as HTTP and HTTPS.</p>
+<p>Can be the string &#8216;-&#8216; to read from stdin.</p>
+<p>May include a &#8220;fragment&#8221;, the part of a URL following a &#8220;#&#8221; symbol,
+e.g. &#8220;file1.py#filter=tags.foo&#8221;. The fragment is a query string of
+key/value pairs separated by &#8220;&amp;&#8221; symbols, e.g.
+&#8220;file1.txt#filter=tags.foo&amp;format=json&#8221;.</p>
+<p>Valid fragment keys are:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>filter</dt>
+<dd><p class="first last">The value is a Python expression giving a sefara filter.</p>
+</dd>
+<dt>transform</dt>
+<dd><p class="first last">The value is a path to a Python file with a sefara transform.</p>
+</dd>
+<dt>format</dt>
+<dd><p class="first last">The value gives the format of the data, either &#8220;python&#8221; or
+&#8220;json&#8221;.</p>
+</dd>
+<dt>environment_transforms</dt>
+<dd><p class="first last">The value should be &#8220;true&#8221; or &#8220;false&#8221; indicating whether to run
+transforms configured with environment variables.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>The fragment operations are processed in order, left to right, and
+can be specified multiple times. That is, the URL:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">file.py#filter=tags.bar&amp;filter=tags.baz</span></code></p>
+</div></blockquote>
+<p>is equivalent to:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">file.py#filter=tags.bar</span> <span class="pre">and</span> <span class="pre">tags.baz</span></code></p>
+</div></blockquote>
+<p>Fragment values can have spaces, and should not be quoted even if they
+do (as in the above example).</p>
+</div></blockquote>
+<p><strong>format</strong> : &#8220;python&#8221; or &#8220;json&#8221; [optional]</p>
+<blockquote>
+<div><p>Format of data. Overrides any setting specified in the filename URL. If
+it is not specified in either place, it is guessed from the filename
+extension.</p>
+</div></blockquote>
+<p><strong>filters</strong> : list of strings or callbles [optional]</p>
+<blockquote>
+<div><p>Filters to run on the ResourceCollection, in addition to any
+specified in the filename. Anything you can pass to
+<a class="reference internal" href="#sefara.resource_collection.ResourceCollection.filter" title="sefara.resource_collection.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">ResourceCollection.filter</span></code></a> is accepted.</p>
+</div></blockquote>
+<p><strong>transforms</strong> : list of strings [optional]</p>
+<blockquote>
+<div><p>Transforms to run on the ResourceCollection, in addition to any
+specified in the filename or from the environment. Anything you
+you can pass to <a class="reference internal" href="#sefara.hooks.transform" title="sefara.hooks.transform"><code class="xref any py py-func docutils literal"><span class="pre">hooks.transform</span></code></a> is accepted.</p>
+</div></blockquote>
+<p><strong>environment_transforms</strong> : Boolean [optional]</p>
+<blockquote>
+<div><p>Whether to run environment_transforms. If specified, this will override
+the &#8220;environment_transforms&#8221; fragment setting specified in the filename
+URL. If not specified in either place, the default is True.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">ResourceCollection</span></code> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.loading.loads">
+<code class="descclassname">sefara.loading.</code><code class="descname">loads</code><span class="sig-paren">(</span><em>data</em>, <em>filename=None</em>, <em>format=None</em>, <em>environment_transforms=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/loading.html#loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.loading.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a ResourceCollection from a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : string</p>
+<blockquote>
+<div><p>ResourceCollection specification in either Python or JSON.</p>
+</div></blockquote>
+<p><strong>filename</strong> : string [optional]</p>
+<blockquote>
+<div><p>filename where this data originally came from to use in error messages</p>
+</div></blockquote>
+<p><strong>format</strong> : string,  either &#8220;python&#8221; or &#8220;json&#8221; [default: guess from data]</p>
+<blockquote>
+<div><p>format of the data</p>
+</div></blockquote>
+<p><strong>environment_transforms</strong> : Boolean [default: True]</p>
+<blockquote>
+<div><p>whether to run transforms configured in environment variables.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ResourceCollection instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara.resource">
+<span id="sefara-resource-module"></span><h2>sefara.resource module<a class="headerlink" href="#module-sefara.resource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sefara.resource.Resource">
+<em class="property">class </em><code class="descclassname">sefara.resource.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>name=None</em>, <em>**fields</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">attrdict.mapping.AttrMap</span></code></p>
+<p>A Resource gives information on how to access some dataset under analysis
+(such as a file), along with any optional metadata meaningful to the user.</p>
+<p>The only required attribute for a resource is <code class="xref any docutils literal"><span class="pre">name</span></code>. If <code class="xref any docutils literal"><span class="pre">name</span></code> is not
+specified when the Resource is defined, one is automatically generated.</p>
+<p>The <a class="reference internal" href="#sefara.ResourceCollection.tags" title="sefara.ResourceCollection.tags"><code class="xref any py py-attr docutils literal"><span class="pre">tags</span></code></a> attribute, if it is specified, is handled slightly specially.
+It is stored using the <a class="reference internal" href="#sefara.resource.Tags" title="sefara.resource.Tags"><code class="xref any py py-class docutils literal"><span class="pre">Tags</span></code></a> class, which is a Python set that also
+supports a convenient method of membership testing. If <a class="reference internal" href="#sefara.ResourceCollection.tags" title="sefara.ResourceCollection.tags"><code class="xref any py py-attr docutils literal"><span class="pre">tags</span></code></a> is a <a class="reference internal" href="#sefara.resource.Tags" title="sefara.resource.Tags"><code class="xref any py py-class docutils literal"><span class="pre">Tags</span></code></a>
+instance, then <code class="xref any docutils literal"><span class="pre">tags.foo</span></code> returns whether the string &#8220;foo&#8221; is in the set.</p>
+<dl class="attribute">
+<dt id="sefara.resource.Resource.RAISE">
+<code class="descname">RAISE</code><em class="property"> = &lt;object object&gt;</em><a class="headerlink" href="#sefara.resource.Resource.RAISE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource.Resource.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>expression</em>, <em>error_value=&lt;object object&gt;</em>, <em>extra_bindings={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.Resource.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a Python expression or callable in the context of this
+resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>expression</strong> : string or callable</p>
+<blockquote>
+<div><p>If a string, then it should give a valid Python expression.
+This expression will be evaluated with the attributes of this
+resource in the local namespace. For example, since the resource
+has a <code class="docutils literal"><span class="pre">name</span></code> attribute, the expression &#8220;name.lower()&#8221; would
+return the name in lower case. Tags can be accessed through the
+<code class="docutils literal"><span class="pre">tags</span></code> variable. If the resource has a tag called <code class="docutils literal"><span class="pre">foo</span></code>, then
+the expression &#8220;tags.foo&#8221; will evaluate to <code class="docutils literal"><span class="pre">True</span></code>. If there is no
+such tag, then &#8220;tags.foo&#8221; will evaluate to <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p>A few common modules are included in the evaluation namespace,
+including <code class="docutils literal"><span class="pre">os</span></code>, <code class="docutils literal"><span class="pre">sys</span></code>, <code class="docutils literal"><span class="pre">collections</span></code>, <code class="docutils literal"><span class="pre">re</span></code>, and <code class="docutils literal"><span class="pre">json</span></code>.
+The resource object itself is also available in the <code class="docutils literal"><span class="pre">resource</span></code>
+variable.</p>
+<p>As a hack to support a primitive form of exception handling, a
+function called <code class="docutils literal"><span class="pre">on_error</span></code> is also included in the evaluation
+namespace. This function takes a single argument, <code class="docutils literal"><span class="pre">value</span></code>, of
+any type and returns None. If <code class="docutils literal"><span class="pre">on_error</span></code> is called while
+evaluating the expression, and the expression subsequently raises
+an exception, then the exception is caught and <code class="docutils literal"><span class="pre">value</span></code> is
+returned as the value of the expression. This means you can write
+expressions like:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">on_error(False)</span> <span class="pre">or</span> <span class="pre">foo.startswith(&quot;bar&quot;)</span></code></p>
+</div></blockquote>
+<p>and if the right side of the expression raises an error (for
+example, if there is no such attribute <code class="docutils literal"><span class="pre">foo</span></code> in the resource),
+then the value <code class="docutils literal"><span class="pre">False</span></code> will be used as the expression&#8217;s value.
+Note that you must write the expression as it is here: put the
+<code class="docutils literal"><span class="pre">on_error</span></code> clause first, and connect it with the main expression
+with <code class="xref any docutils literal"><span class="pre">or</span></code> (this ensures that it gets called before the rest of the
+expression).</p>
+<p>If <code class="docutils literal"><span class="pre">expression</span></code> is a callable, then it will be called and passed
+this Resource instance as its argument.</p>
+</div></blockquote>
+<p><strong>error_value</strong> : object [optional]</p>
+<blockquote>
+<div><p>If evaluating the expression results in an uncaught exception,
+the <code class="docutils literal"><span class="pre">error_value</span></code> value will be returned instead. If not
+specified, then <code class="docutils literal"><span class="pre">evaluate</span></code> will raise the exception to the
+caller.</p>
+</div></blockquote>
+<p><strong>extra_bindings</strong> : dict [optional]</p>
+<blockquote>
+<div><p>Additional local variables to include in the evaluation context.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The Python object returned by evaluating the expression.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource.Resource.to_plain_types">
+<code class="descname">to_plain_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource.to_plain_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.Resource.to_plain_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this resource represented using Python dicts, lists, and
+strings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sefara.resource.Tags">
+<em class="property">class </em><code class="descclassname">sefara.resource.</code><code class="descname">Tags</code><span class="sig-paren">(</span><em>tags</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Tags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.Tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">set</span></code></p>
+<p>A set of strings used to group resources.</p>
+<p>This class inherits from Python&#8217;s <code class="xref any docutils literal"><span class="pre">set</span></code> class and supports all the
+functionality of that class. Additionally, it supports attribute
+access as a way to test membership: <code class="docutils literal"><span class="pre">tags.foo</span></code> will return <code class="docutils literal"><span class="pre">True</span></code> if
+the string &#8220;foo&#8221; is in the set, and <code class="docutils literal"><span class="pre">False</span></code> otherwise.</p>
+<dl class="method">
+<dt id="sefara.resource.Tags.to_plain_types">
+<code class="descname">to_plain_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Tags.to_plain_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.Tags.to_plain_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.resource.check_valid_tag">
+<code class="descclassname">sefara.resource.</code><code class="descname">check_valid_tag</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#check_valid_tag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource.check_valid_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise an error if the given name is not a valid tag name. Tags must
+be valid Python identifiers and also not builtin methods of the <code class="xref any docutils literal"><span class="pre">set</span></code>
+class, to avoid ambiguity in using attribute access to test membership
+in the set.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara.resource_collection">
+<span id="sefara-resource-collection-module"></span><h2>sefara.resource_collection module<a class="headerlink" href="#module-sefara.resource_collection" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="sefara.resource_collection.NoCheckers">
+<em class="property">exception </em><code class="descclassname">sefara.resource_collection.</code><code class="descname">NoCheckers</code><a class="reference internal" href="_modules/sefara/resource_collection.html#NoCheckers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.NoCheckers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sefara.resource_collection.ResourceCollection">
+<em class="property">class </em><code class="descclassname">sefara.resource_collection.</code><code class="descname">ResourceCollection</code><span class="sig-paren">(</span><em>resources</em>, <em>filename='&lt;no file&gt;'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Collection of zero or more resources.</p>
+<dl class="docutils">
+<dt>Resources in a ResourceCollection can be accessed either by name:</dt>
+<dd>resource_collection[&#8220;my_dataset&#8221;]</dd>
+<dt>or by index (or slice):</dt>
+<dd>resource_collection[0]</dd>
+</dl>
+<dl class="attribute">
+<dt id="sefara.resource_collection.ResourceCollection.attributes">
+<code class="descname">attributes</code><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute names used by resouces in this collection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>expression</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new collection containing only those resources for which
+<code class="docutils literal"><span class="pre">expression</span></code> evaluated to True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>expression</strong> : string or callable</p>
+<blockquote>
+<div><p>If a string, then it should give a valid Python expression.
+This expression will be evaluated with the
+attributes of this resource in the local namespace. For
+example, since the resource has a <code class="docutils literal"><span class="pre">name</span></code> attribute, the
+expression &#8220;name.startswith(&#8216;bar&#8217;)&#8221; is a valid expression.
+Tags can be accessed through the <code class="docutils literal"><span class="pre">tags</span></code> variable.
+If the resource has a tag called <code class="docutils literal"><span class="pre">foo</span></code>, then the expression
+&#8220;tags.foo&#8221; will evaluate to True. If there is no such tag,
+then &#8220;tags.foo&#8221; will evaluate to False.</p>
+<p>If a callable, then it will be called and passed this <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a>
+instance as its argument.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A new ResourceCollection containing those resources for which</p>
+<p class="last"><code class="xref any docutils literal"><span class="pre">expression</span></code> evaluated to True.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.select">
+<code class="descname">select</code><span class="sig-paren">(</span><em>*expressions</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select fields (or expressions) from each resource as a pandas
+DataFrame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*expressions</strong> : string, callable, or (string, string or callable) pair</p>
+<blockquote>
+<div><p>One or more expressions giving the fields to select.</p>
+<p>Each expression can be either a <code class="docutils literal"><span class="pre">string</span></code> expression, a
+<code class="docutils literal"><span class="pre">callable</span></code>, or a <code class="docutils literal"><span class="pre">(string,</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">callable)</span></code> pair giving a
+label and an expression.</p>
+<p>Labels give the column names in the result. Labels can be specified
+either by giving a <code class="docutils literal"><span class="pre">(label,</span> <span class="pre">expression)</span></code> pair, or giving a string
+of the form &#8220;LABEL: EXPRESSION&#8221;, such as
+&#8220;upper_name: name.upper()&#8221;. Here &#8220;upper_name&#8221; is the label, and
+&#8220;name.upper()&#8221; is the expression that will be evaluated. If not
+specified, labels default to the text of the <code class="docutils literal"><span class="pre">expression</span></code> if
+<code class="docutils literal"><span class="pre">expression</span></code> is a string, and an automatically generated label if
+<code class="docutils literal"><span class="pre">expression</span></code> is a callable.</p>
+<p>Each <code class="docutils literal"><span class="pre">expression</span></code> will be passed to <a class="reference internal" href="#sefara.Resource.evaluate" title="sefara.Resource.evaluate"><code class="xref any py py-meth docutils literal"><span class="pre">Resource.evaluate</span></code></a> for each
+resource in the collection. See that method&#8217;s docs for details on
+expression evaluation.</p>
+</div></blockquote>
+<p><strong>if_error</strong> : string, one of &#8220;raise&#8221;, &#8220;skip&#8221;, or &#8220;none&#8221; [default: &#8220;raise&#8221;]</p>
+<blockquote>
+<div><p>Must be specified as a keyword argument. Controls the behavior when
+evaluation of an expression raises an uncaught exception. One of:</p>
+<dl class="docutils">
+<dt>raise</dt>
+<dd><p class="first last">Raise the exception to the caller. This is the default.</p>
+</dd>
+<dt>skip</dt>
+<dd><p class="first last">Skip resources where evaluation of any of the expressions
+raises an error. These resources will be omitted from the
+result.</p>
+</dd>
+<dt>none</dt>
+<dd><p class="first last">If evaluating an expression on a resource raises an exception,
+set that entry in the result to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <code class="xref any docutils literal"><span class="pre">pandas.DataFrame</span></code>. Rows correspond to resources. Columns correspond</p>
+<p class="last">to the specified expressions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.select_series">
+<code class="descname">select_series</code><span class="sig-paren">(</span><em>expression</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.select_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.select_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select a single field as a pandas series.</p>
+<p>See <a class="reference internal" href="#sefara.resource_collection.ResourceCollection.select" title="sefara.resource_collection.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">select</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.singleton">
+<code class="descname">singleton</code><span class="sig-paren">(</span><em>raise_on_multiple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.singleton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.singleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this ResourceCollection contains exactly 1 resource, return it.
+Otherwise, raise a ValueError.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sefara.resource_collection.ResourceCollection.summary">
+<code class="descname">summary</code><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string summarzing the resources in this collection, including their
+attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sefara.resource_collection.ResourceCollection.tags">
+<code class="descname">tags</code><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tags associated with any resources in this collection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.to_json">
+<code class="descname">to_json</code><span class="sig-paren">(</span><em>indent=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string giving this collection represented as JSON.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.to_plain_types">
+<code class="descname">to_plain_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_plain_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.to_plain_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a representation of this collection using Python dicts, lists,
+and strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.to_python">
+<code class="descname">to_python</code><span class="sig-paren">(</span><em>indent=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_python"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.to_python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string giving this collection represented as Python code.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.resource_collection.ResourceCollection.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>file=None</em>, <em>format=None</em>, <em>indent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.resource_collection.ResourceCollection.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize this collection to disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : string or file handle [optional, default: sys.stdout]</p>
+<blockquote>
+<div><p>Path or file handle to write to.</p>
+</div></blockquote>
+<p><strong>format</strong> : string, one of &#8220;python&#8221; or &#8220;json&#8221; [optional]</p>
+<blockquote>
+<div><p>Output format. If not specified, it is guessed from the filename
+extension.</p>
+</div></blockquote>
+<p><strong>indent</strong> : int [optional]</p>
+<blockquote class="last">
+<div><p>Number of spaces to use for indentation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara.util">
+<span id="sefara-util-module"></span><h2>sefara.util module<a class="headerlink" href="#module-sefara.util" title="Permalink to this headline">¶</a></h2>
+<p>A few utility functions and imports.</p>
+<dl class="function">
+<dt id="sefara.util.exec_in_directory">
+<code class="descclassname">sefara.util.</code><code class="descname">exec_in_directory</code><span class="sig-paren">(</span><em>filename=None</em>, <em>code=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/util.html#exec_in_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.util.exec_in_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute Python code from either a file or passed as an argument. If a file
+is specified, the code will be executed with the current working directory
+set to the directory where the file resides.</p>
+<p>If both <code class="docutils literal"><span class="pre">filename</span></code> and <code class="docutils literal"><span class="pre">code</span></code> are specified, then <code class="docutils literal"><span class="pre">code</span></code> is executed,
+but <code class="docutils literal"><span class="pre">filename</span></code> is used to set the current working directory, and in error
+messages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : string [optional]</p>
+<blockquote>
+<div><p>Path to file with Python code to execute.</p>
+</div></blockquote>
+<p><strong>code</strong> : string [optional]</p>
+<blockquote>
+<div><p>Python code to execute</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict giving module-level attributes defined by the executed code</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.util.move_to_front">
+<code class="descclassname">sefara.util.</code><code class="descname">move_to_front</code><span class="sig-paren">(</span><em>lst</em>, <em>*items</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/util.html#move_to_front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.util.move_to_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the specified items to the front of the given list. If an item is not
+in the list, it is ignored.</p>
+<p>Mutates the list. Does not return anything.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-sefara">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sefara" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="sefara.load">
+<code class="descclassname">sefara.</code><code class="descname">load</code><span class="sig-paren">(</span><em>filename</em>, <em>format=None</em>, <em>filters=None</em>, <em>transforms=None</em>, <em>environment_transforms=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/loading.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a <a class="reference internal" href="#sefara.ResourceCollection" title="sefara.ResourceCollection"><code class="xref any py py-class docutils literal"><span class="pre">ResourceCollection</span></code></a> from a file or URL.</p>
+<p>Collections can be defined using either Python or JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : string</p>
+<blockquote>
+<div><p>Path or URL to resource collection. If a path is given, it is
+equivalent to a &#8220;<a class="reference external" href="file:/">file:/</a>/&lt;path&gt;&#8221; URL. Supports any protocol handled by
+<code class="xref any docutils literal"><span class="pre">urlopen</span></code>, such as HTTP and HTTPS.</p>
+<p>Can be the string &#8216;-&#8216; to read from stdin.</p>
+<p>May include a &#8220;fragment&#8221;, the part of a URL following a &#8220;#&#8221; symbol,
+e.g. &#8220;file1.py#filter=tags.foo&#8221;. The fragment is a query string of
+key/value pairs separated by &#8220;&amp;&#8221; symbols, e.g.
+&#8220;file1.txt#filter=tags.foo&amp;format=json&#8221;.</p>
+<p>Valid fragment keys are:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>filter</dt>
+<dd><p class="first last">The value is a Python expression giving a sefara filter.</p>
+</dd>
+<dt>transform</dt>
+<dd><p class="first last">The value is a path to a Python file with a sefara transform.</p>
+</dd>
+<dt>format</dt>
+<dd><p class="first last">The value gives the format of the data, either &#8220;python&#8221; or
+&#8220;json&#8221;.</p>
+</dd>
+<dt>environment_transforms</dt>
+<dd><p class="first last">The value should be &#8220;true&#8221; or &#8220;false&#8221; indicating whether to run
+transforms configured with environment variables.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>The fragment operations are processed in order, left to right, and
+can be specified multiple times. That is, the URL:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">file.py#filter=tags.bar&amp;filter=tags.baz</span></code></p>
+</div></blockquote>
+<p>is equivalent to:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">file.py#filter=tags.bar</span> <span class="pre">and</span> <span class="pre">tags.baz</span></code></p>
+</div></blockquote>
+<p>Fragment values can have spaces, and should not be quoted even if they
+do (as in the above example).</p>
+</div></blockquote>
+<p><strong>format</strong> : &#8220;python&#8221; or &#8220;json&#8221; [optional]</p>
+<blockquote>
+<div><p>Format of data. Overrides any setting specified in the filename URL. If
+it is not specified in either place, it is guessed from the filename
+extension.</p>
+</div></blockquote>
+<p><strong>filters</strong> : list of strings or callbles [optional]</p>
+<blockquote>
+<div><p>Filters to run on the ResourceCollection, in addition to any
+specified in the filename. Anything you can pass to
+<a class="reference internal" href="#sefara.ResourceCollection.filter" title="sefara.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">ResourceCollection.filter</span></code></a> is accepted.</p>
+</div></blockquote>
+<p><strong>transforms</strong> : list of strings [optional]</p>
+<blockquote>
+<div><p>Transforms to run on the ResourceCollection, in addition to any
+specified in the filename or from the environment. Anything you
+you can pass to <a class="reference internal" href="#sefara.hooks.transform" title="sefara.hooks.transform"><code class="xref any py py-func docutils literal"><span class="pre">hooks.transform</span></code></a> is accepted.</p>
+</div></blockquote>
+<p><strong>environment_transforms</strong> : Boolean [optional]</p>
+<blockquote>
+<div><p>Whether to run environment_transforms. If specified, this will override
+the &#8220;environment_transforms&#8221; fragment setting specified in the filename
+URL. If not specified in either place, the default is True.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><code class="docutils literal"><span class="pre">ResourceCollection</span></code> instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.loads">
+<code class="descclassname">sefara.</code><code class="descname">loads</code><span class="sig-paren">(</span><em>data</em>, <em>filename=None</em>, <em>format=None</em>, <em>environment_transforms=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/loading.html#loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a ResourceCollection from a string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : string</p>
+<blockquote>
+<div><p>ResourceCollection specification in either Python or JSON.</p>
+</div></blockquote>
+<p><strong>filename</strong> : string [optional]</p>
+<blockquote>
+<div><p>filename where this data originally came from to use in error messages</p>
+</div></blockquote>
+<p><strong>format</strong> : string,  either &#8220;python&#8221; or &#8220;json&#8221; [default: guess from data]</p>
+<blockquote>
+<div><p>format of the data</p>
+</div></blockquote>
+<p><strong>environment_transforms</strong> : Boolean [default: True]</p>
+<blockquote>
+<div><p>whether to run transforms configured in environment variables.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">ResourceCollection instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="sefara.ResourceCollection">
+<em class="property">class </em><code class="descclassname">sefara.</code><code class="descname">ResourceCollection</code><span class="sig-paren">(</span><em>resources</em>, <em>filename='&lt;no file&gt;'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Collection of zero or more resources.</p>
+<dl class="docutils">
+<dt>Resources in a ResourceCollection can be accessed either by name:</dt>
+<dd>resource_collection[&#8220;my_dataset&#8221;]</dd>
+<dt>or by index (or slice):</dt>
+<dd>resource_collection[0]</dd>
+</dl>
+<dl class="attribute">
+<dt id="sefara.ResourceCollection.attributes">
+<code class="descname">attributes</code><a class="headerlink" href="#sefara.ResourceCollection.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute names used by resouces in this collection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>expression</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new collection containing only those resources for which
+<code class="docutils literal"><span class="pre">expression</span></code> evaluated to True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>expression</strong> : string or callable</p>
+<blockquote>
+<div><p>If a string, then it should give a valid Python expression.
+This expression will be evaluated with the
+attributes of this resource in the local namespace. For
+example, since the resource has a <code class="docutils literal"><span class="pre">name</span></code> attribute, the
+expression &#8220;name.startswith(&#8216;bar&#8217;)&#8221; is a valid expression.
+Tags can be accessed through the <code class="docutils literal"><span class="pre">tags</span></code> variable.
+If the resource has a tag called <code class="docutils literal"><span class="pre">foo</span></code>, then the expression
+&#8220;tags.foo&#8221; will evaluate to True. If there is no such tag,
+then &#8220;tags.foo&#8221; will evaluate to False.</p>
+<p>If a callable, then it will be called and passed this <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a>
+instance as its argument.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A new ResourceCollection containing those resources for which</p>
+<p class="last"><code class="xref any docutils literal"><span class="pre">expression</span></code> evaluated to True.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.select">
+<code class="descname">select</code><span class="sig-paren">(</span><em>*expressions</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select fields (or expressions) from each resource as a pandas
+DataFrame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*expressions</strong> : string, callable, or (string, string or callable) pair</p>
+<blockquote>
+<div><p>One or more expressions giving the fields to select.</p>
+<p>Each expression can be either a <code class="docutils literal"><span class="pre">string</span></code> expression, a
+<code class="docutils literal"><span class="pre">callable</span></code>, or a <code class="docutils literal"><span class="pre">(string,</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">callable)</span></code> pair giving a
+label and an expression.</p>
+<p>Labels give the column names in the result. Labels can be specified
+either by giving a <code class="docutils literal"><span class="pre">(label,</span> <span class="pre">expression)</span></code> pair, or giving a string
+of the form &#8220;LABEL: EXPRESSION&#8221;, such as
+&#8220;upper_name: name.upper()&#8221;. Here &#8220;upper_name&#8221; is the label, and
+&#8220;name.upper()&#8221; is the expression that will be evaluated. If not
+specified, labels default to the text of the <code class="docutils literal"><span class="pre">expression</span></code> if
+<code class="docutils literal"><span class="pre">expression</span></code> is a string, and an automatically generated label if
+<code class="docutils literal"><span class="pre">expression</span></code> is a callable.</p>
+<p>Each <code class="docutils literal"><span class="pre">expression</span></code> will be passed to <a class="reference internal" href="#sefara.Resource.evaluate" title="sefara.Resource.evaluate"><code class="xref any py py-meth docutils literal"><span class="pre">Resource.evaluate</span></code></a> for each
+resource in the collection. See that method&#8217;s docs for details on
+expression evaluation.</p>
+</div></blockquote>
+<p><strong>if_error</strong> : string, one of &#8220;raise&#8221;, &#8220;skip&#8221;, or &#8220;none&#8221; [default: &#8220;raise&#8221;]</p>
+<blockquote>
+<div><p>Must be specified as a keyword argument. Controls the behavior when
+evaluation of an expression raises an uncaught exception. One of:</p>
+<dl class="docutils">
+<dt>raise</dt>
+<dd><p class="first last">Raise the exception to the caller. This is the default.</p>
+</dd>
+<dt>skip</dt>
+<dd><p class="first last">Skip resources where evaluation of any of the expressions
+raises an error. These resources will be omitted from the
+result.</p>
+</dd>
+<dt>none</dt>
+<dd><p class="first last">If evaluating an expression on a resource raises an exception,
+set that entry in the result to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A <code class="xref any docutils literal"><span class="pre">pandas.DataFrame</span></code>. Rows correspond to resources. Columns correspond</p>
+<p class="last">to the specified expressions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.select_series">
+<code class="descname">select_series</code><span class="sig-paren">(</span><em>expression</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.select_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.select_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select a single field as a pandas series.</p>
+<p>See <a class="reference internal" href="#sefara.ResourceCollection.select" title="sefara.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">select</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.singleton">
+<code class="descname">singleton</code><span class="sig-paren">(</span><em>raise_on_multiple=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.singleton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.singleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this ResourceCollection contains exactly 1 resource, return it.
+Otherwise, raise a ValueError.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sefara.ResourceCollection.summary">
+<code class="descname">summary</code><a class="headerlink" href="#sefara.ResourceCollection.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string summarzing the resources in this collection, including their
+attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sefara.ResourceCollection.tags">
+<code class="descname">tags</code><a class="headerlink" href="#sefara.ResourceCollection.tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tags associated with any resources in this collection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.to_json">
+<code class="descname">to_json</code><span class="sig-paren">(</span><em>indent=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string giving this collection represented as JSON.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.to_plain_types">
+<code class="descname">to_plain_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_plain_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.to_plain_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a representation of this collection using Python dicts, lists,
+and strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.to_python">
+<code class="descname">to_python</code><span class="sig-paren">(</span><em>indent=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.to_python"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.to_python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string giving this collection represented as Python code.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.ResourceCollection.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>file=None</em>, <em>format=None</em>, <em>indent=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource_collection.html#ResourceCollection.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.ResourceCollection.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize this collection to disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file</strong> : string or file handle [optional, default: sys.stdout]</p>
+<blockquote>
+<div><p>Path or file handle to write to.</p>
+</div></blockquote>
+<p><strong>format</strong> : string, one of &#8220;python&#8221; or &#8220;json&#8221; [optional]</p>
+<blockquote>
+<div><p>Output format. If not specified, it is guessed from the filename
+extension.</p>
+</div></blockquote>
+<p><strong>indent</strong> : int [optional]</p>
+<blockquote class="last">
+<div><p>Number of spaces to use for indentation.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sefara.Resource">
+<em class="property">class </em><code class="descclassname">sefara.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>name=None</em>, <em>**fields</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">attrdict.mapping.AttrMap</span></code></p>
+<p>A Resource gives information on how to access some dataset under analysis
+(such as a file), along with any optional metadata meaningful to the user.</p>
+<p>The only required attribute for a resource is <code class="xref any docutils literal"><span class="pre">name</span></code>. If <code class="xref any docutils literal"><span class="pre">name</span></code> is not
+specified when the Resource is defined, one is automatically generated.</p>
+<p>The <a class="reference internal" href="#sefara.ResourceCollection.tags" title="sefara.ResourceCollection.tags"><code class="xref any py py-attr docutils literal"><span class="pre">tags</span></code></a> attribute, if it is specified, is handled slightly specially.
+It is stored using the <a class="reference internal" href="#sefara.resource.Tags" title="sefara.resource.Tags"><code class="xref any py py-class docutils literal"><span class="pre">Tags</span></code></a> class, which is a Python set that also
+supports a convenient method of membership testing. If <a class="reference internal" href="#sefara.ResourceCollection.tags" title="sefara.ResourceCollection.tags"><code class="xref any py py-attr docutils literal"><span class="pre">tags</span></code></a> is a <a class="reference internal" href="#sefara.resource.Tags" title="sefara.resource.Tags"><code class="xref any py py-class docutils literal"><span class="pre">Tags</span></code></a>
+instance, then <code class="xref any docutils literal"><span class="pre">tags.foo</span></code> returns whether the string &#8220;foo&#8221; is in the set.</p>
+<dl class="attribute">
+<dt id="sefara.Resource.RAISE">
+<code class="descname">RAISE</code><em class="property"> = &lt;object object&gt;</em><a class="headerlink" href="#sefara.Resource.RAISE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sefara.Resource.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>expression</em>, <em>error_value=&lt;object object&gt;</em>, <em>extra_bindings={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.Resource.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a Python expression or callable in the context of this
+resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>expression</strong> : string or callable</p>
+<blockquote>
+<div><p>If a string, then it should give a valid Python expression.
+This expression will be evaluated with the attributes of this
+resource in the local namespace. For example, since the resource
+has a <code class="docutils literal"><span class="pre">name</span></code> attribute, the expression &#8220;name.lower()&#8221; would
+return the name in lower case. Tags can be accessed through the
+<code class="docutils literal"><span class="pre">tags</span></code> variable. If the resource has a tag called <code class="docutils literal"><span class="pre">foo</span></code>, then
+the expression &#8220;tags.foo&#8221; will evaluate to <code class="docutils literal"><span class="pre">True</span></code>. If there is no
+such tag, then &#8220;tags.foo&#8221; will evaluate to <code class="docutils literal"><span class="pre">False</span></code>.</p>
+<p>A few common modules are included in the evaluation namespace,
+including <code class="docutils literal"><span class="pre">os</span></code>, <code class="docutils literal"><span class="pre">sys</span></code>, <code class="docutils literal"><span class="pre">collections</span></code>, <code class="docutils literal"><span class="pre">re</span></code>, and <code class="docutils literal"><span class="pre">json</span></code>.
+The resource object itself is also available in the <code class="docutils literal"><span class="pre">resource</span></code>
+variable.</p>
+<p>As a hack to support a primitive form of exception handling, a
+function called <code class="docutils literal"><span class="pre">on_error</span></code> is also included in the evaluation
+namespace. This function takes a single argument, <code class="docutils literal"><span class="pre">value</span></code>, of
+any type and returns None. If <code class="docutils literal"><span class="pre">on_error</span></code> is called while
+evaluating the expression, and the expression subsequently raises
+an exception, then the exception is caught and <code class="docutils literal"><span class="pre">value</span></code> is
+returned as the value of the expression. This means you can write
+expressions like:</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">on_error(False)</span> <span class="pre">or</span> <span class="pre">foo.startswith(&quot;bar&quot;)</span></code></p>
+</div></blockquote>
+<p>and if the right side of the expression raises an error (for
+example, if there is no such attribute <code class="docutils literal"><span class="pre">foo</span></code> in the resource),
+then the value <code class="docutils literal"><span class="pre">False</span></code> will be used as the expression&#8217;s value.
+Note that you must write the expression as it is here: put the
+<code class="docutils literal"><span class="pre">on_error</span></code> clause first, and connect it with the main expression
+with <code class="xref any docutils literal"><span class="pre">or</span></code> (this ensures that it gets called before the rest of the
+expression).</p>
+<p>If <code class="docutils literal"><span class="pre">expression</span></code> is a callable, then it will be called and passed
+this Resource instance as its argument.</p>
+</div></blockquote>
+<p><strong>error_value</strong> : object [optional]</p>
+<blockquote>
+<div><p>If evaluating the expression results in an uncaught exception,
+the <code class="docutils literal"><span class="pre">error_value</span></code> value will be returned instead. If not
+specified, then <code class="docutils literal"><span class="pre">evaluate</span></code> will raise the exception to the
+caller.</p>
+</div></blockquote>
+<p><strong>extra_bindings</strong> : dict [optional]</p>
+<blockquote>
+<div><p>Additional local variables to include in the evaluation context.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The Python object returned by evaluating the expression.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sefara.Resource.to_plain_types">
+<code class="descname">to_plain_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/resource.html#Resource.to_plain_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.Resource.to_plain_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this resource represented using Python dicts, lists, and
+strings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.export">
+<code class="descclassname">sefara.</code><code class="descname">export</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.export" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and export a Resource with the specified attributes.</p>
+<p>All arguments are passed to <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.export_resources">
+<code class="descclassname">sefara.</code><code class="descname">export_resources</code><span class="sig-paren">(</span><em>resources</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#export_resources"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.export_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export one or more Resource instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>resources</strong> : list of <a class="reference internal" href="#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a> instances</p>
+<blockquote class="last">
+<div><p>Resource instances to be exported.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sefara.transform_exports">
+<code class="descclassname">sefara.</code><code class="descname">transform_exports</code><span class="sig-paren">(</span><em>path_or_callable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sefara/exporting.html#transform_exports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sefara.transform_exports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform the resources exported by this collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path_or_callable</strong> : string or callable</p>
+<blockquote class="last">
+<div><p>Passed to <a class="reference internal" href="#sefara.hooks.transform" title="sefara.hooks.transform"><code class="xref any py py-func docutils literal"><span class="pre">hooks.transform</span></code></a>; see those docs for details.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tools.html" class="btn btn-neutral float-right" title="Commandline Tools Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

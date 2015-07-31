@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sefara.resource &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>sefara.resource</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for sefara.resource</h1><div class="highlight"><pre>
+<span class="c"># Copyright (c) 2015. Mount Sinai School of Medicine</span>
+<span class="c">#</span>
+<span class="c"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c"># you may not use this file except in compliance with the License.</span>
+<span class="c"># You may obtain a copy of the License at</span>
+<span class="c">#</span>
+<span class="c">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c">#</span>
+<span class="c"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c"># See the License for the specific language governing permissions and</span>
+<span class="c"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">raise_</span>
+<span class="kn">import</span> <span class="nn">typechecks</span>
+<span class="kn">from</span> <span class="nn">attrdict</span> <span class="kn">import</span> <span class="n">AttrMap</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">util</span>
+
+<span class="n">NEXT_RESOURCE_NUM</span> <span class="o">=</span> <span class="mi">1</span>
+<div class="viewcode-block" id="Resource"><a class="viewcode-back" href="../../sefara.html#sefara.resource.Resource">[docs]</a><span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="n">AttrMap</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Resource gives information on how to access some dataset under analysis</span>
+<span class="sd">    (such as a file), along with any optional metadata meaningful to the user.</span>
+
+<span class="sd">    The only required attribute for a resource is `name`. If `name` is not</span>
+<span class="sd">    specified when the Resource is defined, one is automatically generated.</span>
+
+<span class="sd">    The `tags` attribute, if it is specified, is handled slightly specially.</span>
+<span class="sd">    It is stored using the `Tags` class, which is a Python set that also</span>
+<span class="sd">    supports a convenient method of membership testing. If `tags` is a `Tags`</span>
+<span class="sd">    instance, then `tags.foo` returns whether the string &quot;foo&quot; is in the set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fields</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a resource with the specified attributes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : string</span>
+<span class="sd">            Name of the resource. It must be unique to the collection. If it is</span>
+<span class="sd">            not specified, a unique name is generated.</span>
+
+<span class="sd">        **fields : string -&gt; strings, dicts, and lists</span>
+<span class="sd">            Other fields in the resource.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">NEXT_RESOURCE_NUM</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">fields</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="s">&quot;name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="n">fields</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;resource-</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">NEXT_RESOURCE_NUM</span>
+            <span class="n">NEXT_RESOURCE_NUM</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fields</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Tags</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;tags&#39;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">AttrMap</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">util</span><span class="o">.</span><span class="n">move_to_front</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;tags&quot;</span><span class="p">)</span>
+        <span class="n">key_fill</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">))</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">           &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="s">&quot;</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">key</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">key_fill</span><span class="p">),</span>
+                <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span> <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s">&#39;tags&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;Resource: </span><span class="si">%s</span><span class="s"> &gt;&quot;</span> <span class="o">%</span> <span class="n">attributes</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="n">RAISE</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Resource.evaluate"><a class="viewcode-back" href="../../sefara.html#sefara.resource.Resource.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expression</span><span class="p">,</span> <span class="n">error_value</span><span class="o">=</span><span class="n">RAISE</span><span class="p">,</span> <span class="n">extra_bindings</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate a Python expression or callable in the context of this</span>
+<span class="sd">        resource.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        expression : string or callable</span>
+<span class="sd">            If a string, then it should give a valid Python expression.</span>
+<span class="sd">            This expression will be evaluated with the attributes of this</span>
+<span class="sd">            resource in the local namespace. For example, since the resource</span>
+<span class="sd">            has a ``name`` attribute, the expression &quot;name.lower()&quot; would</span>
+<span class="sd">            return the name in lower case. Tags can be accessed through the</span>
+<span class="sd">            ``tags`` variable. If the resource has a tag called ``foo``, then</span>
+<span class="sd">            the expression &quot;tags.foo&quot; will evaluate to ``True``. If there is no</span>
+<span class="sd">            such tag, then &quot;tags.foo&quot; will evaluate to ``False``.</span>
+
+<span class="sd">            A few common modules are included in the evaluation namespace,</span>
+<span class="sd">            including ``os``, ``sys``, ``collections``, ``re``, and ``json``.</span>
+<span class="sd">            The resource object itself is also available in the ``resource``</span>
+<span class="sd">            variable.</span>
+
+<span class="sd">            As a hack to support a primitive form of exception handling, a</span>
+<span class="sd">            function called ``on_error`` is also included in the evaluation</span>
+<span class="sd">            namespace. This function takes a single argument, ``value``, of</span>
+<span class="sd">            any type and returns None. If ``on_error`` is called while</span>
+<span class="sd">            evaluating the expression, and the expression subsequently raises</span>
+<span class="sd">            an exception, then the exception is caught and ``value`` is</span>
+<span class="sd">            returned as the value of the expression. This means you can write</span>
+<span class="sd">            expressions like:</span>
+
+<span class="sd">                ``on_error(False) or foo.startswith(&quot;bar&quot;)``</span>
+
+<span class="sd">            and if the right side of the expression raises an error (for</span>
+<span class="sd">            example, if there is no such attribute ``foo`` in the resource),</span>
+<span class="sd">            then the value ``False`` will be used as the expression&#39;s value.</span>
+<span class="sd">            Note that you must write the expression as it is here: put the</span>
+<span class="sd">            ``on_error`` clause first, and connect it with the main expression</span>
+<span class="sd">            with `or` (this ensures that it gets called before the rest of the</span>
+<span class="sd">            expression).</span>
+
+<span class="sd">            If ``expression`` is a callable, then it will be called and passed</span>
+<span class="sd">            this Resource instance as its argument.</span>
+
+<span class="sd">        error_value : object [optional]</span>
+<span class="sd">            If evaluating the expression results in an uncaught exception,</span>
+<span class="sd">            the ``error_value`` value will be returned instead. If not</span>
+<span class="sd">            specified, then ``evaluate`` will raise the exception to the</span>
+<span class="sd">            caller.</span>
+
+<span class="sd">        extra_bindings : dict [optional]</span>
+<span class="sd">            Additional local variables to include in the evaluation context.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        The Python object returned by evaluating the expression.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Since Python 2 doesn&#39;t have a nonlocal keyword, we have to box up the</span>
+        <span class="c"># error_value, so we can reassign to it in the ``on_error`` function</span>
+        <span class="c"># below.</span>
+        <span class="n">error_box</span> <span class="o">=</span> <span class="p">[</span><span class="n">error_value</span><span class="p">]</span> 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">typechecks</span><span class="o">.</span><span class="n">is_string</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
+                <span class="c"># Give some basic modules.</span>
+                <span class="n">environment</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">STANDARD_EVALUATION_ENVIRONMENT</span><span class="p">)</span>
+                <span class="n">environment</span><span class="p">[</span><span class="s">&quot;resource&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+
+                <span class="c"># We also add our &quot;on_error&quot; hack.</span>
+                <span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                    <span class="n">error_box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="n">environment</span><span class="p">[</span><span class="s">&quot;on_error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">on_error</span>
+                <span class="n">environment</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_bindings</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">expression</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>                
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">error_box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Resource</span><span class="o">.</span><span class="n">RAISE</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">error_box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">extra</span> <span class="o">=</span> <span class="s">&quot;Error while evaluating: </span><span class="se">\n\t</span><span class="si">%s</span><span class="se">\n</span><span class="s">on resource:</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">expression</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="n">traceback</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">extra</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
+                </div>
+<div class="viewcode-block" id="Resource.to_plain_types"><a class="viewcode-back" href="../../sefara.html#sefara.resource.Resource.to_plain_types">[docs]</a>    <span class="k">def</span> <span class="nf">to_plain_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return this resource represented using Python dicts, lists, and</span>
+<span class="sd">        strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">result</span><span class="p">[</span><span class="s">&quot;tags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;tags&quot;</span><span class="p">):</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div></div>
+<div class="viewcode-block" id="Tags"><a class="viewcode-back" href="../../sefara.html#sefara.resource.Tags">[docs]</a><span class="k">class</span> <span class="nc">Tags</span><span class="p">(</span><span class="nb">set</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A set of strings used to group resources.</span>
+
+<span class="sd">    This class inherits from Python&#39;s `set` class and supports all the</span>
+<span class="sd">    functionality of that class. Additionally, it supports attribute</span>
+<span class="sd">    access as a way to test membership: ``tags.foo`` will return ``True`` if</span>
+<span class="sd">    the string &quot;foo&quot; is in the set, and ``False`` otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="n">check_valid_tag</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+        <span class="nb">set</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Tags.to_plain_types"><a class="viewcode-back" href="../../sefara.html#sefara.resource.Tags.to_plain_types">[docs]</a>    <span class="k">def</span> <span class="nf">to_plain_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;Tags: </span><span class="si">%s</span><span class="s">&gt;&quot;</span> <span class="o">%</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="check_valid_tag"><a class="viewcode-back" href="../../sefara.html#sefara.resource.check_valid_tag">[docs]</a><span class="k">def</span> <span class="nf">check_valid_tag</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raise an error if the given name is not a valid tag name. Tags must</span>
+<span class="sd">    be valid Python identifiers and also not builtin methods of the `set`</span>
+<span class="sd">    class, to avoid ambiguity in using attribute access to test membership</span>
+<span class="sd">    in the set.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">Tags</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s">&quot;Invalid tag (may not be a method on set objects): &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">tag</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;^[\w][\w-]*$&#39;</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Invalid tag: &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">tag</span><span class="p">)</span>
+</div>
+<span class="n">STANDARD_EVALUATION_ENVIRONMENT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&quot;os&quot;</span><span class="p">:</span> <span class="n">os</span><span class="p">,</span>
+    <span class="s">&quot;sys&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="p">,</span>
+    <span class="s">&quot;collections&quot;</span><span class="p">:</span> <span class="n">collections</span><span class="p">,</span>
+    <span class="s">&quot;re&quot;</span><span class="p">:</span> <span class="n">re</span><span class="p">,</span>
+    <span class="s">&quot;json&quot;</span><span class="p">:</span> <span class="n">json</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

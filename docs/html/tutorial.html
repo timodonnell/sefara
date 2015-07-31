@@ -1,0 +1,843 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="sefara package" href="sefara.html"/>
+        <link rel="prev" title="Sefara Documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/tutorial.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>We&#8217;ve all found ourselves hard coding paths to input files in analysis scripts and notebooks. Putting paths and metadata in spreadsheets is an improvement, but still requires significant code to work with conveniently and doesn&#8217;t handle multiple, loosely defined schemas. Databases are probably the right solution for huge projects but are inconvenient at smaller scale.</p>
+<p>With Sefara, you write Python code to specify the files you&#8217;re analyzing and their metadata. Defining your datasets with code may seem strange but it allows for a lot flexibility. These files describing your datasets are called &#8220;resource collections&#8221; and can be put under version control and in general treated like code. Sefara is a Python library and a few commandline tools for reading, writing, and querying these files.</p>
+</div>
+<div class="section" id="essentials">
+<h2>Essentials<a class="headerlink" href="#essentials" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="specifying-a-resource-collection">
+<h3>Specifying a resource collection<a class="headerlink" href="#specifying-a-resource-collection" title="Permalink to this headline">¶</a></h3>
+<p>A &#8220;resource&#8221; describes an entity used in an analysis. Resources
+often point to files on a filesystem.</p>
+<p>Users define a &#8220;resource collection&#8221; in a file that sefara reads. Two
+formats are supported for these files: executable Python and JSON.</p>
+<p>Here&#8217;s a resource collection defined using Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sefara</span> <span class="kn">import</span> <span class="n">export</span>
+
+<span class="n">export</span><span class="p">(</span>
+    <span class="s">&quot;patientA_sequencing_blood_2010&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s">&quot;/path/to/file1.bam&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;patient_A&quot;</span><span class="p">,</span> <span class="s">&quot;sequencing&quot;</span><span class="p">,</span> <span class="s">&quot;2010&quot;</span><span class="p">],</span>
+    <span class="n">capture_kit</span><span class="o">=</span><span class="s">&quot;Agilent sureselect&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">&quot;Sample taken from normal blood&quot;</span>
+<span class="p">)</span>
+
+<span class="n">export</span><span class="p">(</span>
+    <span class="s">&quot;patientA_sequencing_tumor_2012&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s">&quot;/path/to/file2.bam&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;patient_A&quot;</span><span class="p">,</span> <span class="s">&quot;sequencing&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="p">],</span>
+    <span class="n">capture_kit</span><span class="o">=</span><span class="s">&quot;Nimblegen&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">&quot;Primary tumor, left ovary&quot;</span>
+<span class="p">)</span>
+
+<span class="n">export</span><span class="p">(</span>
+    <span class="s">&quot;patientB_sequencing_normal_tissue_2012&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s">&quot;/path/to/file3.bam&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;patient_B&quot;</span><span class="p">,</span> <span class="s">&quot;sequencing&quot;</span><span class="p">,</span> <span class="s">&quot;2012&quot;</span><span class="p">],</span>
+    <span class="n">capture_kit</span><span class="o">=</span><span class="s">&quot;unknown&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">&quot;Matched normal tissue, pancreas&quot;</span>
+<span class="p">)</span>
+
+<span class="n">export</span><span class="p">(</span>
+    <span class="s">&quot;patientB_sequencing_tumor_2014&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s">&quot;/path/to/file4.bam&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;patient_B&quot;</span><span class="p">,</span> <span class="s">&quot;sequencing&quot;</span><span class="p">,</span> <span class="s">&quot;2014&quot;</span><span class="p">],</span>
+    <span class="n">capture_kit</span><span class="o">=</span><span class="s">&quot;Agilent sureselect&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">&quot;liver metastasis&quot;</span>
+<span class="p">)</span>
+
+<span class="n">export</span><span class="p">(</span>
+    <span class="s">&quot;patientA_somatic_variant_calls&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s">&quot;/path/to/variants.vcf&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;patient_A&quot;</span><span class="p">,</span> <span class="s">&quot;variants&quot;</span><span class="p">],</span>
+    <span class="n">tool</span><span class="o">=</span><span class="s">&quot;strelka&quot;</span><span class="p">,</span>
+    <span class="n">normal_reads</span><span class="o">=</span><span class="s">&quot;patientA_sequencing_blood_2010&quot;</span><span class="p">,</span>
+    <span class="n">tumor_reads</span><span class="o">=</span><span class="s">&quot;patientA_sequencing_tumor_2012&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This defines five resources named <code class="docutils literal"><span class="pre">patientA_sequencing_blood_2010</span></code>,
+<code class="docutils literal"><span class="pre">patientA_sequencing_tumor_2012</span></code>, and so on (this example is from a cancer DNA sequencing analysis).</p>
+<p>Sefara resources always have a <code class="docutils literal"><span class="pre">name</span></code> attribute, given as the first parameter to the <a class="reference internal" href="sefara.html#sefara.exporting.export" title="sefara.exporting.export"><code class="xref any py py-func docutils literal"><span class="pre">export</span></code></a> function.
+Everything else is optional. If you define a <code class="docutils literal"><span class="pre">tags</span></code> attribute for your
+resource, as in the file above, then Sefara treats that attribute slightly
+specially, as we&#8217;ll see below. All the other fields (like <code class="docutils literal"><span class="pre">path</span></code> and
+<code class="docutils literal"><span class="pre">capture_kit</span></code>) are up to the user and are not interpreted by Sefara in
+any way.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Using Python as a configuration language for resource collections has pros and cons. Python enables concise descriptions of collections that have repetitive structure. However, full-fledged programs can be difficult to debug and maintain.</p>
+<p>The best practice is to keep collection files very simple. Loops and string manipulation are fine, but using libraries, filesystems, or network services should be avoided.</p>
+<p class="last">If you find yourself writing a complex Python script to define a collection, consider instead writing a script that <em>creates</em> the collection. That script can be called once to write out a collection (in either Python or JSON format), to be used for subsequent analysis.</p>
+</div>
+</div>
+<div class="section" id="loading">
+<h3>Loading<a class="headerlink" href="#loading" title="Permalink to this headline">¶</a></h3>
+<p>The collection shown before can be opened in Python using <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">sefara.load</span></code></a>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sefara</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span> <span class="o">=</span> <span class="n">sefara</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;resource-collections/ex1.py&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 5 resources</span>
+<span class="go">	patientA_sequencing_blood_2010</span>
+<span class="go">	patientA_sequencing_tumor_2012</span>
+<span class="go">	patientB_sequencing_normal_tissue_2012</span>
+<span class="go">	patientB_sequencing_tumor_2014</span>
+<span class="go">	patientA_somatic_variant_calls&gt;</span>
+</pre></div>
+</div>
+<p>To get a detailed summary of each resource, use the <a class="reference internal" href="sefara.html#sefara.ResourceCollection.summary" title="sefara.ResourceCollection.summary"><code class="xref any py py-attr docutils literal"><span class="pre">ResourceCollection.summary</span></code></a> property:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">summary</span><span class="p">)</span>
+<span class="go">ResourceCollection: 5 resources from /home/travis/build/timodonnell/sefara/docs/resource-collections/ex1.py</span>
+<span class="go">&lt;Resource: name        = patientA_sequencing_blood_2010</span>
+<span class="go">           tags        = sequencing patient_A 2010</span>
+<span class="go">           capture_kit = Agilent sureselect</span>
+<span class="go">           description = Sample taken from normal blood</span>
+<span class="go">           path        = /path/to/file1.bam &gt;</span>
+
+<span class="go">&lt;Resource: name        = patientA_sequencing_tumor_2012</span>
+<span class="go">           tags        = sequencing patient_A 2012</span>
+<span class="go">           capture_kit = Nimblegen</span>
+<span class="go">           description = Primary tumor, left ovary</span>
+<span class="go">           path        = /path/to/file2.bam &gt;</span>
+
+<span class="go">&lt;Resource: name        = patientB_sequencing_normal_tissue_2012</span>
+<span class="go">           tags        = sequencing patient_B 2012</span>
+<span class="go">           capture_kit = unknown</span>
+<span class="go">           description = Matched normal tissue, pancreas</span>
+<span class="go">           path        = /path/to/file3.bam &gt;</span>
+
+<span class="go">&lt;Resource: name        = patientB_sequencing_tumor_2014</span>
+<span class="go">           tags        = sequencing patient_B 2014</span>
+<span class="go">           capture_kit = Agilent sureselect</span>
+<span class="go">           description = liver metastasis</span>
+<span class="go">           path        = /path/to/file4.bam &gt;</span>
+
+<span class="go">&lt;Resource: name         = patientA_somatic_variant_calls</span>
+<span class="go">           tags         = patient_A variants</span>
+<span class="go">           normal_reads = patientA_sequencing_blood_2010</span>
+<span class="go">           path         = /path/to/variants.vcf</span>
+<span class="go">           tool         = strelka</span>
+<span class="go">           tumor_reads  = patientA_sequencing_tumor_2012 &gt;</span>
+</pre></div>
+</div>
+<p>Individual resources in a collection can be accessed by name or numeric index:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="p">[</span><span class="s">&quot;patientA_sequencing_tumor_2012&quot;</span><span class="p">]</span>
+<span class="go">&lt;Resource: name        = patientA_sequencing_tumor_2012</span>
+<span class="go">           tags        = sequencing patient_A 2012</span>
+<span class="go">           capture_kit = Nimblegen</span>
+<span class="go">           description = Primary tumor, left ovary</span>
+<span class="go">           path        = /path/to/file2.bam &gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;Resource: name        = patientA_sequencing_blood_2010</span>
+<span class="go">           tags        = sequencing patient_A 2010</span>
+<span class="go">           capture_kit = Agilent sureselect</span>
+<span class="go">           description = Sample taken from normal blood</span>
+<span class="go">           path        = /path/to/file1.bam &gt;</span>
+</pre></div>
+</div>
+<p>Each <a class="reference internal" href="sefara.html#sefara.Resource" title="sefara.Resource"><code class="xref any py py-class docutils literal"><span class="pre">Resource</span></code></a> is a dict-like object (an <code class="xref any docutils literal"><span class="pre">AttrDict</span></code>). You can access fields in the resource using either brackets (<code class="docutils literal"><span class="pre">resource[&quot;name&quot;]</span></code>) or attributes (<code class="docutils literal"><span class="pre">resource.name</span></code>).</p>
+<p>You can iterate over a resource collection to get each resource in turn:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&quot;tags.patient_A&quot;</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">print</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="go">/path/to/file1.bam</span>
+<span class="go">/path/to/file2.bam</span>
+<span class="go">/path/to/variants.vcf</span>
+</pre></div>
+</div>
+<p>Here we used the <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.filter" title="sefara.resource_collection.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">filter</span></code></a> method, described next.</p>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.filter" title="sefara.resource_collection.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">filter</span></code></a> method returns a new <a class="reference internal" href="sefara.html#sefara.ResourceCollection" title="sefara.ResourceCollection"><code class="xref any py py-class docutils literal"><span class="pre">ResourceCollection</span></code></a> with only the resources for which a Python expression evaluates to <code class="docutils literal"><span class="pre">True</span></code>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&quot;capture_kit == &#39;Nimblegen&#39;&quot;</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 1 resources: patientA_sequencing_tumor_2012&gt;</span>
+</pre></div>
+</div>
+<p>The expressions are evaluated with the resource&#8217;s attributes as local variables. Here&#8217;s another example:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&quot;tags.patient_A&quot;</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 3 resources</span>
+<span class="go">	patientA_sequencing_blood_2010</span>
+<span class="go">	patientA_sequencing_tumor_2012</span>
+<span class="go">	patientA_somatic_variant_calls&gt;</span>
+</pre></div>
+</div>
+<p>Here we used the fact that sefara handles a resource attribute called <code class="docutils literal"><span class="pre">tags</span></code> a bit specially. If your resource has an attribute called <code class="docutils literal"><span class="pre">tags</span></code> giving a list of strings, it becomes an instance of <a class="reference internal" href="sefara.html#sefara.resource.Tags" title="sefara.resource.Tags"><code class="xref any py py-class docutils literal"><span class="pre">Tags</span></code></a>, a class that inherits from Python&#8217;s <code class="xref any docutils literal"><span class="pre">set</span></code> class, but also provides attribute-style access for membership testing.</p>
+<p>Simple expressions combining tags are a convenient way to filter collections:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&quot;tags.patient_A and not tags.sequencing&quot;</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 1 resources: patientA_somatic_variant_calls&gt;</span>
+</pre></div>
+</div>
+<p>Instead of a string expression, you can also pass a Python callable to <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.filter" title="sefara.resource_collection.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">filter</span></code></a>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">resource</span><span class="p">:</span> <span class="n">resource</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">variants</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 1 resources: patientA_somatic_variant_calls&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="selecting">
+<h3>Selecting<a class="headerlink" href="#selecting" title="Permalink to this headline">¶</a></h3>
+<p>Use <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.select" title="sefara.resource_collection.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">ResourceCollection.select</span></code></a> to pick out fields across a collection
+in a <code class="xref any docutils literal"><span class="pre">pandas.DataFrame</span></code>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;path&quot;</span><span class="p">)</span>
+<span class="go">                                     name                   path</span>
+<span class="go">0          patientA_sequencing_blood_2010     /path/to/file1.bam</span>
+<span class="go">1          patientA_sequencing_tumor_2012     /path/to/file2.bam</span>
+<span class="go">2  patientB_sequencing_normal_tissue_2012     /path/to/file3.bam</span>
+<span class="go">3          patientB_sequencing_tumor_2014     /path/to/file4.bam</span>
+<span class="go">4          patientA_somatic_variant_calls  /path/to/variants.vcf</span>
+</pre></div>
+</div>
+<p>You can pass Python expressions to <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.select" title="sefara.resource_collection.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">select</span></code></a>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;name.upper()&quot;</span><span class="p">,</span> <span class="s">&quot;os.path.basename(path)&quot;</span><span class="p">)</span>
+<span class="go">                             name.upper() os.path.basename(path)</span>
+<span class="go">0          PATIENTA_SEQUENCING_BLOOD_2010              file1.bam</span>
+<span class="go">1          PATIENTA_SEQUENCING_TUMOR_2012              file2.bam</span>
+<span class="go">2  PATIENTB_SEQUENCING_NORMAL_TISSUE_2012              file3.bam</span>
+<span class="go">3          PATIENTB_SEQUENCING_TUMOR_2014              file4.bam</span>
+<span class="go">4          PATIENTA_SOMATIC_VARIANT_CALLS           variants.vcf</span>
+</pre></div>
+</div>
+<p>To set the column names in the dataframe, give a &#8220;name: expression&#8221; string:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;name: name.upper()&quot;</span><span class="p">,</span> <span class="s">&quot;filename: os.path.basename(path)&quot;</span><span class="p">)</span>
+<span class="go">                                     name      filename</span>
+<span class="go">0          PATIENTA_SEQUENCING_BLOOD_2010     file1.bam</span>
+<span class="go">1          PATIENTA_SEQUENCING_TUMOR_2012     file2.bam</span>
+<span class="go">2  PATIENTB_SEQUENCING_NORMAL_TISSUE_2012     file3.bam</span>
+<span class="go">3          PATIENTB_SEQUENCING_TUMOR_2014     file4.bam</span>
+<span class="go">4          PATIENTA_SOMATIC_VARIANT_CALLS  variants.vcf</span>
+</pre></div>
+</div>
+<p>To select one column as a pandas series instead of a dataframe, use <a class="reference internal" href="sefara.html#sefara.ResourceCollection.select_series" title="sefara.ResourceCollection.select_series"><code class="xref any py py-meth docutils literal"><span class="pre">select_series</span></code></a>:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">select_series</span><span class="p">(</span><span class="s">&quot;path&quot;</span><span class="p">)</span>
+<span class="go">0       /path/to/file1.bam</span>
+<span class="go">1       /path/to/file2.bam</span>
+<span class="go">2       /path/to/file3.bam</span>
+<span class="go">3       /path/to/file4.bam</span>
+<span class="go">4    /path/to/variants.vcf</span>
+<span class="go">Name: value, dtype: object</span>
+</pre></div>
+</div>
+<p>Note that in Python expressions evaluated by <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.select" title="sefara.resource_collection.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">select</span></code></a> or <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.filter" title="sefara.resource_collection.ResourceCollection.filter"><code class="xref any py py-meth docutils literal"><span class="pre">filter</span></code></a>, if a field exists in some resources but not others, it defaults to <code class="docutils literal"><span class="pre">None</span></code> in the resources where it is missing:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resources</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;capture_kit&quot;</span><span class="p">)</span>
+<span class="go">                                     name         capture_kit</span>
+<span class="go">0          patientA_sequencing_blood_2010  Agilent sureselect</span>
+<span class="go">1          patientA_sequencing_tumor_2012           Nimblegen</span>
+<span class="go">2  patientB_sequencing_normal_tissue_2012             unknown</span>
+<span class="go">3          patientB_sequencing_tumor_2014  Agilent sureselect</span>
+<span class="go">4          patientA_somatic_variant_calls                None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-with-urls-and-filters">
+<h3>Loading with URLs and filters<a class="headerlink" href="#loading-with-urls-and-filters" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">sefara.load</span></code></a> function supports two other features worth knowing about:</p>
+<blockquote>
+<div><ul class="simple">
+<li>you can pass an http or https URL.</li>
+<li>you can specify a filter as part of the filename.</li>
+</ul>
+</div></blockquote>
+<p>The syntax for filtering is &#8220;&lt;filename&gt;#filter=&lt;filter expression&gt;&#8221;. Here&#8217;s an example:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sefara</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;resource-collections/ex1.py#filter=tags.variants&quot;</span><span class="p">)</span>
+<span class="go">&lt;ResourceCollection: 1 resources: patientA_somatic_variant_calls&gt;</span>
+</pre></div>
+</div>
+<p>This comes in handy for analysis scripts that take a resource collection as a commandline argument. If the script passes the argument to <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">load</span></code></a>, then it automatically supports filtering.</p>
+</div>
+<div class="section" id="writing">
+<h3>Writing<a class="headerlink" href="#writing" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="sefara.html#sefara.ResourceCollection.to_python" title="sefara.ResourceCollection.to_python"><code class="xref any py py-meth docutils literal"><span class="pre">ResourceCollection.to_python</span></code></a> method gives string of Python code representing the collection:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s">&quot;tags.patient_B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_python</span><span class="p">())</span>
+<span class="go"># Generated on 2015-07-31 06:16:28.218137 by travis with the command:</span>
+<span class="go"># /home/travis/virtualenv/python2.7.9/bin/sphinx-build -b html -d _build/doctrees . _build/html</span>
+
+<span class="go">from sefara import export</span>
+
+<span class="go">export(</span>
+<span class="go">    name=&quot;patientB_sequencing_normal_tissue_2012&quot;,</span>
+<span class="go">    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2012&quot;],</span>
+<span class="go">    capture_kit=&quot;unknown&quot;,</span>
+<span class="go">    path=&quot;/path/to/file3.bam&quot;,</span>
+<span class="go">    description=&quot;Matched normal tissue, pancreas&quot;)</span>
+
+<span class="go">export(</span>
+<span class="go">    name=&quot;patientB_sequencing_tumor_2014&quot;,</span>
+<span class="go">    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2014&quot;],</span>
+<span class="go">    capture_kit=&quot;Agilent sureselect&quot;,</span>
+<span class="go">    path=&quot;/path/to/file4.bam&quot;,</span>
+<span class="go">    description=&quot;liver metastasis&quot;)</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="sefara.html#sefara.ResourceCollection.write" title="sefara.ResourceCollection.write"><code class="xref any py py-meth docutils literal"><span class="pre">write</span></code></a> method for a convenient way to write this to a file.</p>
+</div>
+<div class="section" id="json">
+<h3>JSON<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h3>
+<p>Resource collections can also be specified with JSON. They are loaded with <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">load</span></code></a> the same way as python collections, and there is a <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.to_json" title="sefara.resource_collection.ResourceCollection.to_json"><code class="xref any py py-meth docutils literal"><span class="pre">ResourceCollection.to_json</span></code></a> method to get the JSON representation of any collection.</p>
+<p>Here&#8217;s what the same collection from before looks like using JSON:</p>
+<div class="highlight-text"><div class="highlight"><pre># Generated on 2015-07-31 06:16:28.509231 by travis with the command:
+# /home/travis/virtualenv/python2.7.9/bin/sefara-dump resource-collections/ex1.py
+
+from sefara import export
+
+export(
+    name=&quot;patientA_sequencing_blood_2010&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_A&quot;, &quot;2010&quot;],
+    capture_kit=&quot;Agilent sureselect&quot;,
+    path=&quot;/path/to/file1.bam&quot;,
+    description=&quot;Sample taken from normal blood&quot;)
+
+export(
+    name=&quot;patientA_sequencing_tumor_2012&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_A&quot;, &quot;2012&quot;],
+    capture_kit=&quot;Nimblegen&quot;,
+    path=&quot;/path/to/file2.bam&quot;,
+    description=&quot;Primary tumor, left ovary&quot;)
+
+export(
+    name=&quot;patientB_sequencing_normal_tissue_2012&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2012&quot;],
+    capture_kit=&quot;unknown&quot;,
+    path=&quot;/path/to/file3.bam&quot;,
+    description=&quot;Matched normal tissue, pancreas&quot;)
+
+export(
+    name=&quot;patientB_sequencing_tumor_2014&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2014&quot;],
+    capture_kit=&quot;Agilent sureselect&quot;,
+    path=&quot;/path/to/file4.bam&quot;,
+    description=&quot;liver metastasis&quot;)
+
+export(
+    name=&quot;patientA_somatic_variant_calls&quot;,
+    tags=[&quot;patient_A&quot;, &quot;variants&quot;],
+    tool=&quot;strelka&quot;,
+    normal_reads=&quot;patientA_sequencing_blood_2010&quot;,
+    path=&quot;/path/to/variants.vcf&quot;,
+    tumor_reads=&quot;patientA_sequencing_tumor_2012&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="commandline-tools">
+<h2>Commandline tools<a class="headerlink" href="#commandline-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sefara-dump">
+<h3>sefara-dump<a class="headerlink" href="#sefara-dump" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="xref any docutils literal"><span class="pre">sefara-dump</span></code> tool is a utility for reading in a collection and writing it out again after filtering, transforming, or changing the format. For example, we can write out a filtered version of our example collection:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-dump resource-collections/ex1.py --filter tags.patient_B --format python
+# Generated on 2015-07-31 06:16:28.762339 by travis with the command:
+# /home/travis/virtualenv/python2.7.9/bin/sefara-dump resource-collections/ex1.py --filter tags.patient_B --format python
+
+from sefara import export
+
+export(
+    name=&quot;patientB_sequencing_normal_tissue_2012&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2012&quot;],
+    capture_kit=&quot;unknown&quot;,
+    path=&quot;/path/to/file3.bam&quot;,
+    description=&quot;Matched normal tissue, pancreas&quot;)
+
+export(
+    name=&quot;patientB_sequencing_tumor_2014&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2014&quot;],
+    capture_kit=&quot;Agilent sureselect&quot;,
+    path=&quot;/path/to/file4.bam&quot;,
+    description=&quot;liver metastasis&quot;)
+</pre></div>
+</div>
+<p>Or in JSON format:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-dump resource-collections/ex1.py --filter tags.patient_B --format json
+{
+    &quot;patientB_sequencing_normal_tissue_2012&quot;: {
+        &quot;tags&quot;: [
+            &quot;sequencing&quot;, 
+            &quot;patient_B&quot;, 
+            &quot;2012&quot;
+        ], 
+        &quot;capture_kit&quot;: &quot;unknown&quot;, 
+        &quot;path&quot;: &quot;/path/to/file3.bam&quot;, 
+        &quot;description&quot;: &quot;Matched normal tissue, pancreas&quot;
+    }, 
+    &quot;patientB_sequencing_tumor_2014&quot;: {
+        &quot;tags&quot;: [
+            &quot;sequencing&quot;, 
+            &quot;patient_B&quot;, 
+            &quot;2014&quot;
+        ], 
+        &quot;capture_kit&quot;: &quot;Agilent sureselect&quot;, 
+        &quot;path&quot;: &quot;/path/to/file4.bam&quot;, 
+        &quot;description&quot;: &quot;liver metastasis&quot;
+    }
+}
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">--code</span></code> argument is an experimental feature that makes it possible to add, remove, and modify
+attributes of the collection by specifying Python code on the commandline. For example, we can capitalize
+all the resource names like this:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-dump resource-collections/ex1.py --code &#39;name = name.upper()&#39;
+# Generated on 2015-07-31 06:16:29.264684 by travis with the command:
+# /home/travis/virtualenv/python2.7.9/bin/sefara-dump resource-collections/ex1.py --code &#39;name = name.upper()&#39;
+
+from sefara import export
+
+export(
+    name=&quot;PATIENTA_SEQUENCING_BLOOD_2010&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_A&quot;, &quot;2010&quot;],
+    capture_kit=&quot;Agilent sureselect&quot;,
+    path=&quot;/path/to/file1.bam&quot;,
+    description=&quot;Sample taken from normal blood&quot;)
+
+export(
+    name=&quot;PATIENTA_SEQUENCING_TUMOR_2012&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_A&quot;, &quot;2012&quot;],
+    capture_kit=&quot;Nimblegen&quot;,
+    path=&quot;/path/to/file2.bam&quot;,
+    description=&quot;Primary tumor, left ovary&quot;)
+
+export(
+    name=&quot;PATIENTB_SEQUENCING_NORMAL_TISSUE_2012&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2012&quot;],
+    capture_kit=&quot;unknown&quot;,
+    path=&quot;/path/to/file3.bam&quot;,
+    description=&quot;Matched normal tissue, pancreas&quot;)
+
+export(
+    name=&quot;PATIENTB_SEQUENCING_TUMOR_2014&quot;,
+    tags=[&quot;sequencing&quot;, &quot;patient_B&quot;, &quot;2014&quot;],
+    capture_kit=&quot;Agilent sureselect&quot;,
+    path=&quot;/path/to/file4.bam&quot;,
+    description=&quot;liver metastasis&quot;)
+
+export(
+    name=&quot;PATIENTA_SOMATIC_VARIANT_CALLS&quot;,
+    tags=[&quot;patient_A&quot;, &quot;variants&quot;],
+    tool=&quot;strelka&quot;,
+    normal_reads=&quot;patientA_sequencing_blood_2010&quot;,
+    path=&quot;/path/to/variants.vcf&quot;,
+    tumor_reads=&quot;patientA_sequencing_tumor_2012&quot;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="sefara-select">
+<h3>sefara-select<a class="headerlink" href="#sefara-select" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="xref any docutils literal"><span class="pre">sefara-select</span></code> tool picks out fields in your collection and gives results in CSV or a few other formats:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-select resource-collections/ex1.py name path
+# name,path
+patientA_sequencing_blood_2010,/path/to/file1.bam
+patientA_sequencing_tumor_2012,/path/to/file2.bam
+patientB_sequencing_normal_tissue_2012,/path/to/file3.bam
+patientB_sequencing_tumor_2014,/path/to/file4.bam
+patientA_somatic_variant_calls,/path/to/variants.vcf
+</pre></div>
+</div>
+<p>Like the <a class="reference internal" href="sefara.html#sefara.resource_collection.ResourceCollection.select" title="sefara.resource_collection.ResourceCollection.select"><code class="xref any py py-meth docutils literal"><span class="pre">select</span></code></a> method, you can also use Python expressions, and set the column names:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-select resource-collections/ex1.py name &#39;filename: os.path.basename(path)&#39;
+# name,filename
+patientA_sequencing_blood_2010,file1.bam
+patientA_sequencing_tumor_2012,file2.bam
+patientB_sequencing_normal_tissue_2012,file3.bam
+patientB_sequencing_tumor_2014,file4.bam
+patientA_somatic_variant_calls,variants.vcf
+</pre></div>
+</div>
+<p>Filters are supported:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-select resource-collections/ex1.py name --filter tags.patient_B
+patientB_sequencing_normal_tissue_2012
+patientB_sequencing_tumor_2014
+</pre></div>
+</div>
+<p>If you only select one field, by default no header is printed. That&#8217;s convenient for writing shell loops like this:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ for p in $(sefara-select resource-collections/ex1.py path) ; do echo $p ; done
+/path/to/file1.bam
+/path/to/file2.bam
+/path/to/file3.bam
+/path/to/file4.bam
+/path/to/variants.vcf
+</pre></div>
+</div>
+<p>The tool provides rudimentary support for building up argument lists, suitable for passing to analysis scripts that don&#8217;t use sefara. Here are two examples (note that the first line is the command we typed &#8211; the second line is the output of the command, which is an argument string):</p>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-select resource-collections/ex1.py name path --format args
+ --name patientA_sequencing_blood_2010 patientA_sequencing_tumor_2012 patientB_sequencing_normal_tissue_2012 patientB_sequencing_tumor_2014 patientA_somatic_variant_calls --path /path/to/file1.bam /path/to/file2.bam /path/to/file3.bam /path/to/file4.bam /path/to/variants.vcf
+</pre></div>
+</div>
+<div class="highlight-text"><div class="highlight"><pre>$ sefara-select resource-collections/ex1.py &#39;filename:path&#39; --format args-repeated
+ --filename /path/to/file1.bam --filename /path/to/file2.bam --filename /path/to/file3.bam --filename /path/to/file4.bam --filename /path/to/variants.vcf
+</pre></div>
+</div>
+<p>The usual way to use this functionality is to put the <code class="xref any docutils literal"><span class="pre">sefara-select</span></code> command as a &#8220;command substitution&#8221; using the shell&#8217;s <code class="docutils literal"><span class="pre">$()</span></code> operator, for example:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ ./example_tool.py --foo bar $(sefara-select resource-collections/ex1.py path --format args-repeated)
+
+# The tool was invoked with these arguments:
+# [&#39;--foo&#39;, &#39;bar&#39;, &#39;--path&#39;, &#39;/path/to/file1.bam&#39;, &#39;--path&#39;,
+# &#39;/path/to/file2.bam&#39;, &#39;--path&#39;, &#39;/path/to/file3.bam&#39;, &#39;--path&#39;,
+# &#39;/path/to/file4.bam&#39;, &#39;--path&#39;, &#39;/path/to/variants.vcf&#39;]
+</pre></div>
+</div>
+<p>Note that for any sefara tool (and the <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">load</span></code></a> function), you can pass <code class="docutils literal"><span class="pre">-</span></code> as a path to a resource collection to read from stdin.</p>
+<p>With creative use of the <code class="docutils literal"><span class="pre">--code</span></code> argument to <code class="xref any docutils literal"><span class="pre">sefara-dump</span></code> and piping the results to <code class="xref any docutils literal"><span class="pre">sefara-select</span></code>, it&#8217;s often possible to munge a resource collection into the argument format your tool expects.</p>
+<div class="highlight-text"><div class="highlight"><pre>$ ./example_tool.py $(sefara-dump resource-collections/ex1.py --code &#39;kind = os.path.splitext(path)[1][1:]&#39; | sefara-select - kind path --format args-repeated)
+
+# The tool was invoked with these arguments:
+# [&#39;--kind&#39;, &#39;bam&#39;, &#39;--path&#39;, &#39;/path/to/file1.bam&#39;, &#39;--kind&#39;, &#39;bam&#39;, &#39;--
+# path&#39;, &#39;/path/to/file2.bam&#39;, &#39;--kind&#39;, &#39;bam&#39;, &#39;--path&#39;,
+# &#39;/path/to/file3.bam&#39;, &#39;--kind&#39;, &#39;bam&#39;, &#39;--path&#39;, &#39;/path/to/file4.bam&#39;,
+# &#39;--kind&#39;, &#39;vcf&#39;, &#39;--path&#39;, &#39;/path/to/variants.vcf&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="hooks">
+<h2>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<p>Sefara supports a mechanism to transform resources as they are loaded, and also to configure arbitrary validation routines. This advanced feature comes in handy if you want to integrate Sefara with other pieces of infrastructure at your site. If you&#8217;re just getting started with sefara, you can probably skip this section.</p>
+<p>The features described here are configured with a few environment variables. To print out what these variables are set to in your environment, run <code class="xref any docutils literal"><span class="pre">sefara-env</span></code>.</p>
+<div class="section" id="checking">
+<h3>Checking<a class="headerlink" href="#checking" title="Permalink to this headline">¶</a></h3>
+<p>Sefara doesn&#8217;t concern itself with what attributes your resources have or what they signify, but you probably do. For example, your resources might have a <code class="docutils literal"><span class="pre">path</span></code> attribute that should always be a filename. You might want to verify that your resources with this attribute point to a file that exists. Sefara provides a mechanism to help make this a bit more convenient than doing it manually.</p>
+<p>Make a file that defines a <code class="docutils literal"><span class="pre">check</span></code> function, like the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">collection</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Check that all resources with a ``path`` attribute specify a valid path</span>
+<span class="sd">    that exists on the filesystem.</span>
+
+<span class="sd">    For each resource in the collection, we yield a tuple:</span>
+
+<span class="sd">        (resource, attempted, problem)</span>
+<span class="sd">    </span>
+<span class="sd">    where:</span>
+<span class="sd">        </span>
+<span class="sd">        resource : `Resource`</span>
+<span class="sd">            the `Resource` instance</span>
+
+<span class="sd">        attempted : boolean</span>
+<span class="sd">            whether we attempted to validate this resource. We only attempt to</span>
+<span class="sd">            validate resources that have a ``path`` attribute.</span>
+
+<span class="sd">        problem : string or None</span>
+<span class="sd">            None if validation was successful, error message if validation failed</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">collection</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;path&#39;</span> <span class="ow">in</span> <span class="n">resource</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+                    <span class="k">pass</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="c"># Failure</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s">&quot;Couldn&#39;t open path: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">e</span>
+                <span class="k">yield</span> <span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+               <span class="c"># Success</span>
+               <span class="k">yield</span> <span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Can&#39;t validate this resource.</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;No path specified.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">check</span></code> function should yield tuples, as documented in the code above.</p>
+<p>Now set the environment variable <code class="docutils literal"><span class="pre">SEFARA_CHECKER</span></code> to the path to this file:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ export SEFARA_CHECKER=/path/to/example_hook.py
+</pre></div>
+</div>
+<p>This environment variable can specify any number of checkers, separated by a colon.</p>
+<p>You can now use the <code class="xref any docutils literal"><span class="pre">sefara-check</span></code> tool to validate this file:</p>
+<div class="highlight-shell"><div class="highlight"><pre>sefara-check resource-collections/ex1.py
+</pre></div>
+</div>
+<p>which, if all the resources validate, will give this output:</p>
+<div class="highlight-text"><div class="highlight"><pre>Checkers:
+	[0]	hook_always_success.py
+
+[  1 /   5] patientA_sequencing_blood_2010                          OK
+[  2 /   5] patientA_sequencing_tumor_2012                          OK
+[  3 /   5] patientB_sequencing_normal_tissue_2012                  OK
+[  4 /   5] patientB_sequencing_tumor_2014                          OK
+[  5 /   5] patientA_somatic_variant_calls                          OK
+
+ALL OK
+</pre></div>
+</div>
+<p>or will spot errors:</p>
+<div class="highlight-text"><div class="highlight"><pre>Checkers:
+	[0]	hook_always_success.py
+
+[  1 /   5] patientA_sequencing_blood_2010                          OK
+[  2 /   5] patientA_sequencing_tumor_2012                          OK
+[  3 /   5] patientB_sequencing_normal_tissue_2012                  ER
+    [0] Couldn&#39;t open path: [Errno 2] No such file or directory: &#39;/path/to/file3.bam&#39;
+
+[  4 /   5] patientB_sequencing_tumor_2014                          OK
+[  5 /   5] patientA_somatic_variant_calls                          OK
+
+PROBLEMS (1 failed / 5 total):
+-------------------------------patientB_sequencing_normal_tissue_2012-------------------------------
+&lt;Resource: name        = patientB_sequencing_normal_tissue_2012
+           tags        = sequencing patient_B 2012
+           capture_kit = unknown
+           description = Matched normal tissue, pancreas
+           path        = /path/to/file3.bam &gt;
+
+	hook_always_success.py
+	---&gt; Couldn&#39;t open path: [Errno 2] No such file or directory: &#39;/path/to/file3.bam&#39;
+</pre></div>
+</div>
+<p>You may have multiple kinds of resources, each with their own concept of validation. One way to handle this is to write a checker for each type of resource, and include all of them in the <code class="docutils literal"><span class="pre">SEFARA_CHECKER</span></code> environment variable. Each checker should skip the resources that don&#8217;t match the schema it knows how to validate, as our example does for resources that don&#8217;t have a <code class="docutils literal"><span class="pre">path</span></code> attribute. The <code class="docutils literal"><span class="pre">sefara-check</span></code> tool will raise errors for any resources that are not validated by at least one checker.</p>
+</div>
+<div class="section" id="transforming">
+<h3>Transforming<a class="headerlink" href="#transforming" title="Permalink to this headline">¶</a></h3>
+<p>In some specialized circumstances, you may want to change resources as they are loaded. To do this, we can add a <code class="docutils literal"><span class="pre">transform</span></code> function to our <code class="docutils literal"><span class="pre">example_hook.py</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">collection</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    For resources that have a &#39;path&#39; attribute pointing to a certain</span>
+<span class="sd">    subdirectory, add a &quot;http_url&quot; attribute.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">collection</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&#39;path&#39;</span> <span class="ow">in</span> <span class="n">resource</span> <span class="ow">and</span> <span class="n">resource</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;/path/to&quot;</span><span class="p">):</span>
+            <span class="c"># Add http_url</span>
+            <span class="n">resource</span><span class="o">.</span><span class="n">http_url</span> <span class="o">=</span> <span class="s">&quot;http://our-internal-file-server&quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="o">.</span><span class="n">path</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal"><span class="pre">transform</span></code> function <em>mutates</em> the resources in the collection. It does not return a new collection.</p>
+<p>We can configure this by setting the <code class="docutils literal"><span class="pre">SEFARA_TRANSFORM</span></code> environment variable, which, like <code class="docutils literal"><span class="pre">SEFARA_CHECKER</span></code>, can be a colon separated list of files:</p>
+<div class="highlight-text"><div class="highlight"><pre>$ export SEFARA_TRANSFORM=/path/to/example_hook.py
+</pre></div>
+</div>
+<p>Now, whenever we call <a class="reference internal" href="sefara.html#sefara.load" title="sefara.load"><code class="xref any py py-func docutils literal"><span class="pre">sefara.load</span></code></a> or use any of sefara&#8217;s commandline tools, we will be working with the transformed resources:</p>
+<div class="highlight-shell"><div class="highlight"><pre>sefara-select resource-collections/ex1.py name http_url
+</pre></div>
+</div>
+<p>gives this output:</p>
+<div class="highlight-text"><div class="highlight"><pre># name,http_url
+patientA_sequencing_blood_2010,http://our-internal-file-server/path/to/file1.bam
+patientA_sequencing_tumor_2012,http://our-internal-file-server/path/to/file2.bam
+patientB_sequencing_normal_tissue_2012,http://our-internal-file-server/path/to/file3.bam
+patientB_sequencing_tumor_2014,http://our-internal-file-server/path/to/file4.bam
+patientA_somatic_variant_calls,http://our-internal-file-server/path/to/variants.vcf
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sefara.html" class="btn btn-neutral float-right" title="sefara package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Sefara Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

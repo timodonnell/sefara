@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Commandline Tools Usage &mdash; sefara 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="sefara 0.0.1 documentation" href="index.html"/>
+        <link rel="prev" title="sefara package" href="sefara.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> sefara
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#essentials">Essentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#specifying-a-resource-collection">Specifying a resource collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#loading">Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#filtering">Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#selecting">Selecting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#loading-with-urls-and-filters">Loading with URLs and filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#writing">Writing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#json">JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#commandline-tools">Commandline tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#sefara-select">sefara-select</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#hooks">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#checking">Checking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#transforming">Transforming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sefara.html">sefara package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.environment">sefara.environment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.exporting">sefara.exporting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.hooks">sefara.hooks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.loading">sefara.loading module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.resource">sefara.resource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.resource_collection">sefara.resource_collection module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara.util">sefara.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sefara.html#module-sefara">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Commandline Tools Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sefara-select">sefara-select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sefara-dump">sefara-dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sefara-check">sefara-check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sefara-env">sefara-env</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">sefara</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Commandline Tools Usage</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/tools.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="commandline-tools-usage">
+<h1>Commandline Tools Usage<a class="headerlink" href="#commandline-tools-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sefara-select">
+<h2>sefara-select<a class="headerlink" href="#sefara-select" title="Permalink to this headline">¶</a></h2>
+<p>
+Select fields from a sefara collection.
+
+To select all fields, just give the path to the collection:
+
+    sefara-select my_datasets.sefara.py
+
+To get the &#8216;name&#8217; and &#8216;path&#8217; fields from a resource collection called
+&#8220;collection.sefara.py&#8221;:
+
+    sefara-select collection.sefara.py name path
+
+Fields are interpreted as Python expressions and evaluated in a context that
+includes the resource&#8217;s attributes as local variables. For example:
+
+    sefara-select collection.sefara.py &#8220;name.lower()&#8221; &#8220;os.path.abspath(path)&#8221;
+
+In csv output, a header row is included by default when more than one field is
+selected. To customize the label, give a label of the form &#8220;LABEL: EXPRESSION&#8221;.
+For example:
+
+    sefara-select rc.py &#8220;resource: name&#8221; &#8220;full_path: os.path.abspath(path)&#8221;</p>
+<dl class="option">
+<dt id="cmdoption-sefara-select-arg-collection">
+<code class="descname">collection</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select-arg-collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource collection path or URL. Specify &#8216;-&#8216; for stdin.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select-arg-field">
+<code class="descname">field</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select-arg-field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expressions to select from each resource. Specify one or more times.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select-h">
+<span id="cmdoption-sefara-select--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select-f">
+<span id="cmdoption-sefara-select--filter"></span><code class="descname">-f</code><code class="descclassname"> &lt;filter&gt;</code><code class="descclassname">, </code><code class="descname">--filter</code><code class="descclassname"> &lt;filter&gt;</code><a class="headerlink" href="#cmdoption-sefara-select-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter expression. Can be specified multiple times; the result is the intersection of the filters.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--transform">
+<code class="descname">--transform</code><code class="descclassname"> &lt;transform&gt;</code><a class="headerlink" href="#cmdoption-sefara-select--transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to Python file with transform function to run. Can be specified multiple times.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--no-environment-transforms">
+<code class="descname">--no-environment-transforms</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select--no-environment-transforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not run transforms configured in environment variables.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--format">
+<code class="descname">--format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-sefara-select--format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format. Default: csv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--header">
+<code class="descname">--header</code><code class="descclassname"> &lt;header&gt;</code><a class="headerlink" href="#cmdoption-sefara-select--header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to output a header row in csv format. Defaults to &#8216;on&#8217; if more than one field is selected, &#8216;off&#8217; otherwise.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--out">
+<code class="descname">--out</code><code class="descclassname"> &lt;out&gt;</code><a class="headerlink" href="#cmdoption-sefara-select--out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file. Default: stdout.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--all-fields">
+<code class="descname">--all-fields</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select--all-fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select all fields</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--stop-on-error">
+<code class="descname">--stop-on-error</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select--stop-on-error" title="Permalink to this definition">¶</a></dt>
+<dd><p>If an error occurs processing a resource, quit. By default, the problematic field is set to None, and any errors are printed at the end.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--skip-errors">
+<code class="descname">--skip-errors</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-select--skip-errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>If an error occurs processing a resource, silently skip that resource.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-select--if-error">
+<code class="descname">--if-error</code><code class="descclassname"> &lt;if_error&gt;</code><a class="headerlink" href="#cmdoption-sefara-select--if-error" title="Permalink to this definition">¶</a></dt>
+<dd><p>How to handle exceptions raised in expression evaluation. If &#8216;raise&#8217;, the script will halt with a traceback. If &#8216;skip&#8217;, the problematic resource(s) will be silently omitted from the result. If &#8216;none&#8217;, the Python None value will be silently used in place of the expression. Default: raise.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="sefara-dump">
+<h2>sefara-dump<a class="headerlink" href="#sefara-dump" title="Permalink to this headline">¶</a></h2>
+<p>
+Read and then write a sefara resource collection, possibly into a different
+format or after applying filters or transforms.
+
+As an experimental feature, the resources can be mutated with Python code
+specified with the &#8211;code argument. For example:
+
+    sefara-dump data.py &#8211;code &#8216;name = name.upper()&#8217;
+
+would capitalize all the resource names. Multiple code arguments can be given,
+and any new variables defined become attributes of the resources:
+
+    sefara-dump data.py &#8211;code &#8216;upper_name = name.upper()&#8217; &#8216;lower_name = name.lower()&#8217;
+
+This would add two new attributes to each resource, upper_name and lower_name. 
+Note that the input file is never modified. The &#8211;code argument only affects
+the output.</p>
+<dl class="option">
+<dt id="cmdoption-sefara-dump-arg-collection">
+<code class="descname">collection</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-dump-arg-collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource collection path or URL. Specify &#8216;-&#8216; for stdin.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump-h">
+<span id="cmdoption-sefara-dump--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-dump-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump-f">
+<span id="cmdoption-sefara-dump--filter"></span><code class="descname">-f</code><code class="descclassname"> &lt;filter&gt;</code><code class="descclassname">, </code><code class="descname">--filter</code><code class="descclassname"> &lt;filter&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter expression. Can be specified multiple times; the result is the intersection of the filters.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--transform">
+<code class="descname">--transform</code><code class="descclassname"> &lt;transform&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump--transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to Python file with transform function to run. Can be specified multiple times.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--no-environment-transforms">
+<code class="descname">--no-environment-transforms</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-dump--no-environment-transforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not run transforms configured in environment variables.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--format">
+<code class="descname">--format</code><code class="descclassname"> &lt;format&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump--format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output format</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--out">
+<code class="descname">--out</code><code class="descclassname"> &lt;out&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump--out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output file. Default: stdout.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--indent">
+<code class="descname">--indent</code><code class="descclassname"> &lt;indent&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump--indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of spaces for indentation in output. Default: 4.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-dump--code">
+<code class="descname">--code</code><code class="descclassname"> &lt;code&gt;</code><a class="headerlink" href="#cmdoption-sefara-dump--code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code to run in the context of each resource. Any new varialbes defined become attributes of each resource. Any number of arguments may be specified, each giving one line of code.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="sefara-check">
+<h2>sefara-check<a class="headerlink" href="#sefara-check" title="Permalink to this headline">¶</a></h2>
+<p>
+Validate a sefara resource collection and report the results.
+
+Routines for validating resources are called &#8220;checkers&#8221;, and are usually
+specified in the SEFARA_CHECKER environment variable. Additional checkers may
+be specified with the &#8211;checker argument to this script.</p>
+<dl class="option">
+<dt id="cmdoption-sefara-check-arg-collection">
+<code class="descname">collection</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check-arg-collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource collection path or URL. Specify &#8216;-&#8216; for stdin.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check-h">
+<span id="cmdoption-sefara-check--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check-f">
+<span id="cmdoption-sefara-check--filter"></span><code class="descname">-f</code><code class="descclassname"> &lt;filter&gt;</code><code class="descclassname">, </code><code class="descname">--filter</code><code class="descclassname"> &lt;filter&gt;</code><a class="headerlink" href="#cmdoption-sefara-check-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter expression. Can be specified multiple times; the result is the intersection of the filters.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check--transform">
+<code class="descname">--transform</code><code class="descclassname"> &lt;transform&gt;</code><a class="headerlink" href="#cmdoption-sefara-check--transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to Python file with transform function to run. Can be specified multiple times.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check--no-environment-transforms">
+<code class="descname">--no-environment-transforms</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check--no-environment-transforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do not run transforms configured in environment variables.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check--checker">
+<code class="descname">--checker</code><code class="descclassname"> &lt;checker&gt;</code><a class="headerlink" href="#cmdoption-sefara-check--checker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to checker to run. Can be specified multiple times.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check--no-environment-checkers">
+<code class="descname">--no-environment-checkers</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check--no-environment-checkers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run only the checkers explicitly specified. Do not run checkers configured in environment variables.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check-v">
+<span id="cmdoption-sefara-check--verbose"></span><code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check-v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check-q">
+<span id="cmdoption-sefara-check--quiet"></span><code class="descname">-q</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--quiet</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-check-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print only a summary of errors.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-sefara-check--width">
+<code class="descname">--width</code><code class="descclassname"> &lt;width&gt;</code><a class="headerlink" href="#cmdoption-sefara-check--width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Line width. Default: 100.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="sefara-env">
+<h2>sefara-env<a class="headerlink" href="#sefara-env" title="Permalink to this headline">¶</a></h2>
+<p>
+Give current values of sefara environment variables.</p>
+<dl class="option">
+<dt id="cmdoption-sefara-env-h">
+<span id="cmdoption-sefara-env--help"></span><code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-sefara-env-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>show this help message and exit</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="sefara.html" class="btn btn-neutral" title="sefara package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Tim O&#39;Donnell.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

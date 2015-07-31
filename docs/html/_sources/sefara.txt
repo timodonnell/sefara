@@ -1,0 +1,70 @@
+sefara package
+==============
+
+Submodules
+----------
+
+sefara.environment module
+-------------------------
+
+.. automodule:: sefara.environment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.exporting module
+-----------------------
+
+.. automodule:: sefara.exporting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.hooks module
+-------------------
+
+.. automodule:: sefara.hooks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.loading module
+---------------------
+
+.. automodule:: sefara.loading
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.resource module
+----------------------
+
+.. automodule:: sefara.resource
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.resource_collection module
+---------------------------------
+
+.. automodule:: sefara.resource_collection
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+sefara.util module
+------------------
+
+.. automodule:: sefara.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: sefara
+    :members:
+    :undoc-members:
+    :show-inheritance:
